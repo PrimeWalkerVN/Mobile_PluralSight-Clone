@@ -5,6 +5,7 @@
     "prettier/react"
   ],
   "rules": {
+    "react/jsx-props-no-spreading": "off",
     "no-use-before-define": "off",
     "react/style-prop-object": "off",
     "react/jsx-filename-extension": [
