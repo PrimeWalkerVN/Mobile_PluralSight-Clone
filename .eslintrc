@@ -5,6 +5,11 @@
     "prettier/react"
   ],
   "rules": {
+    "react/no-array-index-key": "off",
+    "no-plusplus": "off",
+    "no-shadow": "off",
+    "global-require": "off",
+    "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
     "no-use-before-define": "off",
     "react/style-prop-object": "off",

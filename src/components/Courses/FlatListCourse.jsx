@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export default function Search() {
+const FlatListCourse = () => {
   return (
     <View>
-      <Text>Search</Text>
+      <Text>FlatList</Text>
     </View>
   );
-}
+};
+
+export default FlatListCourse;
