@@ -1,10 +1,33 @@
+import { Text } from '@ui-kitten/components';
 import React from 'react';
-import { View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import ImageButton from '../../Common/ImageButton';
+import SectionButtons from './SectionButtons';
 
-export default function Browse() {
+const Browse = () => {
   return (
-    <View>
-      <Text>Browse</Text>
+    <View style={styles.container}>
+      <View>
+        <ImageButton title="NEW RELEASES" />
+        <ImageButton title="RECOMMENDED FOR YOU" />
+      </View>
+      <SectionButtons />
+      <View>
+        <Text>Popular skill</Text>
+      </View>
+      <View>
+        <Text>Paths</Text>
+      </View>
+      <View>
+        <Text>Top authors</Text>
+      </View>
     </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+export default Browse;
