@@ -46,12 +46,6 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
-  star: {
-    backgroundColor: 'yellow',
-  },
-  noneStar: {
-    backgroundColor: 'gray',
-  },
 });
 
 export default Stars;

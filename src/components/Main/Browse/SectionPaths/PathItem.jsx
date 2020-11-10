@@ -21,12 +21,14 @@ const themedStyles = StyleService.create({
     margin: 5,
     width: 200,
     height: 200,
+    overflow: 'hidden',
+    borderRadius: 10,
     backgroundColor: 'color-basic-700',
   },
   image: {
     width: 200,
     height: 100,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
 });
 

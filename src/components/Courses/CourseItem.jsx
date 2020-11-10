@@ -31,14 +31,14 @@ const CourseItem = (props) => {
 const themedStyles = StyleService.create({
   container: {
     flex: 1,
-    margin: 5,
-    marginLeft: 10,
-    marginRight: 10,
+    marginHorizontal: 10,
+    marginVertical: 5,
     height: 100,
     alignItems: 'center',
     paddingLeft: 10,
     paddingRight: 10,
     flexDirection: 'row',
+    borderRadius: 10,
     backgroundColor: 'color-basic-700',
   },
   image: {
