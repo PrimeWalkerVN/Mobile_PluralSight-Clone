@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { FlatList } from 'react-native';
+import CourseItem from './CourseItem';
 
-const FlatListCourse = () => {
+const FlatListCourse = (props) => {
+  const { items } = props;
+
   return (
-    <View>
-      <Text>FlatList</Text>
-    </View>
+    <FlatList data={items} renderItem={({ item }) => <CourseItem item={item} />} keyExtractor={(item) => item.id} />
   );
 };
 

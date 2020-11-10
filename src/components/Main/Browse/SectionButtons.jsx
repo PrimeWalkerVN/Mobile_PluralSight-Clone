@@ -4,37 +4,39 @@ import ImageButtonSmall from '../../Common/ImageButtonSmall';
 
 const SectionButtons = () => {
   return (
-    <ScrollView horizontal>
-      <View style={styles.listButton}>
-        <View style={styles.row}>
+    <View style={styles.container}>
+      <ScrollView horizontal>
+        <View style={styles.listButton}>
+          <ImageButtonSmall title="CONFERENCE" />
+          <ImageButtonSmall title="SOFTWARE" />
+          <ImageButtonSmall title="CONFERENCE" />
+          <ImageButtonSmall title="SOFTWARE" />
+          <ImageButtonSmall title="CONFERENCE" />
+          <ImageButtonSmall title="SOFTWARE" />
+          <ImageButtonSmall title="CONFERENCE" />
+          <ImageButtonSmall title="SOFTWARE" />
+          <ImageButtonSmall title="CONFERENCE" />
+          <ImageButtonSmall title="SOFTWARE" />
           <ImageButtonSmall title="CONFERENCE" />
           <ImageButtonSmall title="SOFTWARE" />
         </View>
-        <View style={styles.row}>
-          <ImageButtonSmall title="CONFERENCE" />
-          <ImageButtonSmall title="SOFTWARE" />
-        </View>
-      </View>
-      <View style={styles.listButton}>
-        <View style={styles.row}>
-          <ImageButtonSmall title="CONFERENCE" />
-          <ImageButtonSmall title="SOFTWARE" />
-        </View>
-        <View style={styles.row}>
-          <ImageButtonSmall title="CONFERENCE" />
-          <ImageButtonSmall title="SOFTWARE" />
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 const styles = StyleSheet.create({
+  container: {
+    height: 180,
+    marginHorizontal: 5,
+    marginVertical: 10,
+  },
   listButton: {
     height: 180,
+    flexWrap: 'wrap',
   },
   row: {
-    flex: 1,
     flexDirection: 'row',
+    marginBottom: 5,
   },
 });
 export default SectionButtons;

@@ -5,6 +5,8 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 import Browse from './src/components/Main/Browse/Browse';
+import Download from './src/components/Main/Download/Download';
+import Search from './src/components/Main/Search/Search';
 
 const App = () => (
   <>
@@ -12,7 +14,7 @@ const App = () => (
     <ApplicationProvider {...eva} theme={eva.dark}>
       <Layout style={{ flex: 1 }}>
         <SafeAreaView style={{ flex: 1 }}>
-          <Browse />
+          <Download />
         </SafeAreaView>
       </Layout>
     </ApplicationProvider>

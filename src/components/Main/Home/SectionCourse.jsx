@@ -31,7 +31,7 @@ const SectionCourse = (props) => {
       duration: '3 h',
     },
   ];
-  const renderListItems = (items) => items.map((item) => <SectionCourseItem item={item} />);
+  const renderListItems = (items) => items.map((item) => <SectionCourseItem key={item.id} item={item} />);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
