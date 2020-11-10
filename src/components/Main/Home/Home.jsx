@@ -1,7 +1,6 @@
 import { Text } from '@ui-kitten/components';
 import React from 'react';
 import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
-import ImageButton from '../../Common/ImageButton';
 import SectionCourse from './SectionCourse';
 
 const Home = () => (
@@ -21,7 +20,7 @@ const Home = () => (
         </Text>
       </ImageBackground>
     </View>
-    <ImageButton title="New Releases" />
+
     <SectionCourse title="Software Development" />
     <SectionCourse title="IT Operations" />
     <SectionCourse title="Data Professional" />

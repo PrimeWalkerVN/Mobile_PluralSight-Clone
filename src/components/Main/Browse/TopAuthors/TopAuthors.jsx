@@ -56,6 +56,7 @@ const TopAuthors = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginHorizontal: 5,
   },
   header: {
     marginVertical: 10,

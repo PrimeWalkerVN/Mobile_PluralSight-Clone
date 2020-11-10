@@ -1,4 +1,3 @@
-import { Text } from '@ui-kitten/components';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import ImageButton from '../../Common/ImageButton';

@@ -1,6 +1,6 @@
 import { Icon, MenuItem, OverflowMenu, StyleService, useStyleSheet } from '@ui-kitten/components';
 import React, { useState } from 'react';
-import { Image, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Image, TouchableWithoutFeedback, View } from 'react-native';
 import CoursesInfo from './CoursesInfo';
 
 const CourseItem = (props) => {
@@ -8,7 +8,7 @@ const CourseItem = (props) => {
   const { item } = props;
   const [menuVisible, setMenuVisible] = useState(false);
 
-  const renderMenuAction = (props) => (
+  const renderMenuAction = () => (
     <TouchableWithoutFeedback onPress={toggleMenu}>
       <Icon style={styles.icon} fill="#8F9BB3" name="more-vertical" />
     </TouchableWithoutFeedback>

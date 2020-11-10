@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   container: {
     height: 100,
     marginTop: 10,
+    marginHorizontal: 5,
   },
   listTags: {
     margin: 5,
