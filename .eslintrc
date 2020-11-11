@@ -5,6 +5,7 @@
     "prettier/react"
   ],
   "rules": {
+    "react/destructuring-assignment": "off",
     "react/no-array-index-key": "off",
     "no-plusplus": "off",
     "no-shadow": "off",

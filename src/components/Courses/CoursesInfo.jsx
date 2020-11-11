@@ -18,7 +18,7 @@ const CoursesInfo = (props) => {
 };
 const styles = StyleSheet.create({
   infoArea: {
-    flex: 1,
+    display: 'flex',
     justifyContent: 'space-between',
     margin: 10,
   },

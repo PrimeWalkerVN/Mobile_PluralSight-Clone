@@ -39,8 +39,10 @@ const Stars = (props) => {
 const styles = StyleSheet.create({
   container: {
     height: 30,
-    flex: 1,
+    display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   icon: {
     width: 20,
