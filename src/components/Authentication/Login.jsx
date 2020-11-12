@@ -1,4 +1,4 @@
-import { Button, Icon, Input, Text } from '@ui-kitten/components';
+import { Button, Icon, Input, Layout, Text } from '@ui-kitten/components';
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
@@ -19,7 +19,7 @@ export default function Login() {
     </TouchableWithoutFeedback>
   );
   return (
-    <View style={styles.container}>
+    <Layout style={styles.container}>
       <Text status="info" category="h1" style={styles.header}>
         LOGIN
       </Text>
@@ -48,7 +48,7 @@ export default function Login() {
       <Text status="info" style={styles.link}>
         SIGN UP FREE?
       </Text>
-    </View>
+    </Layout>
   );
 }
 

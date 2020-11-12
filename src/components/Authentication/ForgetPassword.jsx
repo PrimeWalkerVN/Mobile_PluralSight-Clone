@@ -1,4 +1,4 @@
-import { Button, Input, Text } from '@ui-kitten/components';
+import { Button, Input, Layout, Text } from '@ui-kitten/components';
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 
@@ -8,7 +8,7 @@ export default function ForgetPassword() {
   const size = 'large';
 
   return (
-    <View style={styles.container}>
+    <Layout style={styles.container}>
       <Text status="info" category="h4" style={styles.header}>
         FORGOT PASSWORD
       </Text>
@@ -28,7 +28,7 @@ export default function ForgetPassword() {
       <Button appearance="outline" style={styles.loginButton}>
         CANCEL
       </Button>
-    </View>
+    </Layout>
   );
 }
 

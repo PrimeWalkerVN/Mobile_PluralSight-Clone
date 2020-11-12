@@ -1,4 +1,4 @@
-import { Button, Icon, Input, Text } from '@ui-kitten/components';
+import { Button, Icon, Input, Layout, Text } from '@ui-kitten/components';
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
@@ -18,7 +18,7 @@ export default function VerifyPassword() {
     </TouchableWithoutFeedback>
   );
   return (
-    <View style={styles.container}>
+    <Layout style={styles.container}>
       <Text status="info" category="h4" style={styles.header}>
         VERIFY PASSWORD
       </Text>
@@ -52,7 +52,7 @@ export default function VerifyPassword() {
       <Button appearance="outline" style={styles.loginButton}>
         CANCEL
       </Button>
-    </View>
+    </Layout>
   );
 }
 

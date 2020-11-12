@@ -1,9 +1,10 @@
-import { Text } from '@ui-kitten/components';
+import { Layout, Text } from '@ui-kitten/components';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import FlatListCourse from '../../Courses/FlatListCourse';
 
-export default function Download() {
+export default function Download(props) {
+  const { navigation } = props;
   const courses = [
     {
       id: 1,
@@ -47,15 +48,15 @@ export default function Download() {
     },
   ];
   return (
-    <View style={styles.container}>
+    <Layout style={styles.container}>
       <View style={styles.header}>
         <Text category="h6">1 courses (72MB)</Text>
         <Text category="h6" status="info">
           REMOVE ALL
         </Text>
       </View>
-      <FlatListCourse items={courses} />
-    </View>
+      <FlatListCourse items={courses} navigation={navigation} />
+    </Layout>
   );
 }
 const styles = StyleSheet.create({
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   },
   header: {
     marginHorizontal: 5,
-    marginVertical: 10,
+    marginVertical: 30,
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'row',

@@ -1,17 +1,20 @@
-import { Tab, TabBar, Text } from '@ui-kitten/components';
+import { Layout, Tab, TabBar, Text } from '@ui-kitten/components';
 import React, { useCallback, useRef, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import ButtonLeftIcon from '../Common/ButtonLeftIcon';
 import ButtonTitleIcon from '../Common/ButtonTitleIcon';
 import ContentDropdown from '../Common/ContentDropdown';
 import Contents from './Contents/Contents';
+import Transcript from './Transcript/Transcript';
 import CoursesInfoRow from './CourseInfoRow';
 
-const CourseDetail = () => {
+const CourseDetail = (props) => {
+  const { course } = props.route.params;
+
   const [playing, setPlaying] = useState(false);
   const playerRef = useRef();
-  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const onStateChange = useCallback((state) => {
     if (state === 'ended') {
@@ -19,23 +22,25 @@ const CourseDetail = () => {
       Alert.alert('video has finished playing!');
     }
   }, []);
-
-  const course = {
-    id: 2,
-    title: 'React native',
-    author: 'Chi Thanh',
-    level: 'Advance',
-    released: 'May 6, 2020',
-    duration: '3 h',
-  };
-
+  const TabNavigation = createMaterialTopTabNavigator();
+  const TopTabBar = ({ navigation, state }) => (
+    <TabBar
+      selectedIndex={state.index}
+      onSelect={(index) => {
+        navigation.navigate(state.routeNames[index]);
+      }}
+    >
+      <Tab title="CONTENTS" />
+      <Tab title="TRANSCRIPT" />
+    </TabBar>
+  );
   return (
-    <View style={styles.layout}>
+    <Layout style={styles.layout}>
       <YoutubePlayer ref={playerRef} height={250} play={playing} videoId="iee2TATGMyI" onChangeState={onStateChange} />
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.body}>
-            <Text category="h3">Angular fundamentals</Text>
+            <Text category="h3">{course.title}</Text>
             <CoursesInfoRow item={course} />
             <View style={styles.buttonsGroup}>
               <ButtonTitleIcon title="Bookmark" nameIcon="bookmark-outline" />
@@ -59,15 +64,14 @@ const CourseDetail = () => {
             </ButtonLeftIcon>
           </View>
         </View>
-        <View>
-          <TabBar selectedIndex={selectedIndex} onSelect={(index) => setSelectedIndex(index)}>
-            <Tab title="CONTENTS" />
-            <Tab title="TRANSCRIPT" />
-          </TabBar>
+        <View style={{ flex: 1 }}>
+          <TabNavigation.Navigator tabBar={(props) => <TopTabBar {...props} />} initialRouteName="Contents">
+            <TabNavigation.Screen name="Contents" component={Contents} />
+            <TabNavigation.Screen name="Transcript" component={Transcript} />
+          </TabNavigation.Navigator>
         </View>
-        <Contents />
       </ScrollView>
-    </View>
+    </Layout>
   );
 };
 const styles = StyleSheet.create({

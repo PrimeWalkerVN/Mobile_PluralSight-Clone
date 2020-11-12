@@ -2,16 +2,19 @@
 import { StyleService, useStyleSheet } from '@ui-kitten/components';
 import React from 'react';
 import { Image, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import CoursesInfo from '../../Courses/CoursesInfo';
 
 const SectionCourseItem = (props) => {
   const styles = useStyleSheet(themedStyles);
-  const { item } = props;
+  const { item, navigation } = props;
   return (
-    <View style={styles.container} key={item.id}>
-      <Image source={require('../../../../assets/courses/angular.jpg')} style={styles.image} />
-      <CoursesInfo item={item} />
-    </View>
+    <TouchableOpacity onPress={() => navigation.navigate('Detail', { course: item })}>
+      <View style={styles.container} key={item.id}>
+        <Image source={require('../../../../assets/courses/angular.jpg')} style={styles.image} />
+        <CoursesInfo item={item} />
+      </View>
+    </TouchableOpacity>
   );
 };
 

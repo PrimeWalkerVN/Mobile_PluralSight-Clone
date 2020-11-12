@@ -1,9 +1,11 @@
+import { Layout } from '@ui-kitten/components';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import ListCourses from '../../Courses/ListCourses';
 import SearchBar from './SearchBar';
 
-export default function Search() {
+export default function Search(props) {
+  const { navigation } = props;
   const courses = [
     {
       title: 'courses',
@@ -95,10 +97,10 @@ export default function Search() {
   ];
 
   return (
-    <View style={styles.container}>
+    <Layout style={styles.container}>
       <SearchBar />
-      <ListCourses data={courses} />
-    </View>
+      <ListCourses data={courses} navigation={navigation} />
+    </Layout>
   );
 }
 const styles = StyleSheet.create({

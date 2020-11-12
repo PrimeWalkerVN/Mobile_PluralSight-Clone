@@ -4,14 +4,14 @@ import { SectionList, View } from 'react-native';
 import CourseItem from './CourseItem';
 
 export default function ListCourses(props) {
-  const { data } = props;
+  const { data, navigation } = props;
   const styles = useStyleSheet(themedStyles);
   return (
     <SectionList
       style={styles.container}
       sections={data}
       keyExtractor={(item, index) => item + index}
-      renderItem={({ item }) => <CourseItem item={item} />}
+      renderItem={({ item }) => <CourseItem item={item} navigation={navigation} />}
       renderSectionHeader={({ section: { title, data } }) => (
         <View style={styles.header}>
           <Text category="h5">{title}</Text>

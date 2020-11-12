@@ -1,4 +1,4 @@
-import { Divider } from '@ui-kitten/components';
+import { Divider, Layout } from '@ui-kitten/components';
 import React from 'react';
 import { SectionList, StyleSheet, View } from 'react-native';
 import ContentHeader from './ContentHeader';
@@ -95,20 +95,23 @@ const Contents = () => {
     },
   ];
   return (
-    <View style={styles.container}>
-      <SectionList
-        sections={data}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => <ContentItem item={item} />}
-        renderSectionHeader={({ section: { title, id } }) => (
-          <View>
-            <Divider />
-            <ContentHeader title={title} order={id} />
-          </View>
-        )}
-        scrollEnabled={false}
-      />
-    </View>
+    <Layout>
+      <View style={styles.container}>
+        <SectionList
+          sections={data}
+          keyExtractor={(item, index) => item + index}
+          renderItem={({ item }) => <ContentItem item={item} />}
+          renderSectionHeader={({ section: { title, id } }) => (
+            <View>
+              <Divider />
+              <ContentHeader title={title} order={id} />
+            </View>
+          )}
+          nestedScrollEnabled={false}
+          scrollEnabled={false}
+        />
+      </View>
+    </Layout>
   );
 };
 const styles = StyleSheet.create({

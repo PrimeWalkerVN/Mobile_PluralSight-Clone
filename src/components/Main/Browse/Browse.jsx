@@ -1,3 +1,4 @@
+import { Layout } from '@ui-kitten/components';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import ImageButton from '../../Common/ImageButton';
@@ -8,16 +9,18 @@ import TopAuthors from './TopAuthors/TopAuthors';
 
 const Browse = () => {
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <ImageButton title="NEW RELEASES" />
-        <ImageButton title="RECOMMENDED FOR YOU" />
-      </View>
-      <SectionButtons />
-      <SectionPopularSkills />
-      <SectionPaths />
-      <TopAuthors />
-    </ScrollView>
+    <Layout style={styles.container}>
+      <ScrollView>
+        <View style={styles.header}>
+          <ImageButton title="NEW RELEASES" />
+          <ImageButton title="RECOMMENDED FOR YOU" />
+        </View>
+        <SectionButtons />
+        <SectionPopularSkills />
+        <SectionPaths />
+        <TopAuthors />
+      </ScrollView>
+    </Layout>
   );
 };
 

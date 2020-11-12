@@ -1,6 +1,7 @@
-import { Button, Divider, Text } from '@ui-kitten/components';
+import { Button, Divider, Layout, Text } from '@ui-kitten/components';
 import React, { useState } from 'react';
 import { StyleSheet, Switch, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import AvatarSmallV2 from '../Common/AvatarSmallV2';
 
 const Setting = () => {
@@ -13,57 +14,58 @@ const Setting = () => {
     </View>
   );
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <AvatarSmallV2 name="Chi Thanh" />
-      </View>
-      <Divider />
-      <View style={styles.content}>
-        <Button style={styles.button} status="control" appearance="ghost" size="large">
-          Account
+    <Layout style={styles.container}>
+      <ScrollView>
+        <View style={styles.header}>
+          <AvatarSmallV2 name="Chi Thanh" />
+        </View>
+        <Divider />
+        <View style={styles.content}>
+          <Button style={styles.button} status="control" appearance="ghost" size="large">
+            Account
+          </Button>
+          <Button style={styles.button} status="control" appearance="ghost" size="large">
+            Subscription
+          </Button>
+          <Button style={styles.button} status="control" appearance="ghost" size="large">
+            Communication Preferences
+          </Button>
+          <Button style={styles.button} status="control" size="large" appearance="ghost" accessoryRight={SwitchButton}>
+            Require Wi-Fi for streaming
+          </Button>
+          <Button style={styles.button} status="control" size="large" appearance="ghost" accessoryRight={SwitchButton}>
+            Require Wi-Fi for downloading
+          </Button>
+          <Button style={styles.button} status="control" size="large" appearance="ghost" accessoryRight={SwitchButton}>
+            Show quiz at the end of video
+          </Button>
+          <Button style={styles.button} status="control" appearance="ghost" size="large">
+            Captions
+          </Button>
+          <Button style={styles.button} status="control" appearance="ghost" size="large">
+            Notifications
+          </Button>
+          <Button style={styles.button} status="control" appearance="ghost" size="large">
+            Advanced Options
+          </Button>
+          <Button style={styles.button} status="control" appearance="ghost" size="large">
+            Download location
+          </Button>
+        </View>
+        <Divider />
+        <Text style={styles.version} category="h6">
+          App version: 1.0
+        </Text>
+        <Divider />
+        <Button style={styles.buttonLogout} appearance="primary" size="large">
+          Log out
         </Button>
-        <Button style={styles.button} status="control" appearance="ghost" size="large">
-          Subscription
-        </Button>
-        <Button style={styles.button} status="control" appearance="ghost" size="large">
-          Communication Preferences
-        </Button>
-        <Button style={styles.button} status="control" size="large" appearance="ghost" accessoryRight={SwitchButton}>
-          Require Wi-Fi for streaming
-        </Button>
-        <Button style={styles.button} status="control" size="large" appearance="ghost" accessoryRight={SwitchButton}>
-          Require Wi-Fi for downloading
-        </Button>
-        <Button style={styles.button} status="control" size="large" appearance="ghost" accessoryRight={SwitchButton}>
-          Show quiz at the end of video
-        </Button>
-        <Button style={styles.button} status="control" appearance="ghost" size="large">
-          Captions
-        </Button>
-        <Button style={styles.button} status="control" appearance="ghost" size="large">
-          Notifications
-        </Button>
-        <Button style={styles.button} status="control" appearance="ghost" size="large">
-          Advanced Options
-        </Button>
-        <Button style={styles.button} status="control" appearance="ghost" size="large">
-          Download location
-        </Button>
-      </View>
-      <Divider />
-      <Text style={styles.version} category="h6">
-        App version: 1.0
-      </Text>
-      <Divider />
-      <Button style={styles.buttonLogout} appearance="primary" size="large">
-        Log out
-      </Button>
-    </View>
+      </ScrollView>
+    </Layout>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
     flex: 1,
   },
   header: {

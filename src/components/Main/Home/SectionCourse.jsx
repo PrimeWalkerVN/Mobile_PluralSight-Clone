@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import SectionCourseItem from './SectionCourseItem';
 
 const SectionCourse = (props) => {
-  const { title } = props;
+  const { title, navigation } = props;
   const courses = [
     {
       id: 1,
@@ -31,7 +31,8 @@ const SectionCourse = (props) => {
       duration: '3 h',
     },
   ];
-  const renderListItems = (items) => items.map((item) => <SectionCourseItem key={item.id} item={item} />);
+  const renderListItems = (items) =>
+    items.map((item) => <SectionCourseItem navigation={navigation} key={item.id} item={item} />);
   return (
     <View style={styles.container}>
       <View style={styles.header}>

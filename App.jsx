@@ -4,7 +4,8 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaView } from 'react-native';
-import CourseDetail from './src/components/CourseDetail/CourseDetail';
+
+import Main from './src/components/Main/Main';
 
 const App = () => (
   <>
@@ -12,7 +13,7 @@ const App = () => (
     <ApplicationProvider {...eva} theme={eva.dark}>
       <Layout style={{ flex: 1 }}>
         <SafeAreaView style={{ flex: 1 }}>
-          <CourseDetail />
+          <Main />
         </SafeAreaView>
       </Layout>
     </ApplicationProvider>

@@ -1,11 +1,11 @@
-import { Text } from '@ui-kitten/components';
+import { Layout, Text } from '@ui-kitten/components';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import AvatarLargeV2 from '../Common/AvatarLargeV2';
 
 export default function Profile() {
   return (
-    <View style={styles.container}>
+    <Layout style={styles.container}>
       <View style={styles.header}>
         <AvatarLargeV2 name="Chi Thanh" />
       </View>
@@ -24,19 +24,19 @@ export default function Profile() {
           <Text category="h6">N/A</Text>
         </View>
       </View>
-    </View>
+    </Layout>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 10,
   },
   header: {
     display: 'flex',
     alignItems: 'center',
   },
   body: {
+    marginHorizontal: 10,
     marginVertical: 50,
     flex: 1,
   },
