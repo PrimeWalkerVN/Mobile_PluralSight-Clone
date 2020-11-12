@@ -3,7 +3,6 @@ import { Layout, Text } from '@ui-kitten/components';
 import React from 'react';
 import CourseDetail from '../../CourseDetail/CourseDetail';
 import Browse from '../Browse/Browse';
-import Home from '../Home/Home';
 import HeaderTopTab from './HeaderTopTab';
 // Browse screen
 const BrowseScreen = {
