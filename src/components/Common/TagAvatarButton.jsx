@@ -1,6 +1,7 @@
 import { Text } from '@ui-kitten/components';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import colors from '../../constants/colors';
 
 const TagAvatarButton = (props) => {
   const { title } = props;
@@ -14,7 +15,7 @@ const TagAvatarButton = (props) => {
 const styles = StyleSheet.create({
   container: {
     height: 30,
-    backgroundColor: '#8F9BB3',
+    backgroundColor: colors.tag,
     borderRadius: 50,
     margin: 5,
     flexDirection: 'row',

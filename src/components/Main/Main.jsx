@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { BottomNavigation, BottomNavigationTab, Icon } from '@ui-kitten/components';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import navNames from '../../constants/navNames';
 import BrowseStack from './Stacks/BrowseStack';
 import DownloadStack from './Stacks/DownloadStack';
 import HomeStack from './Stacks/HomeStack';
@@ -44,10 +45,10 @@ const BottomTabBar = (props) => {
       appearance="noIndicator"
       onSelect={(index) => navigation.navigate(state.routeNames[index])}
     >
-      <BottomNavigationTab title="Home" icon={HomeIcon} />
-      <BottomNavigationTab title="Browse" icon={BrowseIcon} />
-      <BottomNavigationTab title="Download" icon={DownloadIcon} />
-      <BottomNavigationTab title="Search" icon={SearchIcon} />
+      <BottomNavigationTab title={navNames.home} icon={HomeIcon} />
+      <BottomNavigationTab title={navNames.browse} icon={BrowseIcon} />
+      <BottomNavigationTab title={navNames.download} icon={DownloadIcon} />
+      <BottomNavigationTab title={navNames.search} icon={SearchIcon} />
     </BottomNavigation>
   );
 };

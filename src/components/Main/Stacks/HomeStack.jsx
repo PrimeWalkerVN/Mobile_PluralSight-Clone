@@ -6,23 +6,24 @@ import HeaderTop from './HeaderTop';
 import HeaderTopTab from './HeaderTopTab';
 import Profile from '../../AccountManagement/Profile';
 import Setting from '../../AccountManagement/Setting';
+import navNames from '../../../constants/navNames';
 // Home screen
 const HomeScreen = {
-  Detail: CourseDetail,
-  Profile,
-  Settings: Setting,
+  [navNames.courseDetail]: CourseDetail,
+  [navNames.profile]: Profile,
+  [navNames.setting]: Setting,
 };
 
 const Stack = createStackNavigator();
 const HomeStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Home" mode="modal">
+    <Stack.Navigator initialRouteName={navNames.home} mode="modal">
       {Object.entries({
         ...HomeScreen,
       }).map(([name, component]) => (
         <Stack.Screen key={name} name={name} component={component} options={HeaderTopTab} />
       ))}
-      <Stack.Screen name="Home" component={Home} options={HeaderTop} />
+      <Stack.Screen name={navNames.home} component={Home} options={HeaderTop} />
     </Stack.Navigator>
   );
 };

@@ -45,6 +45,7 @@ const stylesContainer = (height) =>
     container: {
       height,
       marginVertical: 10,
+      overflow: 'hidden',
       display: 'flex',
       flexDirection: 'row',
     },

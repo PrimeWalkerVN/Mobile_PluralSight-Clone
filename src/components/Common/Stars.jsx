@@ -1,6 +1,7 @@
 import { Icon } from '@ui-kitten/components';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import colors from '../../constants/colors';
 
 const Stars = (props) => {
   const { value, maxValue } = props;
@@ -9,7 +10,7 @@ const Stars = (props) => {
   const renderStars = () => {
     const stars = [];
     for (let i = 0; i < value; i++) {
-      stars.push(<Icon fill="orange" name="star" />);
+      stars.push(<Icon fill={colors.star} name="star" />);
     }
     return stars.map((item, index) => (
       <View key={index} style={styles.icon}>

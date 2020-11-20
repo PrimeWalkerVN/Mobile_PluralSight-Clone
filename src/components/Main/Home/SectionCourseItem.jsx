@@ -4,12 +4,13 @@ import React from 'react';
 import { Image, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import CoursesInfo from '../../Courses/CoursesInfo';
+import navNames from '../../../constants/navNames';
 
 const SectionCourseItem = (props) => {
   const styles = useStyleSheet(themedStyles);
   const { item, navigation } = props;
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Detail', { course: item })}>
+    <TouchableOpacity onPress={() => navigation.navigate(navNames.courseDetail, { course: item })}>
       <View style={styles.container} key={item.id}>
         <Image source={require('../../../../assets/courses/angular.jpg')} style={styles.image} />
         <CoursesInfo item={item} />

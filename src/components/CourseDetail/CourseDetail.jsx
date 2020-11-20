@@ -1,6 +1,6 @@
 import { Layout, Tab, TabBar, Text } from '@ui-kitten/components';
-import React, { useCallback, useRef, useState } from 'react';
-import { Alert, ScrollView, StyleSheet, View } from 'react-native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Alert, ScrollView, StyleSheet, View, LogBox } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import ButtonLeftIcon from '../Common/ButtonLeftIcon';
@@ -12,7 +12,6 @@ import CoursesInfoRow from './CourseInfoRow';
 
 const CourseDetail = (props) => {
   const { course } = props.route.params;
-
   const [playing, setPlaying] = useState(false);
   const playerRef = useRef();
 
@@ -34,6 +33,9 @@ const CourseDetail = (props) => {
       <Tab title="TRANSCRIPT" />
     </TabBar>
   );
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+  }, []);
   return (
     <Layout style={styles.layout}>
       <YoutubePlayer ref={playerRef} height={250} play={playing} videoId="iee2TATGMyI" onChangeState={onStateChange} />

@@ -2,6 +2,7 @@ import { Icon, MenuItem, OverflowMenu, StyleService, useStyleSheet } from '@ui-k
 import React, { useState } from 'react';
 import { Image, TouchableWithoutFeedback, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import navNames from '../../constants/navNames';
 import CoursesInfo from './CoursesInfo';
 
 const CourseItem = (props) => {
@@ -18,7 +19,7 @@ const CourseItem = (props) => {
     setMenuVisible(!menuVisible);
   };
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Detail', { course: item })}>
+    <TouchableOpacity onPress={() => navigation.navigate(navNames.courseDetail, { course: item })}>
       <View style={styles.container} key={item.id}>
         <Image source={require('../../../assets/courses/angular.jpg')} style={styles.image} />
         <CoursesInfo item={item} />

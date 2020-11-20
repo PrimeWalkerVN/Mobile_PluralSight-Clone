@@ -1,6 +1,7 @@
 import { Text } from '@ui-kitten/components';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import colors from '../../constants/colors';
 
 const TagButton = (props) => {
   const { title } = props;
@@ -13,7 +14,7 @@ const TagButton = (props) => {
 const styles = StyleSheet.create({
   container: {
     height: 30,
-    backgroundColor: '#8F9BB3',
+    backgroundColor: colors.tag,
     borderRadius: 20,
     margin: 5,
     alignSelf: 'flex-start',
