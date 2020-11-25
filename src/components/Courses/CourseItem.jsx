@@ -19,16 +19,16 @@ const CourseItem = (props) => {
     setMenuVisible(!menuVisible);
   };
   return (
-    <TouchableOpacity onPress={() => navigation.navigate(navNames.courseDetail, { course: item })}>
-      <View style={styles.container} key={item.id}>
+    <View style={styles.container} key={item.id}>
+      <TouchableOpacity style={styles.row} onPress={() => navigation.navigate(navNames.courseDetail, { course: item })}>
         <Image source={require('../../../assets/courses/angular.jpg')} style={styles.image} />
         <CoursesInfo item={item} />
-        <OverflowMenu anchor={renderMenuAction} visible={menuVisible} onBackdropPress={toggleMenu}>
-          <MenuItem title="About" />
-          <MenuItem title="About" />
-        </OverflowMenu>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      <OverflowMenu anchor={renderMenuAction} visible={menuVisible} onBackdropPress={toggleMenu}>
+        <MenuItem title="About" />
+        <MenuItem title="About" />
+      </OverflowMenu>
+    </View>
   );
 };
 
@@ -44,6 +44,12 @@ const themedStyles = StyleService.create({
     justifyContent: 'space-between',
     borderRadius: 10,
     backgroundColor: 'color-basic-700',
+  },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   image: {
     width: 100,

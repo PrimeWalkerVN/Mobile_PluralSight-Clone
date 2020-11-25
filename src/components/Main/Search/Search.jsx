@@ -1,105 +1,40 @@
-import { Layout } from '@ui-kitten/components';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Layout, Tab, TabBar } from '@ui-kitten/components';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import ListCourses from '../../Courses/ListCourses';
+import { StyleSheet, View } from 'react-native';
+import ResultAll from './ResultAll';
+import ResultAuthors from './ResultAuthors';
+import ResultCourses from './ResultCourses';
+import ResultPaths from './ResultPaths';
 import SearchBar from './SearchBar';
 
-export default function Search(props) {
-  const { navigation } = props;
-  const courses = [
-    {
-      title: 'courses',
-      data: [
-        {
-          id: 1,
-          title: 'Angular',
-          author: 'Chi Thanh',
-          level: 'Advance',
-          released: 'May 6, 2020',
-          duration: '3 h',
-        },
-        {
-          id: 2,
-          title: 'React native',
-          author: 'Chi Thanh',
-          level: 'Advance',
-          released: 'May 6, 2020',
-          duration: '3 h',
-        },
-        {
-          id: 3,
-          title: 'Android',
-          author: 'Chi Thanh',
-          level: 'Advance',
-          released: 'May 6, 2020',
-          duration: '3 h',
-        },
-      ],
-    },
-    {
-      title: 'Paths',
-      data: [
-        {
-          id: 1,
-          title: 'Angular',
-          author: 'Chi Thanh',
-          level: 'Advance',
-          released: 'May 6, 2020',
-          duration: '3 h',
-        },
-        {
-          id: 2,
-          title: 'React native',
-          author: 'Chi Thanh',
-          level: 'Advance',
-          released: 'May 6, 2020',
-          duration: '3 h',
-        },
-        {
-          id: 3,
-          title: 'Android',
-          author: 'Chi Thanh',
-          level: 'Advance',
-          released: 'May 6, 2020',
-          duration: '3 h',
-        },
-      ],
-    },
-    {
-      title: 'Authors',
-      data: [
-        {
-          id: 1,
-          title: 'Angular',
-          author: 'Chi Thanh',
-          level: 'Advance',
-          released: 'May 6, 2020',
-          duration: '3 h',
-        },
-        {
-          id: 2,
-          title: 'React native',
-          author: 'Chi Thanh',
-          level: 'Advance',
-          released: 'May 6, 2020',
-          duration: '3 h',
-        },
-        {
-          id: 3,
-          title: 'Android',
-          author: 'Chi Thanh',
-          level: 'Advance',
-          released: 'May 6, 2020',
-          duration: '3 h',
-        },
-      ],
-    },
-  ];
-
+export default function Search() {
+  const TabNavigation = createMaterialTopTabNavigator();
+  const TopTabBar = ({ navigation, state }) => (
+    <TabBar
+      selectedIndex={state.index}
+      onSelect={(index) => {
+        navigation.navigate(state.routeNames[index]);
+      }}
+    >
+      <Tab title="ALL" />
+      <Tab title="COURSES" />
+      <Tab title="PATHS" />
+      <Tab title="AUTHORS" />
+    </TabBar>
+  );
   return (
     <Layout style={styles.container}>
       <SearchBar />
-      <ListCourses data={courses} navigation={navigation} />
+      <View style={{ flex: 1 }}>
+        <TabNavigation.Navigator tabBar={(props) => <TopTabBar {...props} />}>
+          <TabNavigation.Screen name="All" component={ResultAll} />
+          <TabNavigation.Screen name="Courses" component={ResultCourses} />
+          <TabNavigation.Screen name="Paths" component={ResultPaths} />
+          <TabNavigation.Screen name="Authors" component={ResultAuthors} />
+          {/* <TabNavigation.Screen name="COURSES" /> */}
+        </TabNavigation.Navigator>
+      </View>
     </Layout>
   );
 }

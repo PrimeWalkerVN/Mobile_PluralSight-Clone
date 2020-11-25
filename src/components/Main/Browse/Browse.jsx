@@ -7,7 +7,8 @@ import SectionPaths from './SectionPaths/SectionPaths';
 import SectionPopularSkills from './SectionPopularSkills';
 import TopAuthors from './TopAuthors/TopAuthors';
 
-const Browse = () => {
+const Browse = (props) => {
+  const { navigation } = props;
   return (
     <Layout style={styles.container}>
       <ScrollView>
@@ -17,8 +18,8 @@ const Browse = () => {
         </View>
         <SectionButtons />
         <SectionPopularSkills />
-        <SectionPaths />
-        <TopAuthors />
+        <SectionPaths navigation={navigation} />
+        <TopAuthors navigation={navigation} />
       </ScrollView>
     </Layout>
   );

@@ -2,7 +2,7 @@ import { Avatar, Icon, Layout, MenuItem, OverflowMenu, Text } from '@ui-kitten/c
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import navNames from '../../../constants/navNames';
+import navNames from '../../../../constants/navNames';
 
 const HeaderTop = (props) => {
   const { navigation, route } = props;
@@ -25,7 +25,7 @@ const HeaderTop = (props) => {
             navigation.navigate(navNames.profile);
           }}
         >
-          <Avatar style={styles.avatar} source={require('../../../../assets/avatar.jpeg')} />
+          <Avatar style={styles.avatar} source={require('../../../../../assets/avatar.jpeg')} />
         </TouchableOpacity>
         <OverflowMenu anchor={renderMenuAction} visible={menuVisible} onBackdropPress={toggleMenu}>
           <MenuItem

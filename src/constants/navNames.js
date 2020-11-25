@@ -8,5 +8,8 @@ const navNames = {
   setting: 'Setting',
   transcript: 'Transcript',
   content: 'Content',
+  author: 'Author',
+  seeAll: 'seeAll',
+  pathDetail: 'Path Detail',
 };
 export default navNames;

@@ -1,6 +1,7 @@
 import { Text } from '@ui-kitten/components';
 import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import navNames from '../../../constants/navNames';
 import SectionCourseItem from './SectionCourseItem';
 
 const SectionCourse = (props) => {
@@ -30,6 +31,22 @@ const SectionCourse = (props) => {
       released: 'May 6, 2020',
       duration: '3 h',
     },
+    {
+      id: 4,
+      title: 'IOS',
+      author: 'Chi Thanh',
+      level: 'Advance',
+      released: 'May 6, 2020',
+      duration: '3 h',
+    },
+    {
+      id: 5,
+      title: 'BlaBla',
+      author: 'Chi Thanh',
+      level: 'Advance',
+      released: 'May 6, 2020',
+      duration: '3 h',
+    },
   ];
   const renderListItems = (items) =>
     items.map((item) => <SectionCourseItem navigation={navigation} key={item.id} item={item} />);
@@ -37,7 +54,7 @@ const SectionCourse = (props) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>{title}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate(navNames.seeAll, { title, courses })}>
           <Text>See all {`>`}</Text>
         </TouchableOpacity>
       </View>

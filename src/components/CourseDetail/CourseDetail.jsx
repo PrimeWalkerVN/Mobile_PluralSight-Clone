@@ -49,7 +49,7 @@ const CourseDetail = (props) => {
               <ButtonTitleIcon title="Add to channel" nameIcon="radio-outline" />
               <ButtonTitleIcon title="Download" nameIcon="download-outline" />
             </View>
-            <ContentDropdown>
+            <ContentDropdown height={50}>
               <Text>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quas natus, officiis qui voluptatibus
                 nostrum fuga, voluptatem recusandae nihil suscipit labore magni non culpa consequuntur alias voluptates

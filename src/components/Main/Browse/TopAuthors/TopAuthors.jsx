@@ -1,9 +1,12 @@
 import { Text } from '@ui-kitten/components';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import navNames from '../../../../constants/navNames';
 import AvatarLarge from '../../../Common/AvatarLarge';
 
-const TopAuthors = () => {
+const TopAuthors = (props) => {
+  const { navigation } = props;
   const authors = [
     {
       id: 1,
@@ -42,7 +45,12 @@ const TopAuthors = () => {
     },
   ];
 
-  const renderItem = (items) => items.map((item) => <AvatarLarge key={item.id} name={item.name} />);
+  const renderItem = (items) =>
+    items.map((item) => (
+      <TouchableOpacity key={item.id} onPress={() => navigation.navigate(navNames.author, { author: item })}>
+        <AvatarLarge name={item.name} />
+      </TouchableOpacity>
+    ));
   return (
     <View style={styles.container}>
       <View style={styles.header}>

@@ -3,17 +3,18 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 const ContentDropdown = (props) => {
-  const [dropdown, setDropdown] = useState({ status: false, height: 50 });
+  const { children, height } = props;
+  const [dropdown, setDropdown] = useState({ status: false, height });
   const renderIcon = (props) => (
     <Icon {...props} name={dropdown.status ? 'chevron-up-outline' : 'chevron-down-outline'} />
   );
   const changeDropdown = () => {
-    const newHeight = dropdown.height ? null : 50;
+    const newHeight = dropdown.height ? null : height;
     setDropdown({ status: !dropdown.status, height: newHeight });
   };
   return (
     <View style={stylesContainer(dropdown.height).container}>
-      <View style={styles.content}>{props.children}</View>
+      <View style={styles.content}>{children}</View>
       <Button
         onPress={changeDropdown}
         appearance="outline"

@@ -5,8 +5,8 @@ import Profile from '../../AccountManagement/Profile';
 import Setting from '../../AccountManagement/Setting';
 import CourseDetail from '../../CourseDetail/CourseDetail';
 import Search from '../Search/Search';
-import HeaderTop from './HeaderTop';
-import HeaderTopTab from './HeaderTopTab';
+import HeaderTop from './TopBarOption/HeaderTop';
+import HeaderTopTab from './TopBarOption/HeaderTopTab';
 // Search screen
 const SearchScreen = {
   [navNames.courseDetail]: CourseDetail,

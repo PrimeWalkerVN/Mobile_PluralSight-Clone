@@ -1,12 +1,14 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import CourseDetail from '../../CourseDetail/CourseDetail';
-import Home from '../Home/Home';
-import HeaderTop from './HeaderTop';
-import HeaderTopTab from './HeaderTopTab';
+import navNames from '../../../constants/navNames';
 import Profile from '../../AccountManagement/Profile';
 import Setting from '../../AccountManagement/Setting';
-import navNames from '../../../constants/navNames';
+import CourseDetail from '../../CourseDetail/CourseDetail';
+import Home from '../Home/Home';
+import SeeAll from '../Home/SeeAll';
+import HeaderTop from './TopBarOption/HeaderTop';
+import HeaderTopTab from './TopBarOption/HeaderTopTab';
+import NoTitleTopBar from './TopBarOption/NoTitleTopBar';
 // Home screen
 const HomeScreen = {
   [navNames.courseDetail]: CourseDetail,
@@ -24,6 +26,7 @@ const HomeStack = () => {
         <Stack.Screen key={name} name={name} component={component} options={HeaderTopTab} />
       ))}
       <Stack.Screen name={navNames.home} component={Home} options={HeaderTop} />
+      <Stack.Screen name={navNames.seeAll} component={SeeAll} options={NoTitleTopBar} />
     </Stack.Navigator>
   );
 };

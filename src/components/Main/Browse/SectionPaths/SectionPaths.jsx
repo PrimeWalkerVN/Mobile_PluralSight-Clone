@@ -1,9 +1,11 @@
 import { Text } from '@ui-kitten/components';
 import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import navNames from '../../../../constants/navNames';
 import PathItem from './PathItem';
 
-const SectionPaths = () => {
+const SectionPaths = (props) => {
+  const { navigation } = props;
   const paths = [
     {
       id: 1,
@@ -26,7 +28,12 @@ const SectionPaths = () => {
       coursesNumber: 3,
     },
   ];
-  const renderListItems = (items) => items.map((item) => <PathItem key={item.id} item={item} />);
+  const renderListItems = (items) =>
+    items.map((item) => (
+      <TouchableOpacity key={item.id} onPress={() => navigation.navigate(navNames.pathDetail, { path: item })}>
+        <PathItem item={item} />
+      </TouchableOpacity>
+    ));
   return (
     <View style={styles.container}>
       <View style={styles.header}>
