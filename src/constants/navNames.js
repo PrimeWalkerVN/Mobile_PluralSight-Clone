@@ -11,5 +11,9 @@ const navNames = {
   author: 'Author',
   seeAll: 'seeAll',
   pathDetail: 'Path Detail',
+  login: 'Login',
+  register: 'Register',
+  forgetPassword: 'Forget password',
+  verifyPassword: 'Verify password',
 };
 export default navNames;

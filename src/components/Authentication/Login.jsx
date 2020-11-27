@@ -1,14 +1,15 @@
 import { Button, Icon, Input, Layout, Text } from '@ui-kitten/components';
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import navNames from '../../constants/navNames';
 
 const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
-export default function Login() {
+export default function Login(props) {
   const [value, setValue] = useState({ username: '', password: '' });
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
+  const { navigation } = props;
   const size = 'large';
-
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
   };
@@ -42,10 +43,10 @@ export default function Login() {
         onChangeText={(nextValue) => setValue(nextValue)}
       />
       <Button style={styles.loginButton}>SIGN IN</Button>
-      <Text status="info" style={styles.link}>
+      <Text status="info" style={styles.link} onPress={() => navigation.navigate(navNames.forgetPassword)}>
         FORGOT PASSWORD?
       </Text>
-      <Text status="info" style={styles.link}>
+      <Text status="info" style={styles.link} onPress={() => navigation.navigate(navNames.register)}>
         SIGN UP FREE?
       </Text>
     </Layout>

@@ -1,12 +1,13 @@
 import { Button, Icon, Input, Layout, Text } from '@ui-kitten/components';
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
-export default function Register() {
+export default function Register(props) {
   const [value, setValue] = useState({ username: '', password: '' });
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
+  const { navigation } = props;
   const size = 'large';
 
   const toggleSecureEntry = () => {
@@ -61,11 +62,15 @@ export default function Register() {
         secureTextEntry={secureTextEntry}
         onChangeText={(nextValue) => setValue(nextValue)}
       />
-      <Button style={styles.loginButton}>SIGN UP</Button>
+      <Button onPress={() => navigation.goBack()} style={styles.loginButton}>
+        SIGN UP
+      </Button>
 
-      <Text status="info" style={styles.link}>
-        HAVE ACCOUNT? LOGIN
-      </Text>
+      <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+        <Text status="info" style={styles.link}>
+          HAVE ACCOUNT? LOGIN
+        </Text>
+      </TouchableWithoutFeedback>
     </Layout>
   );
 }
