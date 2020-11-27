@@ -14,7 +14,7 @@ const BrowseScreen = {
   [navNames.courseDetail]: CourseDetail,
   [navNames.profile]: Profile,
   [navNames.setting]: Setting,
-  [navNames.Author]: Author,
+  [navNames.author]: Author,
   [navNames.pathDetail]: PathDetail,
 };
 const Stack = createStackNavigator();

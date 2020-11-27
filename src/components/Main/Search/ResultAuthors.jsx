@@ -21,6 +21,41 @@ const ResultAuthors = (props) => {
       name: 'Chi Thanh',
       coursesNumber: 10,
     },
+    {
+      id: 4,
+      name: 'Chi Thanh',
+      coursesNumber: 10,
+    },
+    {
+      id: 5,
+      name: 'Chi Thanh',
+      coursesNumber: 10,
+    },
+    {
+      id: 6,
+      name: 'Chi Thanh',
+      coursesNumber: 10,
+    },
+    {
+      id: 7,
+      name: 'Chi Thanh',
+      coursesNumber: 10,
+    },
+    {
+      id: 8,
+      name: 'Chi Thanh',
+      coursesNumber: 10,
+    },
+    {
+      id: 9,
+      name: 'Chi Thanh',
+      coursesNumber: 10,
+    },
+    {
+      id: 10,
+      name: 'Chi Thanh',
+      coursesNumber: 10,
+    },
   ];
   return (
     <Layout style={{ flex: 1 }}>

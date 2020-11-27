@@ -3,7 +3,7 @@ const navNames = {
   browse: 'Browse',
   download: 'Download',
   search: 'Search',
-  courseDetail: 'Detail',
+  courseDetail: 'Course Detail',
   profile: 'Profile',
   setting: 'Setting',
   transcript: 'Transcript',

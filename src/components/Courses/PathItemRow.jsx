@@ -8,7 +8,7 @@ const PathItemRow = (props) => {
   const { item, navigation } = props;
 
   return (
-    <TouchableWithoutFeedback onPress={() => navigation.navigate(navNames.pathDetail, { course: item })}>
+    <TouchableWithoutFeedback onPress={() => navigation.navigate(navNames.pathDetail, { path: item })}>
       <View style={styles.container} key={item.id}>
         <Image source={require('../../../assets/courses/angular.jpg')} style={styles.image} />
         <View style={styles.info}>

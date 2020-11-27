@@ -10,16 +10,55 @@ const ResultPaths = (props) => {
       id: 1,
       title: 'Angular',
       coursesNumber: 10,
+      duration: '10h',
     },
     {
       id: 2,
       title: 'React native',
       coursesNumber: 10,
+      duration: '10h',
     },
     {
       id: 3,
       title: 'Android',
       coursesNumber: 10,
+      duration: '10h',
+    },
+    {
+      id: 4,
+      title: 'Angular',
+      coursesNumber: 10,
+      duration: '10h',
+    },
+    {
+      id: 5,
+      title: 'React native',
+      coursesNumber: 10,
+      duration: '10h',
+    },
+    {
+      id: 6,
+      title: 'Android',
+      coursesNumber: 10,
+      duration: '10h',
+    },
+    {
+      id: 7,
+      title: 'Angular',
+      coursesNumber: 10,
+      duration: '10h',
+    },
+    {
+      id: 8,
+      title: 'React native',
+      coursesNumber: 10,
+      duration: '10h',
+    },
+    {
+      id: 9,
+      title: 'Android',
+      coursesNumber: 10,
+      duration: '10h',
     },
   ];
   return (

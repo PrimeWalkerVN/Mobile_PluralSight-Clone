@@ -9,7 +9,7 @@ const CoursesInfo = (props) => {
     <View style={styles.infoArea}>
       <Text category="h6">{item.title}</Text>
       <Text category="c1">{item.author}</Text>
-      <Text category="c1">
+      <Text category="c1" numberOfLines={1}>
         {item.level} - {item.released} - {item.duration}
       </Text>
       <Stars value={3} maxValue={5} />
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   infoArea: {
     display: 'flex',
     justifyContent: 'space-between',
-    margin: 10,
+    margin: 5,
   },
 });
 export default CoursesInfo;

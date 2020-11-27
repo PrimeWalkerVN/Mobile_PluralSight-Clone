@@ -11,21 +11,43 @@ const SectionPaths = (props) => {
       id: 1,
       title: 'Microsoft Azure Administrator(AZ-104)',
       coursesNumber: 3,
+      duration: '3h',
     },
     {
       id: 2,
-      title: 'Microsoft Azure Administrator(AZ-104)',
-      coursesNumber: 3,
+      title: 'Google Cloud Administrator(AZ-104)',
+      coursesNumber: 4,
+      duration: '4h',
     },
     {
       id: 3,
-      title: 'Microsoft Azure Administrator(AZ-104)',
-      coursesNumber: 3,
+      title: 'Frontend Professional (VIP)',
+      coursesNumber: 11,
+      duration: '20h',
     },
     {
       id: 4,
       title: 'Microsoft Azure Administrator(AZ-104)',
       coursesNumber: 3,
+      duration: '3h',
+    },
+    {
+      id: 5,
+      title: 'Microsoft Azure Administrator(AZ-104)',
+      coursesNumber: 3,
+      duration: '3h',
+    },
+    {
+      id: 6,
+      title: 'Microsoft Azure Administrator(AZ-104)',
+      coursesNumber: 3,
+      duration: '3h',
+    },
+    {
+      id: 7,
+      title: 'Microsoft Azure Administrator(AZ-104)',
+      coursesNumber: 3,
+      duration: '3h',
     },
   ];
   const renderListItems = (items) =>
@@ -37,7 +59,9 @@ const SectionPaths = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text category="h6">Paths</Text>
+        <Text category="h6" numberOfLines={2}>
+          Paths
+        </Text>
         <TouchableOpacity>
           <Text>See all {`>`}</Text>
         </TouchableOpacity>

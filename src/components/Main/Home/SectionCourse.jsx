@@ -47,6 +47,46 @@ const SectionCourse = (props) => {
       released: 'May 6, 2020',
       duration: '3 h',
     },
+    {
+      id: 6,
+      title: 'BlaBla',
+      author: 'Chi Thanh',
+      level: 'Advance',
+      released: 'May 6, 2020',
+      duration: '3 h',
+    },
+    {
+      id: 7,
+      title: 'BlaBla',
+      author: 'Chi Thanh',
+      level: 'Advance',
+      released: 'May 6, 2020',
+      duration: '3 h',
+    },
+    {
+      id: 8,
+      title: 'BlaBla',
+      author: 'Chi Thanh',
+      level: 'Advance',
+      released: 'May 6, 2020',
+      duration: '3 h',
+    },
+    {
+      id: 9,
+      title: 'BlaBla',
+      author: 'Chi Thanh',
+      level: 'Advance',
+      released: 'May 6, 2020',
+      duration: '3 h',
+    },
+    {
+      id: 10,
+      title: 'BlaBla',
+      author: 'Chi Thanh',
+      level: 'Advance',
+      released: 'May 6, 2020',
+      duration: '3 h',
+    },
   ];
   const renderListItems = (items) =>
     items.map((item) => <SectionCourseItem navigation={navigation} key={item.id} item={item} />);
@@ -58,7 +98,7 @@ const SectionCourse = (props) => {
           <Text>See all {`>`}</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal>{renderListItems(courses)}</ScrollView>
+      <ScrollView horizontal>{renderListItems(courses.slice(0, 5))}</ScrollView>
       <View />
     </View>
   );

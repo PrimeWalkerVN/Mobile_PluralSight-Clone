@@ -49,7 +49,10 @@ const PathDetail = (props) => {
               <Text category="h5" numberOfLines={2} ellipsizeMode="tail">
                 {path.title}
               </Text>
-              <Text category="p2"> {path.coursesNumber} Courses - 3 hours</Text>
+              <Text category="p2">
+                {' '}
+                {path.coursesNumber} Courses - {path.duration} hours
+              </Text>
             </View>
           </View>
           <ContentDropdown height={150}>
