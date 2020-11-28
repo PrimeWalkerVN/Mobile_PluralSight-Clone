@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 import { BottomNavigation, BottomNavigationTab, Icon } from '@ui-kitten/components';
 import React from 'react';
 import { StyleSheet } from 'react-native';
@@ -24,15 +23,13 @@ const Main = () => {
     Search: SearchStack,
   };
   return (
-    <NavigationContainer>
-      <Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />}>
-        {Object.entries({
-          ...TabScreen,
-        }).map(([name, component]) => (
-          <Tab.Screen key={name} name={name} component={component} />
-        ))}
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />}>
+      {Object.entries({
+        ...TabScreen,
+      }).map(([name, component]) => (
+        <Tab.Screen key={name} name={name} component={component} />
+      ))}
+    </Tab.Navigator>
   );
 };
 

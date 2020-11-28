@@ -3,17 +3,19 @@ import React from 'react';
 
 const NoTitleTopBar = (props) => {
   const { navigation } = props;
+  const canGoBack = navigation.canGoBack();
   return {
     title: '',
     headerBackground: () => <Layout style={{ flex: 1 }} />,
-    headerLeft: () => (
-      <Button
-        appearance="ghost"
-        status="control"
-        onPress={() => navigation.goBack()}
-        accessoryLeft={(props) => <Icon {...props} name="arrow-ios-back-outline" />}
-      />
-    ),
+    headerLeft: () =>
+      canGoBack ? (
+        <Button
+          appearance="ghost"
+          status="control"
+          onPress={() => navigation.goBack()}
+          accessoryLeft={(props) => <Icon {...props} name="arrow-ios-back-outline" />}
+        />
+      ) : null,
   };
 };
 export default NoTitleTopBar;

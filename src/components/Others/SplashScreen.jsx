@@ -1,10 +1,15 @@
+import { Layout } from '@ui-kitten/components';
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export default function SplashScreen() {
+const SplashScreen = () => {
   return (
-    <View>
-      <Text>Splash screen</Text>
-    </View>
+    <Layout style={{ flex: 1 }}>
+      <View>
+        <Text>Splash Screen</Text>
+      </View>
+    </Layout>
   );
-}
+};
+
+export default SplashScreen;

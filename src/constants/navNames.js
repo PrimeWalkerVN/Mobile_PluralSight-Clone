@@ -15,5 +15,8 @@ const navNames = {
   register: 'Register',
   forgetPassword: 'Forget password',
   verifyPassword: 'Verify password',
+  mainTab: 'Main',
+  auth: 'Auth',
+  splash: 'SplashScreen',
 };
 export default navNames;
