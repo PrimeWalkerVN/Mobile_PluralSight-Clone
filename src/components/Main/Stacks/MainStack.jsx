@@ -14,7 +14,7 @@ const MainScreen = {
 const Stack = createStackNavigator();
 const MainStack = () => {
   return (
-    <Stack.Navigator initialRouteName={navNames.auth}>
+    <Stack.Navigator initialRouteName={navNames.splash}>
       {Object.entries({
         ...MainScreen,
       }).map(([name, component]) => (

@@ -9,6 +9,7 @@
     "react/no-array-index-key": "off",
     "no-plusplus": "off",
     "no-shadow": "off",
+    "no-const-assign": "off",
     "global-require": "off",
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",

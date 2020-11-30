@@ -32,7 +32,6 @@ export default function Search() {
           <TabNavigation.Screen name="Courses" component={ResultCourses} />
           <TabNavigation.Screen name="Paths" component={ResultPaths} />
           <TabNavigation.Screen name="Authors" component={ResultAuthors} />
-          {/* <TabNavigation.Screen name="COURSES" /> */}
         </TabNavigation.Navigator>
       </View>
     </Layout>
