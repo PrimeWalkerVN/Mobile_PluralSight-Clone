@@ -18,5 +18,6 @@ const navNames = {
   mainTab: 'Main',
   auth: 'Auth',
   splash: 'SplashScreen',
+  browseDetail: 'Browse Detail',
 };
 export default navNames;

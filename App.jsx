@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 import MainStack from './src/components/Main/Stacks/MainStack';
+import { UserProvider } from './src/context/UserContext';
 
 const App = () => (
   <>
@@ -13,9 +14,11 @@ const App = () => (
     <ApplicationProvider {...eva} theme={eva.dark}>
       <Layout style={{ flex: 1 }}>
         <SafeAreaView style={{ flex: 1 }}>
-          <NavigationContainer>
-            <MainStack />
-          </NavigationContainer>
+          <UserProvider>
+            <NavigationContainer>
+              <MainStack />
+            </NavigationContainer>
+          </UserProvider>
         </SafeAreaView>
       </Layout>
     </ApplicationProvider>

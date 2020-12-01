@@ -1,13 +1,14 @@
 import { Button, Icon, Input, Layout, Text } from '@ui-kitten/components';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import navNames from '../../constants/navNames';
+import { UserContext } from '../../context/UserContext';
 
 const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
 export default function Login(props) {
   const account = { username: 'Prime', password: '123456' };
-
+  const context = useContext(UserContext);
   const [username, setUsername] = useState(account.username);
   const [password, setPassword] = useState(account.password);
   const [usernameErr, setUserNameErr] = useState('');
@@ -30,6 +31,7 @@ export default function Login(props) {
   }, [username, password]);
 
   const loginHandler = () => {
+    context.user.set({ username, password });
     navigation.reset({
       index: 0,
       routes: [{ name: navNames.mainTab }],

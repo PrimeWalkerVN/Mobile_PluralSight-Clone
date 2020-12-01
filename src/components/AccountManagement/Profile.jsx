@@ -1,13 +1,16 @@
 import { Layout, Text } from '@ui-kitten/components';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { UserContext } from '../../context/UserContext';
 import AvatarLargeV2 from '../Common/AvatarLargeV2';
 
 export default function Profile() {
+  const context = useContext(UserContext);
+  const [user] = useState(context.user.get);
   return (
     <Layout style={styles.container}>
       <View style={styles.header}>
-        <AvatarLargeV2 name="Chi Thanh" />
+        <AvatarLargeV2 name={user.username} />
       </View>
       <View style={styles.body}>
         <Text category="h5">Activity insights(last 30days)</Text>

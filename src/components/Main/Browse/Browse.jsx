@@ -1,6 +1,7 @@
 import { Layout } from '@ui-kitten/components';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import navNames from '../../../constants/navNames';
 import ImageButton from '../../Common/ImageButton';
 import SectionButtons from './SectionButtons';
 import SectionPaths from './SectionPaths/SectionPaths';
@@ -13,8 +14,26 @@ const Browse = (props) => {
     <Layout style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
-          <ImageButton title="NEW RELEASES" />
-          <ImageButton title="RECOMMENDED FOR YOU" />
+          <ImageButton
+            onPressHandler={() =>
+              navigation.navigate(navNames.browseDetail, {
+                image: require('../../../../assets/imageButtons/imageDark.jpg'),
+                title: 'NEW RELEASES',
+              })
+            }
+            title="NEW RELEASES"
+            image={require('../../../../assets/imageButtons/imageDark.jpg')}
+          />
+          <ImageButton
+            onPressHandler={() =>
+              navigation.navigate(navNames.browseDetail, {
+                image: require('../../../../assets/imageButtons/imageDark.jpg'),
+                title: 'RECOMMENDED FOR YOU',
+              })
+            }
+            title="RECOMMENDED FOR YOU"
+            image={require('../../../../assets/imageButtons/imageDark.jpg')}
+          />
         </View>
         <SectionButtons />
         <SectionPopularSkills />
