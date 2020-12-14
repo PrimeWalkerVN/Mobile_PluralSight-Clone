@@ -7,22 +7,25 @@ const AvatarLargeV2 = (props) => {
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require('../../../assets/avatar.jpeg')} />
-      <Text category="h6">{name}</Text>
+      <Text category="h6" numberOfLines={2}>
+        {name}
+      </Text>
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
     height: 100,
-    width: 180,
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   image: {
     width: 80,
     height: 80,
+    marginHorizontal: 10,
     borderRadius: 500,
     resizeMode: 'contain',
   },

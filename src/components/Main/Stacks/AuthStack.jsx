@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import navNames from '../../../constants/navNames';
+import ActiveEmail from '../../Authentication/ActiveEmail';
 import ForgetPassword from '../../Authentication/ForgetPassword';
 import Login from '../../Authentication/Login';
 import Register from '../../Authentication/Register';
@@ -12,6 +13,7 @@ const AuthScreen = {
   [navNames.register]: Register,
   [navNames.verifyPassword]: VerifyPassword,
   [navNames.forgetPassword]: ForgetPassword,
+  [navNames.activeEmail]: ActiveEmail,
 };
 
 const Stack = createStackNavigator();

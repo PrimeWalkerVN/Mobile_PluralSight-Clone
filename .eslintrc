@@ -15,6 +15,7 @@
     "react/jsx-props-no-spreading": "off",
     "no-use-before-define": "off",
     "react/style-prop-object": "off",
+    "react/no-unescaped-entities": "off",
     "react/jsx-filename-extension": [
       1,
       {

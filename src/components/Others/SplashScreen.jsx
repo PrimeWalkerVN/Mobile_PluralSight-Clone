@@ -1,20 +1,17 @@
 import { Layout, Text } from '@ui-kitten/components';
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import * as Progress from 'react-native-progress';
-import navNames from '../../constants/navNames';
+import { UserContext } from '../../context/UserContext';
 
-const SplashScreen = (props) => {
-  const { navigation } = props;
+const SplashScreen = () => {
   const [progress, setProgress] = useState(0);
+  const context = useContext(UserContext);
 
   useEffect(() => {
     if (progress >= 100) {
       clearInterval(interval);
-      navigation.reset({
-        index: 0,
-        routes: [{ name: navNames.auth }],
-      });
+      context.loading.set(false);
     }
     const interval = setInterval(() => {
       return setProgress(progress + 1);

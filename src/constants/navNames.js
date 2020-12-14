@@ -19,5 +19,6 @@ const navNames = {
   auth: 'Auth',
   splash: 'SplashScreen',
   browseDetail: 'Browse Detail',
+  activeEmail: 'Active Email',
 };
 export default navNames;

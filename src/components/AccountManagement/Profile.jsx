@@ -10,7 +10,7 @@ export default function Profile() {
   return (
     <Layout style={styles.container}>
       <View style={styles.header}>
-        <AvatarLargeV2 name={user.username} />
+        <AvatarLargeV2 name={user.email} />
       </View>
       <View style={styles.body}>
         <Text category="h5">Activity insights(last 30days)</Text>
@@ -36,7 +36,9 @@ const styles = StyleSheet.create({
   },
   header: {
     display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   body: {
     marginHorizontal: 10,

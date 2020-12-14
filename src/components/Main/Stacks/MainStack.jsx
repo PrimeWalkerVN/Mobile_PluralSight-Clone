@@ -1,25 +1,29 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import React, { useContext } from 'react';
 import navNames from '../../../constants/navNames';
+import { UserContext } from '../../../context/UserContext';
 import SplashScreen from '../../Others/SplashScreen';
 import Main from '../Main';
 import AuthStack from './AuthStack';
-// Home screen
-const MainScreen = {
-  [navNames.auth]: AuthStack,
-  [navNames.mainTab]: Main,
-  [navNames.splash]: SplashScreen,
-};
 
 const Stack = createStackNavigator();
 const MainStack = () => {
+  const context = useContext(UserContext);
+  if (context.loading.get) {
+    return <SplashScreen />;
+  }
   return (
-    <Stack.Navigator initialRouteName={navNames.splash}>
-      {Object.entries({
-        ...MainScreen,
-      }).map(([name, component]) => (
-        <Stack.Screen key={name} name={name} component={component} options={{ headerShown: false }} />
-      ))}
+    <Stack.Navigator>
+      {context.user.get == null ? (
+        <Stack.Screen key={navNames.auth} name={navNames.auth} component={AuthStack} options={{ headerShown: false }} />
+      ) : (
+        <Stack.Screen
+          key={navNames.mainTab}
+          name={navNames.mainTab}
+          component={Main}
+          options={{ headerShown: false }}
+        />
+      )}
     </Stack.Navigator>
   );
 };
