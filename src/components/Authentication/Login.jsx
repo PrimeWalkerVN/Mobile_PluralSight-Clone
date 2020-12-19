@@ -3,8 +3,8 @@ import React, { useContext, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import usersApi from '../../api/usersApi';
 import navNames from '../../constants/navNames';
+import { SnackBarContext } from '../../context/SnackBarContext';
 import { UserContext } from '../../context/UserContext';
-import Loading from '../Others/Loading';
 
 const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
@@ -12,7 +12,6 @@ export default function Login(props) {
   const context = useContext(UserContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
   const [usernameErr] = useState('');
   const [pswErr] = useState('');
   const [responseErr, setResponseErr] = useState('');
@@ -22,6 +21,9 @@ export default function Login(props) {
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
   };
+
+  const snContext = useContext(SnackBarContext);
+  const setLoading = (data) => snContext.loading.set(data);
 
   const loginHandler = async () => {
     if (username === '' || password === '') return;
@@ -54,6 +56,7 @@ export default function Login(props) {
         captionIcon={usernameErr.length > 0 ? AlertIcon : null}
         caption={usernameErr.length > 0 ? usernameErr : ''}
         label="Email"
+        autoCapitalize="none"
         onChangeText={(nextValue) => setUsername(nextValue.toLowerCase())}
         size={size}
       />
@@ -82,7 +85,6 @@ export default function Login(props) {
       <Text status="info" style={styles.link} onPress={() => navigation.navigate(navNames.register)}>
         SIGN UP FREE?
       </Text>
-      {loading && <Loading />}
     </Layout>
   );
 }

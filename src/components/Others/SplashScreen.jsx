@@ -1,12 +1,15 @@
 import { Layout, Text } from '@ui-kitten/components';
 import React, { useContext, useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { AsyncStorage, StyleSheet, View } from 'react-native';
 import * as Progress from 'react-native-progress';
+import usersApi from '../../api/usersApi';
+import { SnackBarContext } from '../../context/SnackBarContext';
 import { UserContext } from '../../context/UserContext';
 
 const SplashScreen = () => {
   const [progress, setProgress] = useState(0);
   const context = useContext(UserContext);
+  const snContext = useContext(SnackBarContext);
 
   useEffect(() => {
     if (progress >= 100) {
@@ -18,6 +21,22 @@ const SplashScreen = () => {
     }, 10);
     return () => clearInterval(interval);
   }, [progress]);
+
+  useEffect(() => {
+    const token = AsyncStorage.getItem('access_token');
+    if (token) {
+      const getMe = async () => {
+        try {
+          await usersApi.getMe();
+          // context.user.set(res.payload);
+        } catch (err) {
+          snContext.snackbar.set(true);
+          snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
+        }
+      };
+      getMe();
+    }
+  }, []);
 
   return (
     <Layout style={{ flex: 1 }}>

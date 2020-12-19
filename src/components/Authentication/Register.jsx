@@ -1,11 +1,10 @@
 import { Button, Icon, Input, Layout, Text } from '@ui-kitten/components';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Snackbar } from 'react-native-paper';
 import usersApi from '../../api/usersApi';
 import navNames from '../../constants/navNames';
-import Loading from '../Others/Loading';
+import { SnackBarContext } from '../../context/SnackBarContext';
 
 const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
@@ -13,13 +12,12 @@ export default function Register(props) {
   const [value, setValue] = useState({ username: '', password: '', email: '', phone: '' });
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [pswErr, setPswErr] = useState('');
-  const [visible, setVisible] = useState(false);
-  const [errRes, setErrRes] = useState('');
-  const [loading, setLoading] = useState(false);
   const { navigation } = props;
   const [confirmPsw, setConfirmPsw] = useState('');
 
   const size = 'large';
+  const snContext = useContext(SnackBarContext);
+  const setLoading = (data) => snContext.loading.set(data);
 
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
@@ -50,8 +48,8 @@ export default function Register(props) {
       });
       navigation.navigate(navNames.activeEmail, { email: value.email });
     } catch (err) {
-      setVisible(true);
-      setErrRes(`${err.response.status} - ${err.response.data.message}`);
+      snContext.snackbar.set(true);
+      snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
     }
     setLoading(false);
   };
@@ -67,6 +65,7 @@ export default function Register(props) {
             style={styles.input}
             onChangeText={(nextValue) => setValue({ ...value, username: nextValue })}
             label="Username"
+            autoCapitalize="none"
             size={size}
           />
           <Input
@@ -74,6 +73,7 @@ export default function Register(props) {
             style={styles.input}
             onChangeText={(nextValue) => setValue({ ...value, email: nextValue })}
             label="Email"
+            autoCapitalize="none"
             size={size}
           />
           <Input
@@ -113,13 +113,8 @@ export default function Register(props) {
               HAVE ACCOUNT? LOGIN
             </Text>
           </TouchableWithoutFeedback>
-
-          {loading && <Loading />}
         </Layout>
       </ScrollView>
-      <Snackbar style={styles.snackbar} visible={visible} onDismiss={() => setVisible(false)}>
-        {errRes}
-      </Snackbar>
     </Layout>
   );
 }

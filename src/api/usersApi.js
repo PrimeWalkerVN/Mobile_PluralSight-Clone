@@ -25,6 +25,10 @@ const usersApi = {
     const url = '/user/send-activate-email';
     return axiosClient.post(url, params);
   },
+  forgotPassword: (params) => {
+    const url = '/user/forget-pass/send-email';
+    return axiosClient.post(url, params);
+  },
 };
 
 export default usersApi;
