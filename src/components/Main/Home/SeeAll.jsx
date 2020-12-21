@@ -11,7 +11,11 @@ const SeeAll = (props) => {
       <Text style={styles.title} category="h3">
         {title}
       </Text>
-      <FlatListCourse items={courses} navigation={navigation} />
+      {courses.length > 0 ? (
+        <FlatListCourse items={courses} navigation={navigation} />
+      ) : (
+        <Text style={styles.text}>No Information</Text>
+      )}
     </Layout>
   );
 };
@@ -20,6 +24,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 10,
     paddingHorizontal: 10,
+  },
+  text: {
+    textAlign: 'center',
+    margin: 10,
   },
 });
 export default SeeAll;

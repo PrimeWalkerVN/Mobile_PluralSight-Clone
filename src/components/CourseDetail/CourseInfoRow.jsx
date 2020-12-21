@@ -1,8 +1,10 @@
 import { Text } from '@ui-kitten/components';
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
+import moment from 'moment';
 import Stars from '../Common/Stars';
 import TagAvatarButton from '../Common/TagAvatarButton';
+import formats from '../../constants/formats';
 
 const CoursesInfoRow = (props) => {
   const { item } = props;
@@ -10,32 +12,61 @@ const CoursesInfoRow = (props) => {
     <View style={styles.container}>
       <View style={styles.scrollTag}>
         <ScrollView horizontal>
-          <TagAvatarButton title={item.author} />
-          <TagAvatarButton title="Joe Eames" />
+          <TagAvatarButton title={item['instructor.user.name']} />
         </ScrollView>
       </View>
       <View style={styles.infoArea}>
-        <Text category="s1">
-          {item.level} - {item.released} - {item.duration}
+        <Text category="h6">
+          {item.videoNumber} videos - {moment(item.updatedAt).format(formats.dateTime)} - {item.totalHours} h
         </Text>
-        <Stars value={3} maxValue={5} />
+        <View>
+          <Stars value={item.ratedNumber} maxValue={5} />
+        </View>
+        <View style={styles.meta}>
+          {item.price > 0 ? (
+            <Text status="warning">
+              {item.price.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+              })}
+            </Text>
+          ) : (
+            <Text status="success" category="h6">
+              Free
+            </Text>
+          )}
+          <Text category="s1" numberOfLines={1}>
+            {item.soldNumber} Members
+          </Text>
+        </View>
       </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
+    flex: 1,
   },
   infoArea: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flex: 1,
     alignItems: 'center',
-    margin: 10,
+    margin: 5,
   },
   scrollTag: {
     marginVertical: 10,
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  meta: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    marginTop: 5,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
 export default CoursesInfoRow;

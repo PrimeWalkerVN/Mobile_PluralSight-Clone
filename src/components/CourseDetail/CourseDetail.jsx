@@ -50,13 +50,7 @@ const CourseDetail = (props) => {
               <ButtonTitleIcon title="Download" nameIcon="download-outline" />
             </View>
             <ContentDropdown height={50}>
-              <Text>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quas natus, officiis qui voluptatibus
-                nostrum fuga, voluptatem recusandae nihil suscipit labore magni non culpa consequuntur alias voluptates
-                nisi, iusto iure?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque quam voluptatibus
-                deserunt, impedit sit optio omnis possimus exercitationem praesentium voluptas iure modi nemo
-                consequuntur. Ad praesentium dolorem sunt iure tempore?
-              </Text>
+              <Text>{course.description}</Text>
             </ContentDropdown>
             <ButtonLeftIcon appearance="outline" status="control" nameIcon="checkmark-circle-outline">
               Take a learning check

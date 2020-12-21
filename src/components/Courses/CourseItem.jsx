@@ -21,7 +21,7 @@ const CourseItem = (props) => {
   return (
     <Layout style={styles.container} key={item.id}>
       <TouchableOpacity style={styles.row} onPress={() => navigation.navigate(navNames.courseDetail, { course: item })}>
-        <Image source={require('../../../assets/courses/angular.jpg')} style={styles.image} />
+        <Image source={{ uri: item.imageUrl }} style={styles.image} />
         <CoursesInfo item={item} />
       </TouchableOpacity>
       <OverflowMenu anchor={renderMenuAction} visible={menuVisible} onBackdropPress={toggleMenu}>

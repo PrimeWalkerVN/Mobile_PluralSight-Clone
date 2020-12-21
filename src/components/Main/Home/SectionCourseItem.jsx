@@ -14,10 +14,7 @@ const SectionCourseItem = (props) => {
   return (
     <TouchableOpacity onPress={() => navigation.navigate(navNames.courseDetail, { course: item })}>
       <Layout style={[styles.container, { width: width / 2 - 10 }]} key={item.id}>
-        <Image
-          source={require('../../../../assets/courses/angular.jpg')}
-          style={[styles.image, { width: width / 2 - 10 }]}
-        />
+        <Image source={{ uri: item.imageUrl }} style={[styles.image, { width: width / 2 - 10 }]} />
         <CoursesInfo item={item} />
       </Layout>
     </TouchableOpacity>

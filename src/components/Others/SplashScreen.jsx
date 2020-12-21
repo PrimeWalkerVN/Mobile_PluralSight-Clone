@@ -29,12 +29,17 @@ const SplashScreen = () => {
 
   const getMe = async () => {
     const token = await AsyncStorage.getItem('access_token');
+
     if (token) {
       try {
         const res = await usersApi.getMe();
         if (res.payload) context.user.set(res.payload);
       } catch (err) {
         if (err.response) {
+          // if (err.response.status !== 401) {
+          //   snContext.snackbar.set(true);
+          //   snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
+          // }
           snContext.snackbar.set(true);
           snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
         }

@@ -5,13 +5,19 @@ import colors from '../../constants/colors';
 
 const Stars = (props) => {
   const { value, maxValue } = props;
+
   const noneStar = maxValue - value;
 
   const renderStars = () => {
     const stars = [];
-    for (let i = 0; i < value; i++) {
-      stars.push(<Icon fill={colors.star} name="star" />);
-    }
+    if (value > maxValue)
+      for (let i = 0; i < maxValue; i++) {
+        stars.push(<Icon fill={colors.star} name="star" />);
+      }
+    else
+      for (let i = 0; i < value; i++) {
+        stars.push(<Icon fill={colors.star} name="star" />);
+      }
     return stars.map((item, index) => (
       <View key={index} style={styles.icon}>
         {item}

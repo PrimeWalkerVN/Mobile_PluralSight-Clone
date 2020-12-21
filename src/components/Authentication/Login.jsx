@@ -31,6 +31,7 @@ export default function Login(props) {
     try {
       const res = await usersApi.login({ email: username.toLowerCase(), password });
       context.user.set(res.userInfo);
+      context.user.setToken(res.token);
     } catch (err) {
       if (err.response.status === 404) {
         setResponseErr('Something went wrong!');

@@ -17,7 +17,6 @@ const Home = (props) => {
 
   const getData = async () => {
     const user = userContext.user.get;
-
     const params = {
       limit: 10,
       page: 1,
@@ -29,6 +28,7 @@ const Home = (props) => {
     const resNew = coursesApi.getTopNewCourses(params);
     const resRate = coursesApi.getTopRateCourses(params);
     const resUser = coursesApi.getUserFavoriteCourses(params2);
+
     await Promise.all([resTop, resNew, resRate, resUser])
       .then((values) => {
         setNewCourses(values[0].payload);
@@ -40,8 +40,10 @@ const Home = (props) => {
         snContext.snackbar.set(true);
         snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
       });
+    snContext.loading.set(false);
   };
   useEffect(() => {
+    snContext.loading.set(true);
     getData();
   }, []);
   return (
