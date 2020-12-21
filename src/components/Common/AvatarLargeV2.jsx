@@ -1,12 +1,12 @@
-import { Text } from '@ui-kitten/components';
+import { Avatar, Text } from '@ui-kitten/components';
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 const AvatarLargeV2 = (props) => {
-  const { name } = props;
+  const { name, image } = props;
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require('../../../assets/avatar.jpeg')} />
+      <Avatar size="giant" style={styles.image} source={{ uri: image }} />
       <Text category="h6" numberOfLines={2}>
         {name}
       </Text>
@@ -23,11 +23,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: 80,
-    height: 80,
     marginHorizontal: 10,
-    borderRadius: 500,
-    resizeMode: 'contain',
   },
 });
 

@@ -1,12 +1,51 @@
 import { Layout, Text } from '@ui-kitten/components';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
+import coursesApi from '../../../api/coursesApi';
+import { SnackBarContext } from '../../../context/SnackBarContext';
+import { UserContext } from '../../../context/UserContext';
 import SectionCourse from './SectionCourse';
 
 const Home = (props) => {
   const { navigation } = props;
+  const snContext = useContext(SnackBarContext);
+  const userContext = useContext(UserContext);
+  const [newCourses, setNewCourses] = useState([]);
+  const [topCourses, setTopCourses] = useState([]);
+  const [rateCourses, setRateCourses] = useState([]);
+  const [userCourses, setUserCourses] = useState([]);
+
+  const getData = async () => {
+    const user = userContext.user.get;
+
+    const params = {
+      limit: 10,
+      page: 1,
+    };
+    const params2 = {
+      userId: user.id,
+    };
+    const resTop = coursesApi.getTopSellCourses(params);
+    const resNew = coursesApi.getTopNewCourses(params);
+    const resRate = coursesApi.getTopRateCourses(params);
+    const resUser = coursesApi.getUserFavoriteCourses(params2);
+    await Promise.all([resTop, resNew, resRate, resUser])
+      .then((values) => {
+        setNewCourses(values[0].payload);
+        setTopCourses(values[1].payload);
+        setRateCourses(values[2].payload);
+        setUserCourses(values[3].payload);
+      })
+      .catch((err) => {
+        snContext.snackbar.set(true);
+        snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
+      });
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   return (
-    <Layout style={styles.container}>
+    <Layout level="2" style={styles.container}>
       <ScrollView>
         <View>
           <ImageBackground
@@ -24,10 +63,10 @@ const Home = (props) => {
           </ImageBackground>
         </View>
 
-        <SectionCourse title="Software Development" navigation={navigation} />
-        <SectionCourse title="IT Operations" navigation={navigation} />
-        <SectionCourse title="Data Professional" navigation={navigation} />
-        <SectionCourse title="Security Professional" navigation={navigation} />
+        <SectionCourse title="Top New" navigation={navigation} data={newCourses} />
+        <SectionCourse title="Top Sell " navigation={navigation} data={topCourses} />
+        <SectionCourse title="Top Rate" navigation={navigation} data={rateCourses} />
+        <SectionCourse title="User favorite categories" navigation={navigation} data={userCourses} />
       </ScrollView>
     </Layout>
   );

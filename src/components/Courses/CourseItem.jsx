@@ -1,6 +1,6 @@
-import { Icon, MenuItem, OverflowMenu, StyleService, useStyleSheet } from '@ui-kitten/components';
+import { Icon, Layout, MenuItem, OverflowMenu, StyleService, useStyleSheet } from '@ui-kitten/components';
 import React, { useState } from 'react';
-import { Image, TouchableWithoutFeedback, View } from 'react-native';
+import { Image, TouchableWithoutFeedback } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import navNames from '../../constants/navNames';
 import CoursesInfo from './CoursesInfo';
@@ -19,7 +19,7 @@ const CourseItem = (props) => {
     setMenuVisible(!menuVisible);
   };
   return (
-    <View style={styles.container} key={item.id}>
+    <Layout style={styles.container} key={item.id}>
       <TouchableOpacity style={styles.row} onPress={() => navigation.navigate(navNames.courseDetail, { course: item })}>
         <Image source={require('../../../assets/courses/angular.jpg')} style={styles.image} />
         <CoursesInfo item={item} />
@@ -28,7 +28,7 @@ const CourseItem = (props) => {
         <MenuItem title="About" />
         <MenuItem title="About" />
       </OverflowMenu>
-    </View>
+    </Layout>
   );
 };
 
@@ -43,7 +43,6 @@ const themedStyles = StyleService.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderRadius: 10,
-    backgroundColor: 'color-basic-700',
   },
   row: {
     flex: 1,

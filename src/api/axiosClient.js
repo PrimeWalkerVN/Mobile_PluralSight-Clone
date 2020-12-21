@@ -1,6 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import queryString from 'query-string';
-import { AsyncStorage } from 'react-native';
 
 const axiosClient = axios.create({
   baseURL: 'http://api.dev.letstudy.org',

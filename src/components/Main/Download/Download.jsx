@@ -92,7 +92,7 @@ export default function Download(props) {
     setCourses([]);
   };
   return (
-    <Layout style={styles.container}>
+    <Layout level="2" style={styles.container}>
       <View style={styles.header}>
         <Text category="h6">1 courses (72MB)</Text>
         <Button onPress={removeAllHandler} appearance="ghost" size="large">

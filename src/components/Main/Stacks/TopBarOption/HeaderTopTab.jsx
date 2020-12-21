@@ -6,7 +6,7 @@ const HeaderTopTab = (props) => {
   const canGoBack = navigation.canGoBack();
   return {
     title: <Text category="h5">{route.name}</Text>,
-    headerBackground: () => <Layout style={{ flex: 1 }} />,
+    headerBackground: () => <Layout level="2" style={{ flex: 1 }} />,
     headerLeft: () =>
       canGoBack ? (
         <Button

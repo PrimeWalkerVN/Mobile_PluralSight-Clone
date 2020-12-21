@@ -5,7 +5,7 @@ import navNames from '../../../constants/navNames';
 import SectionCourseItem from './SectionCourseItem';
 
 const SectionCourse = (props) => {
-  const { title, navigation } = props;
+  const { title, navigation, data } = props;
   const courses = [
     {
       id: 1,
@@ -98,7 +98,7 @@ const SectionCourse = (props) => {
           <Text>See all {`>`}</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal>{renderListItems(courses.slice(0, 5))}</ScrollView>
+      <ScrollView horizontal>{renderListItems(data)}</ScrollView>
       <View />
     </View>
   );

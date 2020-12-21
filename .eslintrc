@@ -16,6 +16,7 @@
     "no-use-before-define": "off",
     "react/style-prop-object": "off",
     "react/no-unescaped-entities": "off",
+    "import/no-dynamic-require": "off",
     "react/jsx-filename-extension": [
       1,
       {

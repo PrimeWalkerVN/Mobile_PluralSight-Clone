@@ -1,4 +1,4 @@
-import { Avatar, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
+import { Avatar, Layout, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
 import React from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import navNames from '../../constants/navNames';
@@ -9,13 +9,13 @@ const AuthorItem = (props) => {
 
   return (
     <TouchableWithoutFeedback onPress={() => navigation.navigate(navNames.author, { author: item })}>
-      <View style={styles.container} key={item.id}>
+      <Layout style={styles.container} key={item.id}>
         <Avatar size="giant" source={require('../../../assets/avatar.jpeg')} />
         <View style={styles.info}>
           <Text category="h6">{item.name}</Text>
           <Text category="p2">{item.coursesNumber} courses</Text>
         </View>
-      </View>
+      </Layout>
     </TouchableWithoutFeedback>
   );
 };
@@ -30,7 +30,6 @@ const themedStyles = StyleService.create({
     paddingHorizontal: 10,
     flexDirection: 'row',
     borderRadius: 10,
-    backgroundColor: 'color-basic-700',
   },
   image: {
     width: 100,

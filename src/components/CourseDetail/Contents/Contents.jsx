@@ -95,7 +95,7 @@ const Contents = () => {
     },
   ];
   return (
-    <Layout>
+    <Layout level="2">
       <View style={styles.container}>
         <SectionList
           sections={data}

@@ -37,7 +37,7 @@ const CourseDetail = (props) => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, []);
   return (
-    <Layout style={styles.layout}>
+    <Layout level="2" style={styles.layout}>
       <YoutubePlayer ref={playerRef} height={250} play={playing} videoId="iee2TATGMyI" onChangeState={onStateChange} />
       <ScrollView>
         <View style={styles.container}>

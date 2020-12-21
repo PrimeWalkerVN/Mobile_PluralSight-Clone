@@ -10,8 +10,8 @@ const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
 export default function Login(props) {
   const context = useContext(UserContext);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('primewalkervn@gmail.com');
+  const [password, setPassword] = useState('Thanh123');
   const [usernameErr] = useState('');
   const [pswErr] = useState('');
   const [responseErr, setResponseErr] = useState('');
@@ -30,7 +30,7 @@ export default function Login(props) {
     setLoading(true);
     try {
       const res = await usersApi.login({ email: username.toLowerCase(), password });
-      context.user.set(res);
+      context.user.set(res.userInfo);
     } catch (err) {
       if (err.response.status === 404) {
         setResponseErr('Something went wrong!');
@@ -47,7 +47,7 @@ export default function Login(props) {
     </TouchableWithoutFeedback>
   );
   return (
-    <Layout style={styles.container}>
+    <Layout level="2" style={styles.container}>
       <Text status="info" category="h1" style={styles.header}>
         LOGIN
       </Text>
@@ -57,6 +57,7 @@ export default function Login(props) {
         caption={usernameErr.length > 0 ? usernameErr : ''}
         label="Email"
         autoCapitalize="none"
+        defaultValue="primewalkervn@gmail.com"
         onChangeText={(nextValue) => setUsername(nextValue.toLowerCase())}
         size={size}
       />
@@ -69,6 +70,7 @@ export default function Login(props) {
         status={pswErr.length > 0 ? 'danger' : 'primary'}
         size={size}
         secureTextEntry={secureTextEntry}
+        defaultValue="Thanh123"
         onChangeText={(nextValue) => setPassword(nextValue)}
       />
       {responseErr.length > 0 && (

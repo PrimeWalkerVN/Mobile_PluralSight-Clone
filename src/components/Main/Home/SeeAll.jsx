@@ -7,8 +7,8 @@ const SeeAll = (props) => {
   const { title, courses } = props.route.params;
   const { navigation } = props;
   return (
-    <Layout style={{ flex: 1 }}>
-      <Text style={styles.title} category="h2">
+    <Layout level="2" style={{ flex: 1 }}>
+      <Text style={styles.title} category="h3">
         {title}
       </Text>
       <FlatListCourse items={courses} navigation={navigation} />
@@ -17,7 +17,8 @@ const SeeAll = (props) => {
 };
 const styles = StyleSheet.create({
   title: {
-    paddingVertical: 30,
+    textAlign: 'center',
+    paddingVertical: 10,
     paddingHorizontal: 10,
   },
 });

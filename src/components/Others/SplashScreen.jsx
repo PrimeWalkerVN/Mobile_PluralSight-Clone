@@ -1,6 +1,7 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Layout, Text } from '@ui-kitten/components';
 import React, { useContext, useEffect, useState } from 'react';
-import { AsyncStorage, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 import usersApi from '../../api/usersApi';
 import { SnackBarContext } from '../../context/SnackBarContext';
@@ -12,32 +13,34 @@ const SplashScreen = () => {
   const snContext = useContext(SnackBarContext);
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prev) => prev + 1);
+    }, 10);
+
     if (progress >= 100) {
       clearInterval(interval);
       context.loading.set(false);
     }
-    const interval = setInterval(() => {
-      return setProgress(progress + 1);
-    }, 10);
     return () => clearInterval(interval);
-  }, [progress]);
-
+  });
   useEffect(() => {
-    const token = AsyncStorage.getItem('access_token');
+    getMe();
+  }, []);
+
+  const getMe = async () => {
+    const token = await AsyncStorage.getItem('access_token');
     if (token) {
-      const getMe = async () => {
-        try {
-          await usersApi.getMe();
-          // context.user.set(res.payload);
-        } catch (err) {
+      try {
+        const res = await usersApi.getMe();
+        if (res.payload) context.user.set(res.payload);
+      } catch (err) {
+        if (err.response) {
           snContext.snackbar.set(true);
           snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
         }
-      };
-      getMe();
+      }
     }
-  }, []);
-
+  };
   return (
     <Layout style={{ flex: 1 }}>
       <View style={styles.progress}>

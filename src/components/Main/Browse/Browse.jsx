@@ -11,7 +11,7 @@ import TopAuthors from './TopAuthors/TopAuthors';
 const Browse = (props) => {
   const { navigation } = props;
   return (
-    <Layout style={styles.container}>
+    <Layout level="2" style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
           <ImageButton

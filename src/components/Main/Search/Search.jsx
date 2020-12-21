@@ -24,7 +24,7 @@ export default function Search() {
     </TabBar>
   );
   return (
-    <Layout style={styles.container}>
+    <Layout level="2" style={styles.container}>
       <SearchBar />
       <View style={{ flex: 1 }}>
         <TabNavigation.Navigator tabBar={(props) => <TopTabBar {...props} />}>

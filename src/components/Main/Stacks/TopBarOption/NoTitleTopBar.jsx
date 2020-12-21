@@ -6,7 +6,7 @@ const NoTitleTopBar = (props) => {
   const canGoBack = navigation.canGoBack();
   return {
     title: '',
-    headerBackground: () => <Layout style={{ flex: 1 }} />,
+    headerBackground: () => <Layout level="2" style={{ flex: 1 }} />,
     headerLeft: () =>
       canGoBack ? (
         <Button

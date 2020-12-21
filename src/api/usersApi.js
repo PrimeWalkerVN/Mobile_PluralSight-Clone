@@ -29,6 +29,26 @@ const usersApi = {
     const url = '/user/forget-pass/send-email';
     return axiosClient.post(url, params);
   },
+  resetPassword: (params) => {
+    const url = '/user/reset-password';
+    return axiosClient.post(url, params);
+  },
+  changePassword: (params) => {
+    const url = '/user/change-password';
+    return axiosClient.post(url, params);
+  },
+  changeUserEmail: (params) => {
+    const url = '/user/change-user-email';
+    return axiosClient.put(url, params);
+  },
+  updateFavoriteCate: (params) => {
+    const url = '/user/update-favorite-categories';
+    return axiosClient.put(url, params);
+  },
+  getUserRecommendCourse: (params) => {
+    const url = `/user/recommend-course/${params.id}/${params.limit}/${params.offset}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default usersApi;

@@ -1,38 +1,51 @@
-import { Layout, Text } from '@ui-kitten/components';
+import { Button, Layout, Text } from '@ui-kitten/components';
+import moment from 'moment';
 import React, { useContext, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { UserContext } from '../../context/UserContext';
 import AvatarLargeV2 from '../Common/AvatarLargeV2';
 
 export default function Profile() {
   const context = useContext(UserContext);
   const [user] = useState(context.user.get);
+  const Content = (props) => {
+    const { label, sub } = props;
+    return (
+      <View style={styles.content}>
+        <Text category="h6">{label}</Text>
+        <Text style={styles.subContent}>{sub}</Text>
+      </View>
+    );
+  };
   return (
     <Layout style={styles.container}>
-      <View style={styles.header}>
-        <AvatarLargeV2 name={user.email} />
-      </View>
-      <View style={styles.body}>
-        <Text category="h5">Activity insights(last 30days)</Text>
-        <View style={styles.content}>
-          <Text>TOTAL ACTIVE DAYS</Text>
-          <Text category="h6">0</Text>
+      <ScrollView>
+        <View style={styles.header}>
+          <AvatarLargeV2 name={user.email} image={user.avatar} />
         </View>
-        <View style={styles.content}>
-          <Text>MOSt ACtiVE TIME OF DAY</Text>
-          <Text category="h6">7:00 AM</Text>
+        <Button size="small" style={styles.button}>
+          Change password
+        </Button>
+        <Button size="small" style={styles.button}>
+          Change profile
+        </Button>
+        <View style={styles.body}>
+          <Content label="Created at:" sub={moment(user.createdAt).fromNow()} />
+          <Content label="Phone:" sub={user.phone} />
+          <Content label="Type:" sub={user.type} />
+          <Content label="Point:" sub={user.point} />
         </View>
-        <View style={styles.content}>
-          <Text>MOST VIEWED SUBJECT</Text>
-          <Text category="h6">N/A</Text>
-        </View>
-      </View>
+      </ScrollView>
     </Layout>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  button: {
+    marginHorizontal: 10,
+    marginVertical: 10,
   },
   header: {
     display: 'flex',
@@ -42,10 +55,14 @@ const styles = StyleSheet.create({
   },
   body: {
     marginHorizontal: 10,
-    marginVertical: 50,
+    marginVertical: 20,
     flex: 1,
   },
   content: {
-    marginVertical: 30,
+    marginVertical: 10,
+  },
+  subContent: {
+    marginHorizontal: 10,
+    marginVertical: 10,
   },
 });

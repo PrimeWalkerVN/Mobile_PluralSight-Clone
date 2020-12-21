@@ -1,3 +1,4 @@
+import { Layout } from '@ui-kitten/components';
 import React from 'react';
 import ListCourses from '../../Courses/ListCourses';
 
@@ -74,7 +75,11 @@ const ResultAll = (props) => {
       ],
     },
   ];
-  return <ListCourses data={courses} navigation={navigation} />;
+  return (
+    <Layout level="2" style={{ flex: 1 }}>
+      <ListCourses data={courses} navigation={navigation} />
+    </Layout>
+  );
 };
 
 export default ResultAll;

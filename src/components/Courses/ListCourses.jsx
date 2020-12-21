@@ -1,6 +1,6 @@
 import { Layout, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
 import React from 'react';
-import { SectionList, View } from 'react-native';
+import { SectionList } from 'react-native';
 import AuthorItem from './AuthorItem';
 import CourseItem from './CourseItem';
 import PathItemRow from './PathItemRow';
@@ -9,7 +9,7 @@ export default function ListCourses(props) {
   const { data, navigation } = props;
   const styles = useStyleSheet(themedStyles);
   return (
-    <Layout style={{ flex: 1 }}>
+    <Layout level="2" style={{ flex: 1 }}>
       <SectionList
         style={styles.container}
         sections={data}
@@ -21,12 +21,12 @@ export default function ListCourses(props) {
           return <Text>Empty</Text>;
         }}
         renderSectionHeader={({ section: { title, data } }) => (
-          <View style={styles.header}>
+          <Layout level="2" style={styles.header}>
             <Text category="h5">{title}</Text>
             <Text category="p2">
               {data.length} Results {'>'}
             </Text>
-          </View>
+          </Layout>
         )}
       />
     </Layout>
@@ -34,7 +34,6 @@ export default function ListCourses(props) {
 }
 const themedStyles = StyleService.create({
   header: {
-    backgroundColor: 'color-basic-800',
     paddingTop: 5,
     paddingBottom: 5,
     marginLeft: 10,

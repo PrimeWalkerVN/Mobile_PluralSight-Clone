@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 
 const Transcript = () => {
   return (
-    <Layout style={styles.container}>
+    <Layout level="2" style={styles.container}>
       <Input style={styles.header} size="large" placeholder="Search transcript" />
       <View>
         <Text>

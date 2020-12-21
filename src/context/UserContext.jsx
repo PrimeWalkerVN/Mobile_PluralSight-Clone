@@ -1,5 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
-import { AsyncStorage } from 'react-native';
 
 const UserContext = React.createContext();
 const UserProvider = ({ children }) => {
@@ -14,7 +14,7 @@ const UserProvider = ({ children }) => {
       } catch (error) {
         // Error saving data
       }
-      setUser(item.userInfo);
+      setUser(item);
     }
   };
   const logout = () => {

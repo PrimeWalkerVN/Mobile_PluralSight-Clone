@@ -17,7 +17,7 @@ const HeaderTop = (props) => {
   };
   return {
     title: <Text category="h5">{route.name}</Text>,
-    headerBackground: () => <Layout style={{ flex: 1 }} />,
+    headerBackground: () => <Layout level="2" style={{ flex: 1 }} />,
     headerRight: () => (
       <View style={styles.container}>
         <TouchableOpacity
