@@ -30,6 +30,7 @@ export default function Profile() {
           Change profile
         </Button>
         <View style={styles.body}>
+          <Content label="FullName:" sub={user.name} />
           <Content label="Created at:" sub={moment(user.createdAt).fromNow()} />
           <Content label="Phone:" sub={user.phone} />
           <Content label="Type:" sub={user.type} />

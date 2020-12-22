@@ -1,12 +1,15 @@
 import { Button, Icon, Input, Layout, Text } from '@ui-kitten/components';
 import React, { useContext, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import * as Google from 'expo-google-app-auth';
 import usersApi from '../../api/usersApi';
 import navNames from '../../constants/navNames';
 import { SnackBarContext } from '../../context/SnackBarContext';
 import { UserContext } from '../../context/UserContext';
+import expoGoogleLoginConfig from '../../config/expoGoogleLoginConfig';
 
 const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
+const GoogleIcon = (props) => <Icon {...props} name="google" />;
 
 export default function Login(props) {
   const context = useContext(UserContext);
@@ -41,6 +44,35 @@ export default function Login(props) {
     }
 
     setLoading(false);
+  };
+  const googleLogin = async () => {
+    setLoading(true);
+    const { type, user } = await Google.logInAsync(expoGoogleLoginConfig);
+    if (type === 'success') {
+      // Then you can use the Google REST API
+      try {
+        const params = {
+          user: {
+            email: user.email,
+            id: user.id,
+          },
+        };
+        const res = await usersApi.loginWithGoogle(params);
+        context.user.setToken(res.token);
+        const getMeRes = await usersApi.getMe();
+        context.user.set(getMeRes.payload);
+      } catch (err) {
+        if (err.response.status === 404) {
+          setResponseErr('Something went wrong!');
+        } else {
+          setResponseErr(`${err.response.status}-${err.response.data.message}`);
+        }
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setLoading(false);
+    }
   };
   const renderIcon = (props) => (
     <TouchableWithoutFeedback onPress={toggleSecureEntry}>
@@ -82,6 +114,9 @@ export default function Login(props) {
       <Button style={styles.loginButton} onPress={loginHandler}>
         SIGN IN
       </Button>
+      <Button style={styles.loginButton} status="danger" onPress={googleLogin} accessoryRight={GoogleIcon}>
+        SIGN IN WITH GOOGLE
+      </Button>
       <Text status="info" style={styles.link} onPress={() => navigation.navigate(navNames.forgetPassword)}>
         FORGOT PASSWORD?
       </Text>
@@ -104,7 +139,9 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     marginTop: 20,
+    alignSelf: 'center',
     borderRadius: 10,
+    width: '80%',
   },
   link: {
     marginTop: 20,

@@ -13,9 +13,9 @@ const usersApi = {
     const url = '/user/register';
     return axiosClient.post(url, params);
   },
-  loginWithGoogle: () => {
+  loginWithGoogle: (params) => {
     const url = '/user/login-google-mobile';
-    return axiosClient.get(url);
+    return axiosClient.post(url, params);
   },
   updateProfile: (params) => {
     const url = '/user/update-profile';
