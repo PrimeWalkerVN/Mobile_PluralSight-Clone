@@ -30,7 +30,7 @@ export default function Register(props) {
   );
   useEffect(() => {
     if (value.password.length < 6) setPswErr('Should contain at least 6 symbols');
-    if (confirmPsw !== value.password) setPswErr('Confirm password was not match!');
+    else if (confirmPsw !== value.password) setPswErr('Confirm password was not match!');
     else setPswErr('');
   }, [confirmPsw, value]);
 
@@ -54,9 +54,9 @@ export default function Register(props) {
     setLoading(false);
   };
   return (
-    <Layout>
+    <Layout level="2">
       <ScrollView>
-        <Layout style={styles.container}>
+        <Layout style={styles.container} level="2">
           <Text status="info" category="h1" style={styles.header}>
             REGISTER
           </Text>
@@ -89,7 +89,7 @@ export default function Register(props) {
             key="psw"
             style={styles.input}
             selectTextOnFocus
-            caption={pswErr.length > 0 ? pswErr : 'Should contain at least 8 symbols'}
+            caption={pswErr.length > 0 ? pswErr : 'Should contain at least 6 symbols'}
             accessoryRight={renderIcon}
             captionIcon={AlertIcon}
             status={pswErr.length > 0 ? 'danger' : 'primary'}

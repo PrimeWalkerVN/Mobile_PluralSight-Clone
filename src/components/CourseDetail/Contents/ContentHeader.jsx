@@ -1,10 +1,11 @@
 import { Icon, MenuItem, OverflowMenu, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
 import React, { useState } from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
+import timeConvert from '../../../utils/utils';
 
 const ContentHeader = (props) => {
   const styles = useStyleSheet(themedStyles);
-  const { title, order } = props;
+  const { title, order, sumHours } = props;
   const [menuVisible, setMenuVisible] = useState(false);
 
   const renderMenuAction = () => (
@@ -22,8 +23,10 @@ const ContentHeader = (props) => {
         <View style={styles.status} />
       </View>
       <View style={styles.info}>
-        <Text category="h6">{title.title}</Text>
-        <Text>{title.duration}</Text>
+        <Text numberOfLines={2} style={styles.text} category="h6">
+          {title}
+        </Text>
+        <Text>{timeConvert(sumHours)}</Text>
       </View>
       <OverflowMenu anchor={renderMenuAction} visible={menuVisible} onBackdropPress={toggleMenu}>
         <MenuItem title="About" />
@@ -63,6 +66,9 @@ const themedStyles = StyleService.create({
     width: '100%',
     marginTop: 10,
     backgroundColor: '#7C7C7C',
+  },
+  text: {
+    textAlign: 'center',
   },
 });
 export default ContentHeader;

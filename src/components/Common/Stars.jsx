@@ -5,7 +5,6 @@ import colors from '../../constants/colors';
 
 const Stars = (props) => {
   const { value, maxValue } = props;
-
   const noneStar = maxValue - value;
 
   const renderStars = () => {

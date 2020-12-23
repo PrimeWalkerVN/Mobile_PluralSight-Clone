@@ -49,6 +49,14 @@ const usersApi = {
     const url = `/user/recommend-course/${params.id}/${params.limit}/${params.offset}`;
     return axiosClient.get(url);
   },
+  getCourseLikeStatus: (params) => {
+    const url = `/user/get-course-like-status/${params.courseId}`;
+    return axiosClient.get(url);
+  },
+  likeCourse: (params) => {
+    const url = `/user/like-course`;
+    return axiosClient.post(url, params);
+  },
 };
 
 export default usersApi;

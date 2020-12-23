@@ -17,6 +17,9 @@
     "react/style-prop-object": "off",
     "react/no-unescaped-entities": "off",
     "import/no-dynamic-require": "off",
+    "radix": "off",
+    "react/no-children-prop": "off",
+    "import/no-named-as-default": "off",
     "react/jsx-filename-extension": [
       1,
       {

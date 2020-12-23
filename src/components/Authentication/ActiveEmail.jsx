@@ -26,7 +26,7 @@ export default function ActiveEmail(props) {
     setLoading(false);
   };
   return (
-    <Layout style={styles.container}>
+    <Layout style={styles.container} level="2">
       <Text status="info" category="h4" style={styles.header}>
         ACTIVE EMAIL
       </Text>

@@ -1,6 +1,7 @@
 import { Icon, Text } from '@ui-kitten/components';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import timeConvert from '../../../utils/utils';
 
 const ContentItem = (props) => {
   const { item } = props;
@@ -11,11 +12,11 @@ const ContentItem = (props) => {
           <Icon fill="black" style={{ height: 10, width: 10 }} name="checkmark-outline" />
         </View>
         <View>
-          <Text category="s1">{item.title}</Text>
+          <Text category="s1">{item.name}</Text>
         </View>
       </View>
       <View>
-        <Text category="c1">{item.duration}</Text>
+        <Text category="c1">{timeConvert(item.hours)}</Text>
       </View>
     </View>
   );

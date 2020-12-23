@@ -18,7 +18,10 @@ const CoursesInfo = (props) => {
       <Text category="c1" numberOfLines={1}>
         {item.videoNumber} - {moment(item.updatedAt).format(formatString)} - {item.totalHours} h
       </Text>
-      <Stars value={item.ratedNumber} maxValue={5} />
+      <Stars
+        value={Number.parseInt((item.formalityPoint + item.contentPoint + item.presentationPoint) / 3)}
+        maxValue={5}
+      />
       <View style={styles.meta}>
         {item.price > 0 ? (
           <Text status="warning">

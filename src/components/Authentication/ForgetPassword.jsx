@@ -28,7 +28,7 @@ export default function ForgetPassword(props) {
   };
 
   return (
-    <Layout style={styles.container}>
+    <Layout style={styles.container} level="2">
       <Text status="info" category="h4" style={styles.header}>
         FORGOT PASSWORD
       </Text>

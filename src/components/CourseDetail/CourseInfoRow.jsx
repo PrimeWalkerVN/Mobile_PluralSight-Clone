@@ -20,7 +20,10 @@ const CoursesInfoRow = (props) => {
           {item.videoNumber} videos - {moment(item.updatedAt).format(formats.dateTime)} - {item.totalHours} h
         </Text>
         <View>
-          <Stars value={item.ratedNumber} maxValue={5} />
+          <Stars
+            value={Number.parseInt((item.formalityPoint + item.contentPoint + item.presentationPoint) / 3)}
+            maxValue={5}
+          />
         </View>
         <View style={styles.meta}>
           {item.price > 0 ? (
