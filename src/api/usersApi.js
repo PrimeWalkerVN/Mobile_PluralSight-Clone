@@ -57,6 +57,10 @@ const usersApi = {
     const url = `/user/like-course`;
     return axiosClient.post(url, params);
   },
+  updateAvatar: (params) => {
+    const url = `/user/upload-avatar`;
+    return axiosClient.post(url, params);
+  },
 };
 
 export default usersApi;

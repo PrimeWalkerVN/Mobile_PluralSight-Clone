@@ -1,13 +1,15 @@
 import { Button, Layout, Text } from '@ui-kitten/components';
 import moment from 'moment';
-import React, { useContext, useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import React, { useContext } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import navNames from '../../constants/navNames';
 import { UserContext } from '../../context/UserContext';
 import AvatarLargeV2 from '../Common/AvatarLargeV2';
 
-export default function Profile() {
+export default function Profile(props) {
+  const { navigation } = props;
   const context = useContext(UserContext);
-  const [user] = useState(context.user.get);
+  const user = context.user.get;
   const Content = (props) => {
     const { label, sub } = props;
     return (
@@ -23,16 +25,16 @@ export default function Profile() {
         <View style={styles.header}>
           <AvatarLargeV2 name={user.email} image={user.avatar} />
         </View>
-        <Button size="small" style={styles.button}>
+        <Button onPress={() => navigation.navigate(navNames.changePassword)} size="small" style={styles.button}>
           Change password
         </Button>
-        <Button size="small" style={styles.button}>
+        <Button onPress={() => navigation.navigate(navNames.changeProfile)} size="small" style={styles.button}>
           Change profile
         </Button>
         <View style={styles.body}>
           <Content label="FullName:" sub={user.name} />
           <Content label="Created at:" sub={moment(user.createdAt).fromNow()} />
-          <Content label="Phone:" sub={user.phone} />
+          <Content label="Phone Number:" sub={user.phone} />
           <Content label="Type:" sub={user.type} />
           <Content label="Point:" sub={user.point} />
         </View>

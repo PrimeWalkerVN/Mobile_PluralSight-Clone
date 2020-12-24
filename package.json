@@ -20,6 +20,7 @@
     "axios": "^0.21.0",
     "expo": "~39.0.2",
     "expo-google-app-auth": "^8.1.4",
+    "expo-image-picker": "~9.1.1",
     "expo-status-bar": "~1.0.2",
     "install": "^0.13.0",
     "moment": "^2.29.1",

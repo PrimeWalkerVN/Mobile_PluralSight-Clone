@@ -20,5 +20,7 @@ const navNames = {
   splash: 'SplashScreen',
   browseDetail: 'Browse Detail',
   activeEmail: 'Active Email',
+  changePassword: 'Change password',
+  changeProfile: 'Change Profile',
 };
 export default navNames;

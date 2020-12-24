@@ -1,6 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import navNames from '../../../constants/navNames';
+import ChangePassword from '../../AccountManagement/ChangePassword';
+import ChangeProfile from '../../AccountManagement/ChangeProfile';
 import Profile from '../../AccountManagement/Profile';
 import Setting from '../../AccountManagement/Setting';
 import CourseDetail from '../../CourseDetail/CourseDetail';
@@ -14,6 +16,8 @@ const HomeScreen = {
   [navNames.courseDetail]: CourseDetail,
   [navNames.profile]: Profile,
   [navNames.setting]: Setting,
+  [navNames.changePassword]: ChangePassword,
+  [navNames.changeProfile]: ChangeProfile,
 };
 
 const Stack = createStackNavigator();
