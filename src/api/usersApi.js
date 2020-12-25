@@ -61,6 +61,10 @@ const usersApi = {
     const url = `/user/upload-avatar`;
     return axiosClient.post(url, params);
   },
+  checkOwnCourse: (params) => {
+    const url = `/user/check-own-course/${params.courseId}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default usersApi;

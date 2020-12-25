@@ -47,14 +47,13 @@ const styles = StyleSheet.create({
   infoArea: {
     display: 'flex',
     justifyContent: 'space-between',
-    margin: 5,
-    paddingHorizontal: 5,
+    padding: 10,
   },
   meta: {
     display: 'flex',
     flexDirection: 'row',
     marginTop: 5,
-    marginRight: 20,
+    paddingRight: 5,
     alignItems: 'center',
     justifyContent: 'space-between',
   },

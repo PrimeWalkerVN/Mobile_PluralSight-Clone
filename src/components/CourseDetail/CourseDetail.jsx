@@ -13,6 +13,7 @@ import usersApi from '../../api/usersApi';
 import { SnackBarContext } from '../../context/SnackBarContext';
 import Review from './Review/Review';
 import coursesApi from '../../api/coursesApi';
+import paymentApi from '../../api/paymentApi';
 
 const CourseDetail = (props) => {
   const { course } = props.route.params;
@@ -55,6 +56,8 @@ const CourseDetail = (props) => {
       setIsLike(resLikeStatus.likeStatus);
       const resDetail = await coursesApi.getCourseDetail({ id: course.id, userId: course.id });
       setCourseDetail(resDetail.payload);
+      const resCheckout = await usersApi.checkOwnCourse({ courseId: course.id });
+      setIsEnroll(resCheckout.payload.isUserOwnCourse);
     } catch (err) {
       snContext.snackbar.set(true);
       snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
@@ -73,8 +76,17 @@ const CourseDetail = (props) => {
     }
   };
 
-  const enrollHandler = () => {
-    setIsEnroll(!isEnroll);
+  const enrollHandler = async () => {
+    if (isEnroll === true) return;
+    try {
+      await paymentApi.enrollFreeCourse({ courseId: course.id });
+      snContext.snackbar.set(true);
+      snContext.snackbar.setData(`Enroll success!`);
+      setIsEnroll(!isEnroll);
+    } catch (err) {
+      snContext.snackbar.set(true);
+      snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
+    }
   };
   return (
     <Layout level="2" style={styles.layout}>
@@ -116,9 +128,18 @@ const CourseDetail = (props) => {
         <View style={{ flex: 1 }}>
           {courseDetail && (
             <TabNavigation.Navigator tabBar={(props) => <TopTabBar {...props} />} initialRouteName="Contents">
-              <TabNavigation.Screen name="Contents" children={() => <Contents course={courseDetail} />} />
-              <TabNavigation.Screen name="Review" children={() => <Review course={courseDetail} />} />
-              <TabNavigation.Screen name="Transcript" children={() => <Transcript course={courseDetail} />} />
+              <TabNavigation.Screen
+                name="Contents"
+                children={() => <Contents course={courseDetail} isEnroll={isEnroll} />}
+              />
+              <TabNavigation.Screen
+                name="Review"
+                children={() => <Review course={courseDetail} isEnroll={isEnroll} />}
+              />
+              <TabNavigation.Screen
+                name="Transcript"
+                children={() => <Transcript course={courseDetail} isEnroll={isEnroll} />}
+              />
             </TabNavigation.Navigator>
           )}
         </View>

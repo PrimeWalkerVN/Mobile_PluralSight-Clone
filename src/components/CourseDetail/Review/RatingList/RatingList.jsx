@@ -7,7 +7,7 @@ import formats from '../../../../constants/formats';
 
 const renderItem = (item) => {
   return (
-    <View key={item.id} style={styles.comment}>
+    <View key={item.id + item.updatedAt} style={styles.comment}>
       <View style={styles.commentAvatar}>
         <Avatar size="giant" source={{ uri: item.user.avatar }} />
         <Text style={styles.name} numberOfLines={2} category="label">
