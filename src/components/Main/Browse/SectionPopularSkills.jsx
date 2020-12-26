@@ -3,22 +3,16 @@ import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import TagButton from '../../Common/TagButton';
 
-const SectionPopularSkill = () => {
+const SectionPopularSkill = (props) => {
+  const { data } = props;
   return (
     <View style={styles.container}>
-      <Text category="h6">Popular skills</Text>
+      <Text category="h6">Popular categories</Text>
       <View style={styles.listTags}>
         <ScrollView horizontal>
-          <TagButton title="Angular" />
-          <TagButton title="Javascript" />
-          <TagButton title="C#" />
-          <TagButton title="Java" />
-          <TagButton title="Angular" />
-          <TagButton title="Angular" />
-          <TagButton title="Angular" />
-          <TagButton title="Angular" />
-          <TagButton title="Angular" />
-          <TagButton title="Angular" />
+          {data.map((item, index) => (
+            <TagButton key={index} title={item.name} />
+          ))}
         </ScrollView>
       </View>
     </View>

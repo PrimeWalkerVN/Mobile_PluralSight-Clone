@@ -1,18 +1,19 @@
 import { Text } from '@ui-kitten/components';
-import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
 import moment from 'moment';
+import React from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import formats from '../../constants/formats';
 import Stars from '../Common/Stars';
 import TagAvatarButton from '../Common/TagAvatarButton';
-import formats from '../../constants/formats';
 
 const CoursesInfoRow = (props) => {
-  const { item } = props;
+  const { item, clickHandlerAuthor } = props;
+
   return (
     <View style={styles.container}>
       <View style={styles.scrollTag}>
         <ScrollView horizontal>
-          <TagAvatarButton title={item['instructor.user.name']} />
+          <TagAvatarButton title={item['instructor.user.name']} onPress={() => clickHandlerAuthor(item)} />
         </ScrollView>
       </View>
       <View style={styles.infoArea}>

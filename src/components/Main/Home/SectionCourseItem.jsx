@@ -28,6 +28,8 @@ const themedStyles = StyleService.create({
     height: 220,
     overflow: 'hidden',
     borderRadius: 10,
+    borderColor: 'gray',
+    borderWidth: 0.1,
   },
   image: {
     height: 100,

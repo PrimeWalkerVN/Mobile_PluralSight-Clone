@@ -6,49 +6,11 @@ import navNames from '../../../../constants/navNames';
 import AvatarLarge from '../../../Common/AvatarLarge';
 
 const TopAuthors = (props) => {
-  const { navigation } = props;
-  const authors = [
-    {
-      id: 1,
-      name: 'Avatar',
-      avatar: '',
-    },
-    {
-      id: 2,
-      name: 'Naruto',
-      avatar: '',
-    },
-    {
-      id: 3,
-      name: 'Thanh',
-      avatar: '',
-    },
-    {
-      id: 4,
-      name: 'Sasuke',
-      avatar: '',
-    },
-    {
-      id: 5,
-      name: 'Avatar',
-      avatar: '',
-    },
-    {
-      id: 6,
-      name: 'Avatar',
-      avatar: '',
-    },
-    {
-      id: 7,
-      name: 'Avatar',
-      avatar: '',
-    },
-  ];
-
+  const { navigation, data } = props;
   const renderItem = (items) =>
     items.map((item) => (
       <TouchableOpacity key={item.id} onPress={() => navigation.navigate(navNames.author, { author: item })}>
-        <AvatarLarge name={item.name} />
+        <AvatarLarge name={item['user.name']} image={item['user.avatar']} />
       </TouchableOpacity>
     ));
   return (
@@ -56,7 +18,7 @@ const TopAuthors = (props) => {
       <View style={styles.header}>
         <Text category="h6">Top Authors</Text>
       </View>
-      <ScrollView horizontal>{renderItem(authors)}</ScrollView>
+      <ScrollView horizontal>{renderItem(data)}</ScrollView>
     </View>
   );
 };

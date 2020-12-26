@@ -4,87 +4,16 @@ import { StyleSheet, View } from 'react-native';
 import FlatListCourse from '../../Courses/FlatListCourse';
 
 const ResultCourses = (props) => {
-  const { navigation } = props;
-  const courses = [
-    {
-      id: 1,
-      title: 'Angular',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 2,
-      title: 'React native',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 3,
-      title: 'Android',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 4,
-      title: 'Angular',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 5,
-      title: 'React native',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 6,
-      title: 'Android',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 7,
-      title: 'Angular',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 8,
-      title: 'React native',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 9,
-      title: 'Android',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-  ];
+  const { navigation, data } = props;
+
   return (
     <Layout style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.title}>{courses.length} results</Text>
+        <Text category="h6" style={styles.title}>
+          {data !== undefined && data.data.length} results
+        </Text>
         <View style={styles.container}>
-          <FlatListCourse items={courses} navigation={navigation} />
+          {data !== undefined && <FlatListCourse items={data.data} navigation={navigation} />}
         </View>
       </View>
     </Layout>

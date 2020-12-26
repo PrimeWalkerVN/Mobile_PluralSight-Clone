@@ -1,13 +1,13 @@
-import { Text } from '@ui-kitten/components';
+import { Avatar, Text } from '@ui-kitten/components';
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import colors from '../../constants/colors';
 
 const TagAvatarButton = (props) => {
-  const { title } = props;
+  const { title, onPress } = props;
   return (
-    <TouchableOpacity style={styles.container}>
-      <Image style={styles.image} source={require('../../../assets/avatar.jpeg')} />
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      <Avatar size="tiny" style={styles.image} source={require('../../../assets/avatar.jpeg')} />
       <Text>{title}</Text>
     </TouchableOpacity>
   );
@@ -25,11 +25,8 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   image: {
-    width: 30,
-    height: 30,
     marginRight: 10,
     borderRadius: 50,
-    resizeMode: 'contain',
   },
 });
 

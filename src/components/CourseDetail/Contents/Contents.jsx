@@ -1,13 +1,15 @@
 import { Divider, Layout } from '@ui-kitten/components';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { SectionList, StyleSheet, View } from 'react-native';
+import { SnackBarContext } from '../../../context/SnackBarContext';
 import ContentHeader from './ContentHeader';
 import ContentItem from './ContentItem';
 
 const Contents = (props) => {
-  const { course } = props;
+  const { course, isEnroll, uriVideoHandler } = props;
   const { section } = course;
   const [data, setData] = useState([]);
+  const snContext = useContext(SnackBarContext);
 
   useEffect(() => {
     const newData = section.map((item) => {
@@ -21,13 +23,22 @@ const Contents = (props) => {
     });
     setData(newData);
   }, []);
+
+  const onClickHandler = (value) => {
+    if (isEnroll) {
+      uriVideoHandler(value);
+    } else {
+      snContext.snackbar.set(true);
+      snContext.snackbar.setData(`you have not taken this course!`);
+    }
+  };
   return (
     <Layout style={{ flex: 1 }} level="2">
       <View style={styles.container}>
         <SectionList
           sections={data}
           keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => <ContentItem item={item} />}
+          renderItem={({ item }) => <ContentItem item={item} onClickHandler={onClickHandler} />}
           renderSectionHeader={({ section }) => (
             <View>
               <Divider />

@@ -65,6 +65,14 @@ const usersApi = {
     const url = `/user/check-own-course/${params.courseId}`;
     return axiosClient.get(url);
   },
+  getWishList: () => {
+    const url = `/user/get-favorite-courses`;
+    return axiosClient.get(url);
+  },
+  getLearningCourses: () => {
+    const url = `/user/get-process-courses`;
+    return axiosClient.get(url);
+  },
 };
 
 export default usersApi;

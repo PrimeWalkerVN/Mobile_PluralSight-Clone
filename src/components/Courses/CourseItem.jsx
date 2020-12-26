@@ -37,7 +37,6 @@ const themedStyles = StyleService.create({
     flex: 1,
     marginHorizontal: 10,
     marginVertical: 5,
-    height: 100,
     alignItems: 'center',
     paddingHorizontal: 10,
     flexDirection: 'row',

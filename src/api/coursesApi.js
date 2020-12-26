@@ -49,6 +49,22 @@ const coursesApi = {
     const url = `/course/report-course`;
     return axiosClient.post(url, params);
   },
+  searchCourse: (params) => {
+    const url = `/course/search`;
+    return axiosClient.post(url, params);
+  },
+  searchAll: (params) => {
+    const url = `/course/searchV2`;
+    return axiosClient.post(url, params);
+  },
+  getSearchHistory: () => {
+    const url = `/course/search-history`;
+    return axiosClient.get(url);
+  },
+  deleteSearchHistory: (params) => {
+    const url = `/course/delete-search-history/${params.id}`;
+    return axiosClient.delete(url);
+  },
 };
 
 export default coursesApi;

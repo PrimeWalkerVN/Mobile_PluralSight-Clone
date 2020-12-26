@@ -18,7 +18,7 @@ const Home = (props) => {
   const getData = async () => {
     const user = userContext.user.get;
     const params = {
-      limit: 10,
+      limit: 15,
       page: 1,
     };
     const params2 = {
@@ -31,8 +31,8 @@ const Home = (props) => {
 
     await Promise.all([resTop, resNew, resRate, resUser])
       .then((values) => {
-        setNewCourses(values[0].payload);
-        setTopCourses(values[1].payload);
+        setTopCourses(values[0].payload);
+        setNewCourses(values[1].payload);
         setRateCourses(values[2].payload);
         setUserCourses(values[3].payload);
       })
@@ -55,7 +55,7 @@ const Home = (props) => {
             source={require('../../../../assets/courses/pngTree.png')}
             imageStyle={styles.imageHeader}
           >
-            <Text category="h5" style={styles.text}>
+            <Text category="h4" style={styles.text}>
               Welcome to PluralSight!
             </Text>
             <Text category="s1">
@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
   },
   imageHeader: {
     height: 100,
-    backgroundColor: 'black',
     resizeMode: 'contain',
     opacity: 1,
     marginRight: -250,

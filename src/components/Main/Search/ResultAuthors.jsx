@@ -4,65 +4,15 @@ import { StyleSheet, View } from 'react-native';
 import FlatListAuthor from '../../Courses/FlatListAuthor';
 
 const ResultAuthors = (props) => {
-  const { navigation } = props;
-  const authors = [
-    {
-      id: 1,
-      name: 'Chi Thanh',
-      coursesNumber: 10,
-    },
-    {
-      id: 2,
-      name: 'Chi Thanh',
-      coursesNumber: 10,
-    },
-    {
-      id: 3,
-      name: 'Chi Thanh',
-      coursesNumber: 10,
-    },
-    {
-      id: 4,
-      name: 'Chi Thanh',
-      coursesNumber: 10,
-    },
-    {
-      id: 5,
-      name: 'Chi Thanh',
-      coursesNumber: 10,
-    },
-    {
-      id: 6,
-      name: 'Chi Thanh',
-      coursesNumber: 10,
-    },
-    {
-      id: 7,
-      name: 'Chi Thanh',
-      coursesNumber: 10,
-    },
-    {
-      id: 8,
-      name: 'Chi Thanh',
-      coursesNumber: 10,
-    },
-    {
-      id: 9,
-      name: 'Chi Thanh',
-      coursesNumber: 10,
-    },
-    {
-      id: 10,
-      name: 'Chi Thanh',
-      coursesNumber: 10,
-    },
-  ];
+  const { navigation, data } = props;
   return (
     <Layout style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.title}>{authors.length} results</Text>
+        <Text category="h6" style={styles.title}>
+          {data !== undefined && data.data.length} results
+        </Text>
         <View style={styles.container}>
-          <FlatListAuthor items={authors} navigation={navigation} />
+          {data !== undefined && <FlatListAuthor items={data.data} navigation={navigation} />}
         </View>
       </View>
     </Layout>
