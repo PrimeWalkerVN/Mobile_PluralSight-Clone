@@ -47,6 +47,7 @@ export default function ForgetPassword(props) {
           value={value.username}
           onChangeText={(nextValue) => setValue(nextValue)}
           label="Email"
+          autoCapitalize="none"
           size={size}
         />
         {success !== '' && (

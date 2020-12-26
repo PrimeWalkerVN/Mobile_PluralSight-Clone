@@ -7,6 +7,7 @@ export const timeConvert = (n) => {
   return `${rhours > 0 ? `${rhours}h` : ''} ${rminutes} m`;
 };
 export const youTubeGetID = (url) => {
+  if (url === null) return '';
   const match = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
   return match[2] !== undefined ? match[2].split(/[^0-9a-z_-]/i)[0] : match[0];
 };
