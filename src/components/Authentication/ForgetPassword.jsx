@@ -1,6 +1,7 @@
 import { Button, Input, Layout, Text } from '@ui-kitten/components';
 import React, { useContext, useState } from 'react';
 import { StyleSheet } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import usersApi from '../../api/usersApi';
 import { SnackBarContext } from '../../context/SnackBarContext';
 
@@ -29,31 +30,37 @@ export default function ForgetPassword(props) {
 
   return (
     <Layout style={styles.container} level="2">
-      <Text status="info" category="h4" style={styles.header}>
-        FORGOT PASSWORD
-      </Text>
-      <Text status="basic" category="h6" style={styles.header}>
-        Enter your email address and we will send you a link to reset your password
-      </Text>
-      <Input
-        placeholder=""
-        style={styles.input}
-        value={value.username}
-        onChangeText={(nextValue) => setValue(nextValue)}
-        label="Email"
-        size={size}
-      />
-      {success !== '' && (
-        <Text category="s1" status="success" style={styles.success}>
-          {success}
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled={false}
+        showsVerticalScrollIndicator={false}
+      >
+        <Text status="info" category="h4" style={styles.header}>
+          FORGOT PASSWORD
         </Text>
-      )}
-      <Button style={styles.loginButton} onPress={submitHandler}>
-        Send email
-      </Button>
-      <Button appearance="outline" style={styles.loginButton} onPress={() => navigation.goBack()}>
-        CANCEL
-      </Button>
+        <Text status="basic" category="h6" style={styles.header}>
+          Enter your email address and we will send you a link to reset your password
+        </Text>
+        <Input
+          placeholder=""
+          style={styles.input}
+          value={value.username}
+          onChangeText={(nextValue) => setValue(nextValue)}
+          label="Email"
+          size={size}
+        />
+        {success !== '' && (
+          <Text category="s1" status="success" style={styles.success}>
+            {success}
+          </Text>
+        )}
+        <Button style={styles.loginButton} onPress={submitHandler}>
+          Send email
+        </Button>
+        <Button appearance="outline" style={styles.loginButton} onPress={() => navigation.goBack()}>
+          CANCEL
+        </Button>
+      </KeyboardAwareScrollView>
     </Layout>
   );
 }

@@ -25,6 +25,11 @@ const SearchBar = (props) => {
       <Icon {...props} name="search-outline" />
     </TouchableWithoutFeedback>
   );
+  const RefreshIcon = (props) => (
+    <TouchableWithoutFeedback>
+      <Icon {...props} name="refresh-outline" />
+    </TouchableWithoutFeedback>
+  );
   const CloseIcon = (props) => {
     const { closeHandler, item } = props;
     return (
@@ -67,6 +72,7 @@ const SearchBar = (props) => {
   const renderOption = (item, index) => (
     <AutocompleteItem
       accessoryRight={() => <CloseIcon closeHandler={deleteSearchHistory} item={item} />}
+      accessoryLeft={RefreshIcon}
       key={index}
       title={item.content}
     />

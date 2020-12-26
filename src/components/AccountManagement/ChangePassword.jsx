@@ -2,6 +2,7 @@ import { Button, Icon, Input, Layout, Text } from '@ui-kitten/components';
 import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import usersApi from '../../api/usersApi';
 import { SnackBarContext } from '../../context/SnackBarContext';
 import { UserContext } from '../../context/UserContext';
@@ -56,44 +57,50 @@ const ChangePassword = (props) => {
 
   return (
     <Layout level="2" style={styles.container}>
-      <Text style={styles.header} category="h6" status="info">
-        Please input right old password and set new password!
-      </Text>
-      <Input
-        style={styles.input}
-        secureTextEntry={secureTextEntry}
-        label="Old Password"
-        placeholder=""
-        autoCapitalize="none"
-        key="oldPsw"
-        onChangeText={(value) => setOldPsw(value)}
-        accessoryRight={renderIcon}
-      />
-      <Input
-        style={styles.input}
-        secureTextEntry={secureTextEntry}
-        label="New Password"
-        placeholder=""
-        autoCapitalize="none"
-        caption={pswErr.length > 0 ? pswErr : 'Should contain at least 6 symbols'}
-        status={pswErr !== '' ? 'danger' : 'primary'}
-        key="newPsw"
-        onChangeText={(value) => setNewPsw(value)}
-        accessoryRight={renderIcon}
-      />
-      <Input
-        style={styles.input}
-        secureTextEntry={secureTextEntry}
-        label="Confirm password"
-        placeholder=""
-        autoCapitalize="none"
-        onChangeText={(value) => setConfirmPsw(value)}
-        key="confirmPsw"
-        accessoryRight={renderIcon}
-      />
-      <Button onPress={submitHandler} style={styles.submitButton}>
-        Change
-      </Button>
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled={false}
+        showsVerticalScrollIndicator={false}
+      >
+        <Text style={styles.header} category="h6" status="info">
+          Please input right old password and set new password!
+        </Text>
+        <Input
+          style={styles.input}
+          secureTextEntry={secureTextEntry}
+          label="Old Password"
+          placeholder=""
+          autoCapitalize="none"
+          key="oldPsw"
+          onChangeText={(value) => setOldPsw(value)}
+          accessoryRight={renderIcon}
+        />
+        <Input
+          style={styles.input}
+          secureTextEntry={secureTextEntry}
+          label="New Password"
+          placeholder=""
+          autoCapitalize="none"
+          caption={pswErr.length > 0 ? pswErr : 'Should contain at least 6 symbols'}
+          status={pswErr !== '' ? 'danger' : 'primary'}
+          key="newPsw"
+          onChangeText={(value) => setNewPsw(value)}
+          accessoryRight={renderIcon}
+        />
+        <Input
+          style={styles.input}
+          secureTextEntry={secureTextEntry}
+          label="Confirm password"
+          placeholder=""
+          autoCapitalize="none"
+          onChangeText={(value) => setConfirmPsw(value)}
+          key="confirmPsw"
+          accessoryRight={renderIcon}
+        />
+        <Button onPress={submitHandler} style={styles.submitButton}>
+          Change
+        </Button>
+      </KeyboardAwareScrollView>
     </Layout>
   );
 };

@@ -1,12 +1,13 @@
 import { Button, Icon, Input, Layout, Text } from '@ui-kitten/components';
+import * as Google from 'expo-google-app-auth';
 import React, { useContext, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import * as Google from 'expo-google-app-auth';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import usersApi from '../../api/usersApi';
+import expoGoogleLoginConfig from '../../config/expoGoogleLoginConfig';
 import navNames from '../../constants/navNames';
 import { SnackBarContext } from '../../context/SnackBarContext';
 import { UserContext } from '../../context/UserContext';
-import expoGoogleLoginConfig from '../../config/expoGoogleLoginConfig';
 
 const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 const GoogleIcon = (props) => <Icon {...props} name="google" />;
@@ -81,48 +82,50 @@ export default function Login(props) {
   );
   return (
     <Layout level="2" style={styles.container}>
-      <Text status="info" category="h1" style={styles.header}>
-        LOGIN
-      </Text>
-      <Input
-        status={usernameErr.length > 0 ? 'danger' : 'primary'}
-        captionIcon={usernameErr.length > 0 ? AlertIcon : null}
-        caption={usernameErr.length > 0 ? usernameErr : ''}
-        label="Email"
-        autoCapitalize="none"
-        defaultValue="primewalkervn@gmail.com"
-        onChangeText={(nextValue) => setUsername(nextValue.toLowerCase())}
-        size={size}
-      />
-      <Input
-        label="Password"
-        placeholder=""
-        caption={pswErr.length > 0 ? pswErr : 'Should contain at least 6 symbols'}
-        accessoryRight={renderIcon}
-        captionIcon={AlertIcon}
-        status={pswErr.length > 0 ? 'danger' : 'primary'}
-        size={size}
-        secureTextEntry={secureTextEntry}
-        defaultValue="Thanh123"
-        onChangeText={(nextValue) => setPassword(nextValue)}
-      />
-      {responseErr.length > 0 && (
-        <Text style={styles.textError} status="danger">
-          {responseErr}
+      <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled showsVerticalScrollIndicator={false}>
+        <Text status="info" category="h1" style={styles.header}>
+          LOGIN
         </Text>
-      )}
-      <Button style={styles.loginButton} onPress={loginHandler}>
-        SIGN IN
-      </Button>
-      <Button style={styles.loginButton} status="danger" onPress={googleLogin} accessoryRight={GoogleIcon}>
-        SIGN IN WITH GOOGLE
-      </Button>
-      <Text status="info" style={styles.link} onPress={() => navigation.navigate(navNames.forgetPassword)}>
-        FORGOT PASSWORD?
-      </Text>
-      <Text status="info" style={styles.link} onPress={() => navigation.navigate(navNames.register)}>
-        SIGN UP FREE?
-      </Text>
+        <Input
+          status={usernameErr.length > 0 ? 'danger' : 'primary'}
+          captionIcon={usernameErr.length > 0 ? AlertIcon : null}
+          caption={usernameErr.length > 0 ? usernameErr : ''}
+          label="Email"
+          autoCapitalize="none"
+          defaultValue="primewalkervn@gmail.com"
+          onChangeText={(nextValue) => setUsername(nextValue.toLowerCase())}
+          size={size}
+        />
+        <Input
+          label="Password"
+          placeholder=""
+          caption={pswErr.length > 0 ? pswErr : 'Should contain at least 6 symbols'}
+          accessoryRight={renderIcon}
+          captionIcon={AlertIcon}
+          status={pswErr.length > 0 ? 'danger' : 'primary'}
+          size={size}
+          secureTextEntry={secureTextEntry}
+          defaultValue="Thanh123"
+          onChangeText={(nextValue) => setPassword(nextValue)}
+        />
+        {responseErr.length > 0 && (
+          <Text style={styles.textError} status="danger">
+            {responseErr}
+          </Text>
+        )}
+        <Button style={styles.loginButton} onPress={loginHandler}>
+          SIGN IN
+        </Button>
+        <Button style={styles.loginButton} status="danger" onPress={googleLogin} accessoryRight={GoogleIcon}>
+          SIGN IN WITH GOOGLE
+        </Button>
+        <Text status="info" style={styles.link} onPress={() => navigation.navigate(navNames.forgetPassword)}>
+          FORGOT PASSWORD?
+        </Text>
+        <Text status="info" style={styles.link} onPress={() => navigation.navigate(navNames.register)}>
+          SIGN UP FREE?
+        </Text>
+      </KeyboardAwareScrollView>
     </Layout>
   );
 }

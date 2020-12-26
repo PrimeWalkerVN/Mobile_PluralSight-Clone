@@ -23,7 +23,6 @@ const CourseDetail = (props) => {
   const { navigation } = props;
   const { course } = props.route.params;
   const playerRef = useRef();
-  const playerYoutubeRef = useRef();
 
   const snContext = useContext(SnackBarContext);
   const [courseDetail, setCourseDetail] = useState(null);
@@ -60,6 +59,10 @@ const CourseDetail = (props) => {
     if (course.promoVidUrl) uriVideoHandler(course.promoVidUrl);
     else setUriVideo(null);
     getData();
+    return () => {
+      // eslint-disable-next-line no-unused-expressions
+      playerRef.current = null;
+    };
   }, []);
 
   const getData = async () => {
@@ -131,13 +134,7 @@ const CourseDetail = (props) => {
       {typeVideo === 1 ? (
         <Video ref={playerRef} style={styles.video} source={{ uri: uriVideo }} useNativeControls resizeMode="cover" />
       ) : (
-        <YoutubePlayer
-          ref={playerYoutubeRef}
-          height={250}
-          play={playing}
-          videoId={uriVideo}
-          onChangeState={onStateChange}
-        />
+        <YoutubePlayer ref={playerRef} height={250} play={playing} videoId={uriVideo} onChangeState={onStateChange} />
       )}
 
       <ScrollView>

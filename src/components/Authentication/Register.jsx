@@ -1,7 +1,7 @@
 import { Button, Icon, Input, Layout, Text } from '@ui-kitten/components';
 import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import usersApi from '../../api/usersApi';
 import navNames from '../../constants/navNames';
 import { SnackBarContext } from '../../context/SnackBarContext';
@@ -29,7 +29,7 @@ export default function Register(props) {
     </TouchableWithoutFeedback>
   );
   useEffect(() => {
-    if (value.password.length < 6) setPswErr('Should contain at least 6 symbols');
+    if (value.password.length < 6 && value.password !== '') setPswErr('Should contain at least 6 symbols');
     else if (confirmPsw !== value.password) setPswErr('Confirm password was not match!');
     else setPswErr('');
   }, [confirmPsw, value]);
@@ -55,7 +55,7 @@ export default function Register(props) {
   };
   return (
     <Layout level="2">
-      <ScrollView>
+      <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled showsVerticalScrollIndicator={false}>
         <Layout style={styles.container} level="2">
           <Text status="info" category="h1" style={styles.header}>
             REGISTER
@@ -114,7 +114,7 @@ export default function Register(props) {
             </Text>
           </TouchableWithoutFeedback>
         </Layout>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </Layout>
   );
 }

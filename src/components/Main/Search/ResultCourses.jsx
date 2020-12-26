@@ -10,7 +10,7 @@ const ResultCourses = (props) => {
     <Layout style={{ flex: 1 }}>
       <View style={styles.container}>
         <Text category="h6" style={styles.title}>
-          {data !== undefined && data.data.length} results
+          {data !== undefined ? data.data.length : 0} results
         </Text>
         <View style={styles.container}>
           {data !== undefined && <FlatListCourse items={data.data} navigation={navigation} />}

@@ -4,6 +4,7 @@ import Axios from 'axios';
 import * as ImagePicker from 'expo-image-picker';
 import React, { useContext, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import usersApi from '../../api/usersApi';
 import { SnackBarContext } from '../../context/SnackBarContext';
 import { UserContext } from '../../context/UserContext';
@@ -80,33 +81,39 @@ const ChangeProfile = (props) => {
   };
   return (
     <Layout level="2" style={styles.container}>
-      <View style={styles.upload}>
-        {image && <Avatar source={{ uri: image }} style={styles.image} />}
-        <Button style={styles.buttonUpload} onPress={pickImage}>
-          Upload
-        </Button>
-      </View>
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled={false}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.upload}>
+          {image && <Avatar source={{ uri: image }} style={styles.image} />}
+          <Button style={styles.buttonUpload} onPress={pickImage}>
+            Upload
+          </Button>
+        </View>
 
-      <Input style={styles.input} label="Email" disabled placeholder="" key="email" value={user.email} />
-      <Input
-        style={styles.input}
-        label="Full Name"
-        placeholder=""
-        key="fullName"
-        value={name}
-        onChangeText={(value) => setName(value)}
-      />
-      <Input
-        style={styles.input}
-        label="Phone Number"
-        placeholder=""
-        key="phoneNumber"
-        value={phone}
-        onChangeText={(value) => setPhone(value)}
-      />
-      <Button onPress={submitHandler} style={styles.submitButton}>
-        Change
-      </Button>
+        <Input style={styles.input} label="Email" disabled placeholder="" key="email" value={user.email} />
+        <Input
+          style={styles.input}
+          label="Full Name"
+          placeholder=""
+          key="fullName"
+          value={name}
+          onChangeText={(value) => setName(value)}
+        />
+        <Input
+          style={styles.input}
+          label="Phone Number"
+          placeholder=""
+          key="phoneNumber"
+          value={phone}
+          onChangeText={(value) => setPhone(value)}
+        />
+        <Button onPress={submitHandler} style={styles.submitButton}>
+          Change
+        </Button>
+      </KeyboardAwareScrollView>
     </Layout>
   );
 };

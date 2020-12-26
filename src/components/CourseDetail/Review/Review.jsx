@@ -2,6 +2,7 @@ import { Button, Input, Layout, Modal, Text } from '@ui-kitten/components';
 import React, { useContext, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AirbnbRating } from 'react-native-ratings';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import coursesApi from '../../../api/coursesApi';
 import { SnackBarContext } from '../../../context/SnackBarContext';
 import { UserContext } from '../../../context/UserContext';
@@ -40,6 +41,7 @@ const Review = (props) => {
   };
 
   const sendReview = async () => {
+    if (content === '') return;
     const params = { courseId: course.id, ...review, content };
     snContext.loading.set(true);
     try {
@@ -74,48 +76,54 @@ const Review = (props) => {
           <RatingList list={course.ratings.ratingList} />
           <Modal visible={modalVisible} animationType="fade" backdropStyle={styles.backdrop}>
             <Layout style={styles.reviewContainer}>
-              <View style={styles.ratingArea}>
-                <Text category="label">Formality Point:</Text>
-                <AirbnbRating
-                  count={5}
-                  reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
-                  defaultRating={review.formalityPoint}
-                  onFinishRating={(value) => finishFormality(value)}
-                  reviewSize={14}
-                  size={20}
-                />
-              </View>
-              <View style={styles.ratingArea}>
-                <Text category="label">Content Point:</Text>
-                <AirbnbRating
-                  count={5}
-                  reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
-                  defaultRating={review.contentPoint}
-                  onFinishRating={(value) => finishContent(value)}
-                  reviewSize={14}
-                  size={20}
-                />
-              </View>
-              <View style={styles.ratingArea}>
-                <Text category="label">Presentation Point:</Text>
-                <AirbnbRating
-                  count={5}
-                  reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
-                  defaultRating={review.presentationPoint}
-                  onFinishRating={(value) => finishPresen(value)}
-                  reviewSize={14}
-                  size={20}
-                />
-              </View>
-              <Input onChangeText={(value) => setContent(value)} size="large" multiline label="Your review" />
-              <View style={styles.submitArea}>
-                <Button onPress={sendReview} style={styles.buttonSubmit}>
-                  Send
-                </Button>
-                <Button onPress={() => setModalVisible(false)} style={styles.buttonSubmit}>
-                  Cancel
-                </Button>
-              </View>
+              <KeyboardAwareScrollView
+                resetScrollToCoords={{ x: 0, y: 0 }}
+                scrollEnabled
+                showsVerticalScrollIndicator={false}
+              >
+                <View style={styles.ratingArea}>
+                  <Text category="label">Formality Point:</Text>
+                  <AirbnbRating
+                    count={5}
+                    reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
+                    defaultRating={review.formalityPoint}
+                    onFinishRating={(value) => finishFormality(value)}
+                    reviewSize={14}
+                    size={20}
+                  />
+                </View>
+                <View style={styles.ratingArea}>
+                  <Text category="label">Content Point:</Text>
+                  <AirbnbRating
+                    count={5}
+                    reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
+                    defaultRating={review.contentPoint}
+                    onFinishRating={(value) => finishContent(value)}
+                    reviewSize={14}
+                    size={20}
+                  />
+                </View>
+                <View style={styles.ratingArea}>
+                  <Text category="label">Presentation Point:</Text>
+                  <AirbnbRating
+                    count={5}
+                    reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
+                    defaultRating={review.presentationPoint}
+                    onFinishRating={(value) => finishPresen(value)}
+                    reviewSize={14}
+                    size={20}
+                  />
+                </View>
+                <Input onChangeText={(value) => setContent(value)} size="large" multiline label="Your review" />
+                <View style={styles.submitArea}>
+                  <Button onPress={sendReview} style={styles.buttonSubmit}>
+                    Send
+                  </Button>
+                  <Button onPress={() => setModalVisible(false)} style={styles.buttonSubmit}>
+                    Cancel
+                  </Button>
+                </View>
+              </KeyboardAwareScrollView>
             </Layout>
           </Modal>
         </View>
