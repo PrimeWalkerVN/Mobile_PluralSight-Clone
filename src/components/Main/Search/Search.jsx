@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Layout, Tab, TabBar } from '@ui-kitten/components';
 import React, { useContext, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import coursesApi from '../../../api/coursesApi';
 import { SnackBarContext } from '../../../context/SnackBarContext';
 import ResultAll from './ResultAll';
@@ -57,7 +57,7 @@ export default function Search(props) {
   return (
     <Layout level="2" style={styles.container}>
       <SearchBar searchHandler={searchHandler} />
-      <View style={{ flex: 1 }}>
+      <Layout leve="2" style={{ flex: 1 }}>
         <TabNavigation.Navigator tabBar={(props) => <TopTabBar {...props} />}>
           <TabNavigation.Screen name="All" children={() => <ResultAll data={searchResult} navigation={navigation} />} />
           <TabNavigation.Screen
@@ -69,7 +69,7 @@ export default function Search(props) {
             children={() => <ResultAuthors data={searchResult.instructors} navigation={navigation} />}
           />
         </TabNavigation.Navigator>
-      </View>
+      </Layout>
     </Layout>
   );
 }

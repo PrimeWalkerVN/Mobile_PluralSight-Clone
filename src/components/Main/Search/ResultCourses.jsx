@@ -7,7 +7,7 @@ const ResultCourses = (props) => {
   const { navigation, data } = props;
 
   return (
-    <Layout style={{ flex: 1 }}>
+    <Layout level="2" style={{ flex: 1 }}>
       <View style={styles.container}>
         <Text category="h6" style={styles.title}>
           {data !== undefined ? data.data.length : 0} results

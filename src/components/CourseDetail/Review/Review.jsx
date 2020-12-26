@@ -1,8 +1,8 @@
 import { Button, Input, Layout, Modal, Text } from '@ui-kitten/components';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { AirbnbRating } from 'react-native-ratings';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import coursesApi from '../../../api/coursesApi';
 import { SnackBarContext } from '../../../context/SnackBarContext';
 import { UserContext } from '../../../context/UserContext';
@@ -11,17 +11,18 @@ import RatingList from './RatingList/RatingList';
 
 const Review = (props) => {
   const { course, isEnroll } = props;
-  const [modalVisible, setModalVisible] = useState(false);
+
   const snContext = useContext(SnackBarContext);
   const [ratings, setRatings] = useState(course.ratings);
   const context = useContext(UserContext);
+  const inputRef = useRef('');
 
-  const [review, setReview] = useState({
-    formalityPoint: 5,
-    contentPoint: 5,
-    presentationPoint: 5,
-  });
-  const [content, setContent] = useState('');
+  const [formalityPoint, setFormalityPoint] = useState(5);
+  const [contentPoint, setContentPoint] = useState(5);
+  const [presentationPoint, setPresentationPoint] = useState(5);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
   const toggleModal = () => {
     if (isEnroll) setModalVisible(!modalVisible);
     else {
@@ -31,24 +32,32 @@ const Review = (props) => {
   };
 
   const finishFormality = (rating) => {
-    setReview({ ...review, formalityPoint: rating });
+    setFormalityPoint(rating);
   };
   const finishContent = (rating) => {
-    setReview({ ...review, contentPoint: rating });
+    setContentPoint(rating);
   };
   const finishPresen = (rating) => {
-    setReview({ ...review, presentationPoint: rating });
+    setPresentationPoint(rating);
   };
 
   const sendReview = async () => {
-    if (content === '') return;
-    const params = { courseId: course.id, ...review, content };
     snContext.loading.set(true);
+    const contentValue = inputRef.current;
+    if (contentValue === '') return;
+    const params = { courseId: course.id, formalityPoint, contentPoint, presentationPoint, content: contentValue };
     try {
       const res = await coursesApi.ratingCourse(params);
       const newReview = { ...res.payload, user: context.user.get };
-      setRatings({ ...ratings, ratingList: ratings.ratingList.unshift(newReview) });
-      toggleModal();
+
+      setRatings((oldValue) => {
+        const newArray = oldValue.ratingList.concat(newReview);
+        return {
+          ...oldValue,
+          ratingList: newArray,
+        };
+      });
+      setModalVisible(false);
       snContext.snackbar.set(true);
       snContext.snackbar.setData(`Send review success!`);
     } catch (err) {
@@ -73,61 +82,66 @@ const Review = (props) => {
           <Button onPress={toggleModal} style={styles.buttonReview}>
             Send Review
           </Button>
-          <RatingList list={course.ratings.ratingList} />
-          <Modal visible={modalVisible} animationType="fade" backdropStyle={styles.backdrop}>
-            <Layout style={styles.reviewContainer}>
-              <KeyboardAwareScrollView
-                resetScrollToCoords={{ x: 0, y: 0 }}
-                scrollEnabled
-                showsVerticalScrollIndicator={false}
-              >
-                <View style={styles.ratingArea}>
-                  <Text category="label">Formality Point:</Text>
-                  <AirbnbRating
-                    count={5}
-                    reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
-                    defaultRating={review.formalityPoint}
-                    onFinishRating={(value) => finishFormality(value)}
-                    reviewSize={14}
-                    size={20}
-                  />
-                </View>
-                <View style={styles.ratingArea}>
-                  <Text category="label">Content Point:</Text>
-                  <AirbnbRating
-                    count={5}
-                    reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
-                    defaultRating={review.contentPoint}
-                    onFinishRating={(value) => finishContent(value)}
-                    reviewSize={14}
-                    size={20}
-                  />
-                </View>
-                <View style={styles.ratingArea}>
-                  <Text category="label">Presentation Point:</Text>
-                  <AirbnbRating
-                    count={5}
-                    reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
-                    defaultRating={review.presentationPoint}
-                    onFinishRating={(value) => finishPresen(value)}
-                    reviewSize={14}
-                    size={20}
-                  />
-                </View>
-                <Input onChangeText={(value) => setContent(value)} size="large" multiline label="Your review" />
-                <View style={styles.submitArea}>
-                  <Button onPress={sendReview} style={styles.buttonSubmit}>
-                    Send
-                  </Button>
-                  <Button onPress={() => setModalVisible(false)} style={styles.buttonSubmit}>
-                    Cancel
-                  </Button>
-                </View>
-              </KeyboardAwareScrollView>
-            </Layout>
-          </Modal>
+          <RatingList list={ratings.ratingList.reverse()} />
         </View>
       )}
+      <Modal visible={modalVisible} animationType="fade" backdropStyle={styles.backdrop}>
+        <Layout style={styles.reviewContainer}>
+          <ScrollView>
+            <View style={styles.ratingArea}>
+              <Text category="label">Formality Point:</Text>
+              <AirbnbRating
+                count={5}
+                reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
+                defaultRating={formalityPoint}
+                onFinishRating={(value) => finishFormality(value)}
+                reviewSize={14}
+                size={20}
+              />
+            </View>
+            <View style={styles.ratingArea}>
+              <Text category="label">Content Point:</Text>
+              <AirbnbRating
+                count={5}
+                reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
+                defaultRating={contentPoint}
+                onFinishRating={(value) => finishContent(value)}
+                reviewSize={14}
+                size={20}
+              />
+            </View>
+            <View style={styles.ratingArea}>
+              <Text category="label">Presentation Point:</Text>
+              <AirbnbRating
+                count={5}
+                reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
+                defaultRating={presentationPoint}
+                onFinishRating={(value) => finishPresen(value)}
+                reviewSize={14}
+                size={20}
+              />
+            </View>
+
+            <Input
+              ref={inputRef}
+              onChangeText={(value) => {
+                inputRef.current = value;
+              }}
+              clearButtonMode="always"
+              size="large"
+              label="Your review"
+            />
+            <View style={styles.submitArea}>
+              <Button onPress={() => sendReview()} style={styles.buttonSubmit}>
+                Send
+              </Button>
+              <Button onPress={() => setModalVisible(false)} style={styles.buttonSubmit}>
+                Cancel
+              </Button>
+            </View>
+          </ScrollView>
+        </Layout>
+      </Modal>
     </Layout>
   );
 };
@@ -144,7 +158,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   reviewContainer: {
-    width: 300,
     padding: 10,
     borderRadius: 10,
   },

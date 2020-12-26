@@ -16,6 +16,7 @@ const Home = (props) => {
   const [userCourses, setUserCourses] = useState([]);
 
   const getData = async () => {
+    snContext.loading.set(true);
     const user = userContext.user.get;
     const params = {
       limit: 15,
@@ -43,7 +44,6 @@ const Home = (props) => {
     snContext.loading.set(false);
   };
   useEffect(() => {
-    snContext.loading.set(true);
     getData();
   }, []);
   return (

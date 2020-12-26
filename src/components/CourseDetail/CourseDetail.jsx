@@ -53,23 +53,12 @@ const CourseDetail = (props) => {
       <Tab title="TRANSCRIPT" />
     </TabBar>
   );
-  useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-    snContext.loading.set(true);
-    if (course.promoVidUrl) uriVideoHandler(course.promoVidUrl);
-    else setUriVideo(null);
-    getData();
-    return () => {
-      // eslint-disable-next-line no-unused-expressions
-      playerRef.current = null;
-    };
-  }, []);
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
+    snContext.loading.set(true);
     const resLikeStatus = await usersApi.getCourseLikeStatus({ courseId: course.id });
     const resDetail = await coursesApi.getCourseDetail({ id: course.id, userId: course.id });
     const resCheckout = await usersApi.checkOwnCourse({ courseId: course.id });
-
     await Promise.all([resLikeStatus, resDetail, resCheckout])
       .then((values) => {
         setIsLike(values[0].likeStatus);
@@ -81,7 +70,7 @@ const CourseDetail = (props) => {
         snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
       });
     snContext.loading.set(false);
-  };
+  });
 
   const wishListHandler = () => {
     setIsLike(!isLike);
@@ -129,6 +118,17 @@ const CourseDetail = (props) => {
       setUriVideo(videoId.toString());
     } else setUriVideo(value);
   };
+
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    if (course.promoVidUrl) uriVideoHandler(course.promoVidUrl);
+    else setUriVideo(null);
+    getData();
+    return () => {
+      // eslint-disable-next-line no-unused-expressions
+      playerRef.current = null;
+    };
+  }, []);
   return (
     <Layout level="2" style={styles.layout}>
       {typeVideo === 1 ? (
