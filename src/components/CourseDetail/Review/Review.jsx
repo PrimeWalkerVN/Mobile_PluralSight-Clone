@@ -1,5 +1,6 @@
 import { Button, Input, Layout, Modal, Text } from '@ui-kitten/components';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { AirbnbRating } from 'react-native-ratings';
@@ -13,15 +14,20 @@ const Review = (props) => {
   const { course, isEnroll } = props;
 
   const snContext = useContext(SnackBarContext);
-  const [ratings, setRatings] = useState(course.ratings);
+  const [ratings, setRatings] = useState(null);
   const context = useContext(UserContext);
-  const inputRef = useRef('');
-
+  const { t } = useTranslation();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [contentValue, setContentValue] = useState();
   const [formalityPoint, setFormalityPoint] = useState(5);
   const [contentPoint, setContentPoint] = useState(5);
   const [presentationPoint, setPresentationPoint] = useState(5);
 
-  const [modalVisible, setModalVisible] = useState(false);
+  useEffect(() => {
+    if (course) {
+      setRatings(course.ratings);
+    }
+  }, [course]);
 
   const toggleModal = () => {
     if (isEnroll) setModalVisible(!modalVisible);
@@ -42,9 +48,8 @@ const Review = (props) => {
   };
 
   const sendReview = async () => {
-    snContext.loading.set(true);
-    const contentValue = inputRef.current;
     if (contentValue === '') return;
+    snContext.loading.set(true);
     const params = { courseId: course.id, formalityPoint, contentPoint, presentationPoint, content: contentValue };
     try {
       const res = await coursesApi.ratingCourse(params);
@@ -69,7 +74,7 @@ const Review = (props) => {
   };
   return (
     <Layout style={styles.container} level="2">
-      {course && (
+      {course && ratings && (
         <View>
           <Rating
             ratings={ratings}
@@ -79,8 +84,9 @@ const Review = (props) => {
             contentPoint={course.contentPoint}
             presentationPoint={course.presentationPoint}
           />
+
           <Button onPress={toggleModal} style={styles.buttonReview}>
-            Send Review
+            {t('sendReview')}
           </Button>
           <RatingList list={ratings.ratingList.reverse()} />
         </View>
@@ -92,8 +98,8 @@ const Review = (props) => {
               <Text category="label">Formality Point:</Text>
               <AirbnbRating
                 count={5}
-                reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
-                defaultRating={formalityPoint}
+                reviews={['Terrible', 'Bad', 'Med', 'Good', 'Very Good']}
+                defaultRating={5}
                 onFinishRating={(value) => finishFormality(value)}
                 reviewSize={14}
                 size={20}
@@ -103,8 +109,8 @@ const Review = (props) => {
               <Text category="label">Content Point:</Text>
               <AirbnbRating
                 count={5}
-                reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
-                defaultRating={contentPoint}
+                reviews={['Terrible', 'Bad', 'Med', 'Good', 'Very Good']}
+                defaultRating={5}
                 onFinishRating={(value) => finishContent(value)}
                 reviewSize={14}
                 size={20}
@@ -114,8 +120,8 @@ const Review = (props) => {
               <Text category="label">Presentation Point:</Text>
               <AirbnbRating
                 count={5}
-                reviews={['Terrible', 'Bad', 'Meh', 'Good', 'Very Good']}
-                defaultRating={presentationPoint}
+                defaultRating={5}
+                reviews={['Terrible', 'Bad', 'Med', 'Good', 'Very Good']}
                 onFinishRating={(value) => finishPresen(value)}
                 reviewSize={14}
                 size={20}
@@ -123,9 +129,8 @@ const Review = (props) => {
             </View>
 
             <Input
-              ref={inputRef}
               onChangeText={(value) => {
-                inputRef.current = value;
+                setContentValue(value);
               }}
               clearButtonMode="always"
               size="large"

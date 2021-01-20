@@ -1,6 +1,7 @@
 import { Divider, Layout } from '@ui-kitten/components';
 import React, { useContext, useEffect, useState } from 'react';
 import { SectionList, StyleSheet, View } from 'react-native';
+import lessonApi from '../../../api/lessonApi';
 import { SnackBarContext } from '../../../context/SnackBarContext';
 import ContentHeader from './ContentHeader';
 import ContentItem from './ContentItem';
@@ -28,6 +29,7 @@ const Contents = (props) => {
     if (isEnroll) {
       setLessonActive(item);
       uriVideoHandler(item.videoUrl);
+      lessonApi.updateCurrentTime({ lessonId: item.id, currentTime: 0 });
     } else {
       snContext.snackbar.set(true);
       snContext.snackbar.setData(`you have not taken this course!`);

@@ -1,6 +1,7 @@
 import { Text } from '@ui-kitten/components';
 import moment from 'moment';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import formats from '../../constants/formats';
 import Stars from '../Common/Stars';
@@ -8,6 +9,7 @@ import TagAvatarButton from '../Common/TagAvatarButton';
 
 const CoursesInfoRow = (props) => {
   const { item, clickHandlerAuthor } = props;
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
@@ -37,11 +39,11 @@ const CoursesInfoRow = (props) => {
             </Text>
           ) : (
             <Text status="success" category="h6">
-              Free
+              {t('free')}
             </Text>
           )}
           <Text category="s1" numberOfLines={1}>
-            {item.soldNumber} Members
+            {item.soldNumber} {t('members')}
           </Text>
         </View>
       </View>

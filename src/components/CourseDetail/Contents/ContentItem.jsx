@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 });
 const themedStyles = StyleService.create({
   active: {
-    backgroundColor: 'color-basic-700',
+    backgroundColor: 'color-basic-600',
   },
 });
 export default ContentItem;

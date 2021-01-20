@@ -2,9 +2,10 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { Layout, Tab, TabBar, Text } from '@ui-kitten/components';
 import { Video } from 'expo-av';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { Alert, LogBox, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, LogBox, ScrollView, Share, StyleSheet, View } from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import * as Progress from 'react-native-progress';
+import { useTranslation } from 'react-i18next';
 import coursesApi from '../../api/coursesApi';
 import instructorsApi from '../../api/instructorsApi';
 import lessonApi from '../../api/lessonApi';
@@ -25,6 +26,7 @@ const CourseDetail = (props) => {
   const { navigation } = props;
   const { course } = props.route.params;
   const playerRef = useRef();
+  const { t } = useTranslation();
 
   const snContext = useContext(SnackBarContext);
   const [courseDetail, setCourseDetail] = useState(null);
@@ -70,9 +72,9 @@ const CourseDetail = (props) => {
         navigation.navigate(state.routeNames[index]);
       }}
     >
-      <Tab title="CONTENTS" />
-      <Tab title="REVIEW" />
-      <Tab title="TRANSCRIPT" />
+      <Tab title={t('contentTab')} />
+      <Tab title={t('reviewTab')} />
+      <Tab title={t('transcriptTab')} />
     </TabBar>
   );
 
@@ -189,6 +191,26 @@ const CourseDetail = (props) => {
     };
   }, [isEnroll]);
 
+  const shareHandler = async () => {
+    try {
+      const result = await Share.share({
+        message: `http://dev.letstudy.org/course-detail/${course.id}`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      snContext.snackbar.set(true);
+      snContext.snackbar.setData(`${error.message}`);
+    }
+  };
+
   return (
     <Layout level="2" style={styles.layout}>
       {typeVideo === 1 ? (
@@ -205,28 +227,30 @@ const CourseDetail = (props) => {
             </Text>
             <CoursesInfoRow item={course} navigation={navigation} clickHandlerAuthor={clickHandlerAuthor} />
             <View style={styles.progressArea}>
-              <Text category="s1">Completed:</Text>
+              <Text category="s1">{t('completed')}:</Text>
               <Progress.Bar progress={progress / 100} width={200} color="green" />
             </View>
 
             <View style={styles.buttonsGroup}>
               <ButtonTitleIcon
                 onPress={wishListHandler}
-                title="Wishlist"
+                title={t('wishList')}
                 status={isLike && 'danger'}
                 nameIcon={isLike ? 'heart' : 'heart-outline'}
               />
               <ButtonTitleIcon
                 onPress={enrollHandler}
-                title="Enroll"
+                title={t('enroll')}
                 status={isEnroll && 'success'}
                 nameIcon={isEnroll ? 'book-open' : 'book-open-outline'}
               />
-              <ButtonTitleIcon title="Share" nameIcon="share-outline" />
+              <ButtonTitleIcon title={t('share')} nameIcon="share-outline" onPress={shareHandler} />
             </View>
             <ContentDropdown height={50}>
               <Text>{course.description}</Text>
-              <Text category="s1">Learn What:</Text>
+              <Text style={{ marginVertical: 5 }} category="s1">
+                Learn What:
+              </Text>
               {course.learnWhat &&
                 course.learnWhat.map((item, index) => (
                   <Text category="p2" key={index}>
@@ -243,35 +267,37 @@ const CourseDetail = (props) => {
                 })
               }
               appearance="outline"
-              status="control"
+              status="basic"
               nameIcon="pantone-outline"
             >
-              View related courses
+              {t('viewRelate')}
             </ButtonLeftIcon>
             <ButtonLeftIcon
               onPress={() => clickHandlerAuthor(course)}
               appearance="outline"
-              status="control"
+              status="basic"
               nameIcon="checkmark-circle-outline"
             >
-              View related courses by '{course['instructor.user.name']}''
+              {t('viewRelateBy')} '{course['instructor.user.name']}''
             </ButtonLeftIcon>
           </View>
         </View>
         <View style={{ flex: 1 }}>
-          {courseDetail && detailWithLesson && (
+          {courseDetail && (
             <TabNavigation.Navigator tabBar={(props) => <TopTabBar {...props} />} initialRouteName="Contents">
               <TabNavigation.Screen
                 name="Contents"
-                children={() => (
-                  <Contents
-                    lessonActive={lessonActive}
-                    setLessonActive={setLessonActive}
-                    course={detailWithLesson}
-                    isEnroll={isEnroll}
-                    uriVideoHandler={uriVideoHandler}
-                  />
-                )}
+                children={() =>
+                  detailWithLesson && (
+                    <Contents
+                      lessonActive={lessonActive}
+                      setLessonActive={setLessonActive}
+                      course={detailWithLesson}
+                      isEnroll={isEnroll}
+                      uriVideoHandler={uriVideoHandler}
+                    />
+                  )
+                }
               />
               <TabNavigation.Screen
                 name="Review"

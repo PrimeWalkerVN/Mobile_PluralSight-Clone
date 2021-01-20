@@ -2,6 +2,7 @@ import { Layout, Text } from '@ui-kitten/components';
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import Stars from '../Common/Stars';
 import formats from '../../constants/formats';
 
@@ -9,6 +10,7 @@ const formatString = formats.dateTime;
 const CoursesInfo = (props) => {
   const { item } = props;
   const { width } = Dimensions.get('window');
+  const { t } = useTranslation();
   return (
     <Layout style={[styles.infoArea, { width: width / 2 }]}>
       <Text numberOfLines={1} category="label">
@@ -16,7 +18,8 @@ const CoursesInfo = (props) => {
       </Text>
       <Text category="c1">{item['instructor.user.name']}</Text>
       <Text category="c1" numberOfLines={1}>
-        {item.videoNumber} - {moment(item.updatedAt).format(formatString)} - {item.totalHours.toFixed(2)} h
+        {item && item.videoNumber} - {item && moment(item.updatedAt).format(formatString)} -
+        {item.totalHours && item.totalHours.toFixed(2)} h
       </Text>
       <Stars
         value={Number.parseInt((item.formalityPoint + item.contentPoint + item.presentationPoint) / 3)}
@@ -33,11 +36,11 @@ const CoursesInfo = (props) => {
           </Text>
         ) : (
           <Text status="success" category="s1">
-            Free
+            {t('free')}
           </Text>
         )}
         <Text category="c1" numberOfLines={1}>
-          {item.soldNumber} Members
+          {item.soldNumber} {t('members')}
         </Text>
       </View>
     </Layout>

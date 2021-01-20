@@ -11,7 +11,7 @@ const NoTitleTopBar = (props) => {
       canGoBack ? (
         <Button
           appearance="ghost"
-          status="control"
+          status="basic"
           onPress={() => navigation.goBack()}
           accessoryLeft={(props) => <Icon {...props} name="arrow-ios-back-outline" />}
         />
