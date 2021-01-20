@@ -1,14 +1,17 @@
 import { Text } from '@ui-kitten/components';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../constants/colors';
 
 const TagButton = (props) => {
-  const { title } = props;
+  const { title, onPress } = props;
   return (
-    <View style={styles.container}>
-      <Text>{title}</Text>
-    </View>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <Text>{title}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({

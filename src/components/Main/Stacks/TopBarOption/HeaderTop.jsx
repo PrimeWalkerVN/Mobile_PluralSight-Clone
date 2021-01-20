@@ -1,12 +1,15 @@
 import { Avatar, Icon, Layout, MenuItem, OverflowMenu, Text } from '@ui-kitten/components';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import navNames from '../../../constants/navNames';
+import navNames from '../../../../constants/navNames';
+import { UserContext } from '../../../../context/UserContext';
 
 const HeaderTop = (props) => {
   const { navigation, route } = props;
   const [menuVisible, setMenuVisible] = useState(false);
+  const context = useContext(UserContext);
+  const user = context.user.get;
   const renderMenuAction = () => (
     <TouchableWithoutFeedback onPress={toggleMenu}>
       <Icon style={styles.icon} fill="#8F9BB3" name="more-vertical" />
@@ -17,7 +20,7 @@ const HeaderTop = (props) => {
   };
   return {
     title: <Text category="h5">{route.name}</Text>,
-    headerBackground: () => <Layout style={{ flex: 1 }} />,
+    headerBackground: () => <Layout level="2" style={{ flex: 1 }} />,
     headerRight: () => (
       <View style={styles.container}>
         <TouchableOpacity
@@ -25,7 +28,7 @@ const HeaderTop = (props) => {
             navigation.navigate(navNames.profile);
           }}
         >
-          <Avatar style={styles.avatar} source={require('../../../../assets/avatar.jpeg')} />
+          {user !== null && <Avatar style={styles.avatar} source={{ uri: user.avatar }} />}
         </TouchableOpacity>
         <OverflowMenu anchor={renderMenuAction} visible={menuVisible} onBackdropPress={toggleMenu}>
           <MenuItem

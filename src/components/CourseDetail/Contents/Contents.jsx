@@ -1,110 +1,51 @@
 import { Divider, Layout } from '@ui-kitten/components';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { SectionList, StyleSheet, View } from 'react-native';
+import { SnackBarContext } from '../../../context/SnackBarContext';
 import ContentHeader from './ContentHeader';
 import ContentItem from './ContentItem';
 
-const Contents = () => {
-  const data = [
-    {
-      id: 1,
-      title: {
-        title: 'Course Overview',
-        duration: '30:00',
-      },
-      data: [
-        {
-          id: 1,
-          title: 'Introduction',
-          duration: '15:00',
-        },
-        {
-          id: 2,
-          title: 'Introduction',
-          duration: '15:00',
-        },
-        {
-          id: 3,
-          title: 'Introduction',
-          duration: '15:00',
-        },
-        {
-          id: 4,
-          title: 'Introduction',
-          duration: '15:00',
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: {
-        title: 'Course Overview',
-        duration: '30:00',
-      },
-      data: [
-        {
-          id: 1,
-          title: 'Introduction',
-          duration: '15:00',
-        },
-        {
-          id: 2,
-          title: 'Introduction',
-          duration: '15:00',
-        },
-        {
-          id: 3,
-          title: 'Introduction',
-          duration: '15:00',
-        },
-        {
-          id: 4,
-          title: 'Introduction',
-          duration: '15:00',
-        },
-      ],
-    },
-    {
-      id: 3,
-      title: {
-        title: 'Course Overview',
-        duration: '30:00',
-      },
-      data: [
-        {
-          id: 1,
-          title: 'Introduction',
-          duration: '15:00',
-        },
-        {
-          id: 2,
-          title: 'Introduction',
-          duration: '15:00',
-        },
-        {
-          id: 3,
-          title: 'Introduction',
-          duration: '15:00',
-        },
-        {
-          id: 4,
-          title: 'Introduction',
-          duration: '15:00',
-        },
-      ],
-    },
-  ];
+const Contents = (props) => {
+  const { course, isEnroll, uriVideoHandler, lessonActive, setLessonActive } = props;
+  const { section } = course;
+  const [data, setData] = useState([]);
+  const snContext = useContext(SnackBarContext);
+
+  useEffect(() => {
+    const newData = section.map((item) => {
+      return {
+        id: item.id,
+        order: item.numberOrder,
+        title: item.name,
+        sumHours: item.sumHours,
+        data: item.lesson,
+      };
+    });
+    setData(newData);
+  }, [section]);
+
+  const onClickHandler = (item) => {
+    if (isEnroll) {
+      setLessonActive(item);
+      uriVideoHandler(item.videoUrl);
+    } else {
+      snContext.snackbar.set(true);
+      snContext.snackbar.setData(`you have not taken this course!`);
+    }
+  };
   return (
-    <Layout>
+    <Layout style={{ flex: 1 }} level="2">
       <View style={styles.container}>
         <SectionList
           sections={data}
           keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => <ContentItem item={item} />}
-          renderSectionHeader={({ section: { title, id } }) => (
+          renderItem={({ item }) => (
+            <ContentItem lessonActive={lessonActive} item={item} onClickHandler={onClickHandler} />
+          )}
+          renderSectionHeader={({ section }) => (
             <View>
               <Divider />
-              <ContentHeader title={title} order={id} />
+              <ContentHeader title={section.title} sumHours={section.sumHours} order={section.order} />
             </View>
           )}
           nestedScrollEnabled={false}

@@ -1,11 +1,11 @@
-import { Layout, Text } from '@ui-kitten/components';
-import React from 'react';
+import { Button, Layout, Text } from '@ui-kitten/components';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import FlatListCourse from '../../Courses/FlatListCourse';
 
 export default function Download(props) {
   const { navigation } = props;
-  const courses = [
+  const [courses, setCourses] = useState([
     {
       id: 1,
       title: 'Android',
@@ -16,18 +16,18 @@ export default function Download(props) {
     },
     {
       id: 2,
-      title: 'Android',
-      author: 'Chi Thanh',
+      title: 'Angular',
+      author: 'PrimeWalker',
       level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
+      released: 'March 6, 2020',
+      duration: '4 h',
     },
     {
       id: 3,
-      title: 'Android',
+      title: 'React',
       author: 'Chi Thanh',
       level: 'Advance',
-      released: 'May 6, 2020',
+      released: 'May 10, 2020',
       duration: '3 h',
     },
     {
@@ -46,14 +46,58 @@ export default function Download(props) {
       released: 'May 6, 2020',
       duration: '3 h',
     },
-  ];
+    {
+      id: 6,
+      title: 'Android',
+      author: 'Chi Thanh',
+      level: 'Advance',
+      released: 'May 6, 2020',
+      duration: '3 h',
+    },
+    {
+      id: 7,
+      title: 'Android',
+      author: 'Chi Thanh',
+      level: 'Advance',
+      released: 'May 6, 2020',
+      duration: '3 h',
+    },
+    {
+      id: 8,
+      title: 'Android',
+      author: 'Chi Thanh',
+      level: 'Advance',
+      released: 'May 6, 2020',
+      duration: '3 h',
+    },
+    {
+      id: 9,
+      title: 'Android',
+      author: 'Chi Thanh',
+      level: 'Advance',
+      released: 'May 6, 2020',
+      duration: '3 h',
+    },
+    {
+      id: 10,
+      title: 'Android',
+      author: 'Chi Thanh',
+      level: 'Advance',
+      released: 'May 6, 2020',
+      duration: '3 h',
+    },
+  ]);
+
+  const removeAllHandler = () => {
+    setCourses([]);
+  };
   return (
-    <Layout style={styles.container}>
+    <Layout level="2" style={styles.container}>
       <View style={styles.header}>
         <Text category="h6">1 courses (72MB)</Text>
-        <Text category="h6" status="info">
+        <Button onPress={removeAllHandler} appearance="ghost" size="large">
           REMOVE ALL
-        </Text>
+        </Button>
       </View>
       <FlatListCourse items={courses} navigation={navigation} />
     </Layout>

@@ -1,54 +1,24 @@
 import { Text } from '@ui-kitten/components';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import navNames from '../../../../constants/navNames';
 import AvatarLarge from '../../../Common/AvatarLarge';
 
-const TopAuthors = () => {
-  const authors = [
-    {
-      id: 1,
-      name: 'Avatar',
-      avatar: '',
-    },
-    {
-      id: 2,
-      name: 'Naruto',
-      avatar: '',
-    },
-    {
-      id: 3,
-      name: 'Thanh',
-      avatar: '',
-    },
-    {
-      id: 4,
-      name: 'Sasuke',
-      avatar: '',
-    },
-    {
-      id: 5,
-      name: 'Avatar',
-      avatar: '',
-    },
-    {
-      id: 6,
-      name: 'Avatar',
-      avatar: '',
-    },
-    {
-      id: 7,
-      name: 'Avatar',
-      avatar: '',
-    },
-  ];
-
-  const renderItem = (items) => items.map((item) => <AvatarLarge key={item.id} name={item.name} />);
+const TopAuthors = (props) => {
+  const { navigation, data } = props;
+  const renderItem = (items) =>
+    items.map((item) => (
+      <TouchableOpacity key={item.id} onPress={() => navigation.navigate(navNames.author, { author: item })}>
+        <AvatarLarge name={item['user.name']} image={item['user.avatar']} />
+      </TouchableOpacity>
+    ));
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text category="h6">Top Authors</Text>
       </View>
-      <ScrollView horizontal>{renderItem(authors)}</ScrollView>
+      <ScrollView horizontal>{renderItem(data)}</ScrollView>
     </View>
   );
 };

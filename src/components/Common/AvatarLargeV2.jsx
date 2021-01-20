@@ -1,30 +1,29 @@
-import { Text } from '@ui-kitten/components';
+import { Avatar, Text } from '@ui-kitten/components';
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 const AvatarLargeV2 = (props) => {
-  const { name } = props;
+  const { name, image } = props;
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require('../../../assets/avatar.jpeg')} />
-      <Text category="h6">{name}</Text>
+      <Avatar size="giant" style={styles.image} source={{ uri: image }} />
+      <Text category="h6" numberOfLines={2}>
+        {name}
+      </Text>
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
     height: 100,
-    width: 180,
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   image: {
-    width: 80,
-    height: 80,
-    borderRadius: 500,
-    resizeMode: 'contain',
+    marginHorizontal: 10,
   },
 });
 

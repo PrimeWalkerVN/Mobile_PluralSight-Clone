@@ -1,6 +1,6 @@
-import { Icon, MenuItem, OverflowMenu, StyleService, useStyleSheet } from '@ui-kitten/components';
+import { Icon, Layout, MenuItem, OverflowMenu, StyleService, useStyleSheet } from '@ui-kitten/components';
 import React, { useState } from 'react';
-import { Image, TouchableWithoutFeedback, View } from 'react-native';
+import { Image, TouchableWithoutFeedback } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import navNames from '../../constants/navNames';
 import CoursesInfo from './CoursesInfo';
@@ -19,16 +19,16 @@ const CourseItem = (props) => {
     setMenuVisible(!menuVisible);
   };
   return (
-    <TouchableOpacity onPress={() => navigation.navigate(navNames.courseDetail, { course: item })}>
-      <View style={styles.container} key={item.id}>
-        <Image source={require('../../../assets/courses/angular.jpg')} style={styles.image} />
+    <Layout style={styles.container} key={item.id}>
+      <TouchableOpacity style={styles.row} onPress={() => navigation.navigate(navNames.courseDetail, { course: item })}>
+        <Image source={{ uri: item.imageUrl }} style={styles.image} />
         <CoursesInfo item={item} />
-        <OverflowMenu anchor={renderMenuAction} visible={menuVisible} onBackdropPress={toggleMenu}>
-          <MenuItem title="About" />
-          <MenuItem title="About" />
-        </OverflowMenu>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      <OverflowMenu anchor={renderMenuAction} visible={menuVisible} onBackdropPress={toggleMenu}>
+        <MenuItem title="About" />
+        <MenuItem title="About" />
+      </OverflowMenu>
+    </Layout>
   );
 };
 
@@ -37,13 +37,17 @@ const themedStyles = StyleService.create({
     flex: 1,
     marginHorizontal: 10,
     marginVertical: 5,
-    height: 100,
     alignItems: 'center',
     paddingHorizontal: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderRadius: 10,
-    backgroundColor: 'color-basic-700',
+  },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   image: {
     width: 100,

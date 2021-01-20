@@ -9,11 +9,17 @@
     "react/no-array-index-key": "off",
     "no-plusplus": "off",
     "no-shadow": "off",
+    "no-const-assign": "off",
     "global-require": "off",
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
     "no-use-before-define": "off",
     "react/style-prop-object": "off",
+    "react/no-unescaped-entities": "off",
+    "import/no-dynamic-require": "off",
+    "radix": "off",
+    "react/no-children-prop": "off",
+    "import/no-named-as-default": "off",
     "react/jsx-filename-extension": [
       1,
       {

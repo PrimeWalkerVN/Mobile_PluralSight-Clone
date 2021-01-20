@@ -2,10 +2,10 @@ import React from 'react';
 import { ImageBackground, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 const ImageButton = (props) => {
-  const { title } = props;
+  const { title, onPressHandler, image } = props;
   return (
-    <ImageBackground style={styles.button} source={require('../../../assets/imageButtons/imageDark.jpg')}>
-      <TouchableOpacity style={styles.touch}>
+    <ImageBackground style={styles.button} source={image}>
+      <TouchableOpacity style={styles.touch} onPress={onPressHandler}>
         <Text style={styles.text}>{title}</Text>
       </TouchableOpacity>
     </ImageBackground>

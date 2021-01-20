@@ -1,13 +1,13 @@
 import { Button, Icon, Input, Layout, Text } from '@ui-kitten/components';
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
-export default function VerifyPassword() {
+export default function VerifyPassword(props) {
   const [value, setValue] = useState({ token: '', password: '' });
   const size = 'large';
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
-
+  const { navigation } = props;
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
   };
@@ -48,8 +48,10 @@ export default function VerifyPassword() {
         onChangeText={(nextValue) => setValue(nextValue)}
       />
 
-      <Button style={styles.loginButton}>Change password</Button>
-      <Button appearance="outline" style={styles.loginButton}>
+      <Button style={styles.loginButton} onPress={() => navigation.popToTop()}>
+        Change password
+      </Button>
+      <Button appearance="outline" style={styles.loginButton} onPress={() => navigation.goBack()}>
         CANCEL
       </Button>
     </Layout>

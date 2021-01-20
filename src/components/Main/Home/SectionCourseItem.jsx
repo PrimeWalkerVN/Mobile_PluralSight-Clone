@@ -1,20 +1,22 @@
 /* eslint-disable global-require */
-import { StyleService, useStyleSheet } from '@ui-kitten/components';
+import { Layout, StyleService, useStyleSheet } from '@ui-kitten/components';
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Dimensions, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import CoursesInfo from '../../Courses/CoursesInfo';
 import navNames from '../../../constants/navNames';
+import CoursesInfo from '../../Courses/CoursesInfo';
 
 const SectionCourseItem = (props) => {
   const styles = useStyleSheet(themedStyles);
   const { item, navigation } = props;
+  const { width } = Dimensions.get('window');
+
   return (
     <TouchableOpacity onPress={() => navigation.navigate(navNames.courseDetail, { course: item })}>
-      <View style={styles.container} key={item.id}>
-        <Image source={require('../../../../assets/courses/angular.jpg')} style={styles.image} />
+      <Layout style={[styles.container, { width: width / 2 - 10 }]} key={item.id}>
+        <Image source={{ uri: item.imageUrl }} style={[styles.image, { width: width / 2 - 10 }]} />
         <CoursesInfo item={item} />
-      </View>
+      </Layout>
     </TouchableOpacity>
   );
 };
@@ -23,14 +25,13 @@ const themedStyles = StyleService.create({
   container: {
     flex: 1,
     margin: 5,
-    width: 200,
-    height: 200,
+    height: 220,
     overflow: 'hidden',
     borderRadius: 10,
-    backgroundColor: 'color-basic-700',
+    borderColor: 'gray',
+    borderWidth: 0.1,
   },
   image: {
-    width: 200,
     height: 100,
     resizeMode: 'cover',
   },

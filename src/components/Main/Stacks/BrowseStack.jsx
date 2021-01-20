@@ -3,15 +3,21 @@ import React from 'react';
 import navNames from '../../../constants/navNames';
 import Profile from '../../AccountManagement/Profile';
 import Setting from '../../AccountManagement/Setting';
+import Author from '../../Authors/Author';
 import CourseDetail from '../../CourseDetail/CourseDetail';
+import PathDetail from '../../PathDetail/PathDetail';
 import Browse from '../Browse/Browse';
-import HeaderTop from './HeaderTop';
-import HeaderTopTab from './HeaderTopTab';
+import BrowseDetail from '../Browse/BrowseDetail/BrowseDetail';
+import HeaderTop from './TopBarOption/HeaderTop';
+import HeaderTopTab from './TopBarOption/HeaderTopTab';
+import HeaderTransparent from './TopBarOption/HeaderTransparent';
 // Browse screen
 const BrowseScreen = {
   [navNames.courseDetail]: CourseDetail,
   [navNames.profile]: Profile,
   [navNames.setting]: Setting,
+  [navNames.author]: Author,
+  [navNames.pathDetail]: PathDetail,
 };
 const Stack = createStackNavigator();
 const BrowseStack = () => (
@@ -22,6 +28,7 @@ const BrowseStack = () => (
       <Stack.Screen key={name} name={name} component={component} options={HeaderTopTab} />
     ))}
     <Stack.Screen name={navNames.browse} component={Browse} options={HeaderTop} />
+    <Stack.Screen name={navNames.browseDetail} component={BrowseDetail} options={HeaderTransparent} />
   </Stack.Navigator>
 );
 export default BrowseStack;

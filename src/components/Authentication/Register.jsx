@@ -1,13 +1,23 @@
 import { Button, Icon, Input, Layout, Text } from '@ui-kitten/components';
-import React, { useState } from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import usersApi from '../../api/usersApi';
+import navNames from '../../constants/navNames';
+import { SnackBarContext } from '../../context/SnackBarContext';
 
 const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
-export default function Register() {
-  const [value, setValue] = useState({ username: '', password: '' });
-  const [secureTextEntry, setSecureTextEntry] = React.useState(true);
+export default function Register(props) {
+  const [value, setValue] = useState({ username: '', password: '', email: '', phone: '' });
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [pswErr, setPswErr] = useState('');
+  const { navigation } = props;
+  const [confirmPsw, setConfirmPsw] = useState('');
+
   const size = 'large';
+  const snContext = useContext(SnackBarContext);
+  const setLoading = (data) => snContext.loading.set(data);
 
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
@@ -18,54 +28,93 @@ export default function Register() {
       <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
     </TouchableWithoutFeedback>
   );
-  return (
-    <Layout style={styles.container}>
-      <Text status="info" category="h1" style={styles.header}>
-        REGISTER
-      </Text>
-      <Input
-        placeholder=""
-        value={value.username}
-        style={styles.input}
-        onChangeText={(nextValue) => setValue(nextValue)}
-        label="User name"
-        size={size}
-      />
-      <Input
-        placeholder=""
-        style={styles.input}
-        value={value.username}
-        onChangeText={(nextValue) => setValue(nextValue)}
-        label="Email"
-        size={size}
-      />
-      <Input
-        style={styles.input}
-        value={value.password}
-        label="Password"
-        placeholder=""
-        caption="Should contain at least 8 symbols"
-        accessoryRight={renderIcon}
-        captionIcon={AlertIcon}
-        size={size}
-        secureTextEntry={secureTextEntry}
-        onChangeText={(nextValue) => setValue(nextValue)}
-      />
-      <Input
-        style={styles.input}
-        value={value.password}
-        label="Confirm Password"
-        placeholder=""
-        accessoryRight={renderIcon}
-        size={size}
-        secureTextEntry={secureTextEntry}
-        onChangeText={(nextValue) => setValue(nextValue)}
-      />
-      <Button style={styles.loginButton}>SIGN UP</Button>
+  useEffect(() => {
+    if (value.password.length < 6 && value.password !== '') setPswErr('Should contain at least 6 symbols');
+    else if (confirmPsw !== value.password) setPswErr('Confirm password was not match!');
+    else setPswErr('');
+  }, [confirmPsw, value]);
 
-      <Text status="info" style={styles.link}>
-        HAVE ACCOUNT? LOGIN
-      </Text>
+  const signUpHandler = async () => {
+    // navigation.goBack();
+    if (value.username === '' || value.email === '') return;
+    if (pswErr !== '') return;
+    setLoading(true);
+    try {
+      await usersApi.register({
+        username: value.username.toLowerCase(),
+        email: value.email.toLowerCase(),
+        password: value.password,
+        phone: value.phone,
+      });
+      navigation.navigate(navNames.activeEmail, { email: value.email });
+    } catch (err) {
+      snContext.snackbar.set(true);
+      snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
+    }
+    setLoading(false);
+  };
+  return (
+    <Layout level="2">
+      <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled showsVerticalScrollIndicator={false}>
+        <Layout style={styles.container} level="2">
+          <Text status="info" category="h1" style={styles.header}>
+            REGISTER
+          </Text>
+          <Input
+            placeholder=""
+            style={styles.input}
+            onChangeText={(nextValue) => setValue({ ...value, username: nextValue })}
+            label="Username"
+            autoCapitalize="none"
+            size={size}
+          />
+          <Input
+            placeholder=""
+            style={styles.input}
+            onChangeText={(nextValue) => setValue({ ...value, email: nextValue })}
+            label="Email"
+            autoCapitalize="none"
+            size={size}
+          />
+          <Input
+            placeholder=""
+            style={styles.input}
+            onChangeText={(nextValue) => setValue({ ...value, phone: nextValue })}
+            label="Phone"
+            size={size}
+          />
+          <Input
+            label="Password"
+            placeholder=""
+            key="psw"
+            style={styles.input}
+            selectTextOnFocus
+            caption={pswErr.length > 0 ? pswErr : 'Should contain at least 6 symbols'}
+            accessoryRight={renderIcon}
+            captionIcon={AlertIcon}
+            status={pswErr.length > 0 ? 'danger' : 'primary'}
+            size={size}
+            onChangeText={(nextValue) => setValue({ ...value, password: nextValue })}
+          />
+          <Input
+            style={styles.input}
+            label="Confirm Password"
+            placeholder=""
+            accessoryRight={renderIcon}
+            size={size}
+            onChangeText={(nextValue) => setConfirmPsw(nextValue)}
+          />
+          <Button onPress={signUpHandler} style={styles.loginButton}>
+            SIGN UP
+          </Button>
+
+          <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+            <Text status="info" style={styles.link}>
+              HAVE ACCOUNT? LOGIN
+            </Text>
+          </TouchableWithoutFeedback>
+        </Layout>
+      </KeyboardAwareScrollView>
     </Layout>
   );
 }
@@ -78,7 +127,7 @@ const styles = StyleSheet.create({
   },
   header: {
     textAlign: 'center',
-    marginBottom: 40,
+    marginBottom: 30,
   },
   loginButton: {
     marginTop: 20,
@@ -90,5 +139,9 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: 10,
+  },
+  snackbar: {
+    flex: 1,
+    justifyContent: 'space-between',
   },
 });

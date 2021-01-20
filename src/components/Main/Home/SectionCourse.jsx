@@ -1,47 +1,22 @@
 import { Text } from '@ui-kitten/components';
 import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import navNames from '../../../constants/navNames';
 import SectionCourseItem from './SectionCourseItem';
 
 const SectionCourse = (props) => {
-  const { title, navigation } = props;
-  const courses = [
-    {
-      id: 1,
-      title: 'Angular',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 2,
-      title: 'React native',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 3,
-      title: 'Android',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-  ];
+  const { title, navigation, data } = props;
   const renderListItems = (items) =>
     items.map((item) => <SectionCourseItem navigation={navigation} key={item.id} item={item} />);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>{title}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate(navNames.seeAll, { title, courses: data })}>
           <Text>See all {`>`}</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal>{renderListItems(courses)}</ScrollView>
+      <ScrollView horizontal>{data && renderListItems(data.slice(0, 5))}</ScrollView>
       <View />
     </View>
   );

@@ -3,13 +3,19 @@ import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 
 const ButtonTitleIcon = (props) => {
-  const { title, nameIcon } = props;
+  const { title, nameIcon, onPress, status } = props;
   const renderIcon = (props) => <Icon {...props} name={nameIcon} />;
 
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.containerButton}>
-        <Button style={styles.button} appearance="outline" status="control" accessoryLeft={renderIcon} />
+        <Button
+          style={styles.button}
+          onPress={onPress}
+          appearance="outline"
+          status={status || 'control'}
+          accessoryLeft={renderIcon}
+        />
       </TouchableOpacity>
       <Text style={styles.text}>{title}</Text>
     </View>

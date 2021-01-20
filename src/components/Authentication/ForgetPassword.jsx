@@ -1,33 +1,67 @@
 import { Button, Input, Layout, Text } from '@ui-kitten/components';
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import usersApi from '../../api/usersApi';
+import { SnackBarContext } from '../../context/SnackBarContext';
 
-export default function ForgetPassword() {
-  const [value, setValue] = useState({ username: '', password: '' });
-
+export default function ForgetPassword(props) {
+  const [value, setValue] = useState('');
+  const { navigation } = props;
+  const [success, setSuccess] = useState('');
   const size = 'large';
 
-  return (
-    <Layout style={styles.container}>
-      <Text status="info" category="h4" style={styles.header}>
-        FORGOT PASSWORD
-      </Text>
-      <Text status="basic" category="h6" style={styles.header}>
-        Enter your email address and we will send you a link to reset your password
-      </Text>
-      <Input
-        placeholder=""
-        style={styles.input}
-        value={value.username}
-        onChangeText={(nextValue) => setValue(nextValue)}
-        label="Email"
-        size={size}
-      />
+  const snContext = useContext(SnackBarContext);
+  const setLoading = (data) => snContext.loading.set(data);
+  const submitHandler = async () => {
+    if (!value) return;
+    setLoading(true);
+    try {
+      const res = await usersApi.forgotPassword({
+        email: value.toLowerCase(),
+      });
+      setSuccess(res.message);
+    } catch (err) {
+      snContext.snackbar.set(true);
+      snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
+    }
+    setLoading(false);
+  };
 
-      <Button style={styles.loginButton}>Send email</Button>
-      <Button appearance="outline" style={styles.loginButton}>
-        CANCEL
-      </Button>
+  return (
+    <Layout style={styles.container} level="2">
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled={false}
+        showsVerticalScrollIndicator={false}
+      >
+        <Text status="info" category="h4" style={styles.header}>
+          FORGOT PASSWORD
+        </Text>
+        <Text status="basic" category="h6" style={styles.header}>
+          Enter your email address and we will send you a link to reset your password
+        </Text>
+        <Input
+          placeholder=""
+          style={styles.input}
+          value={value.username}
+          onChangeText={(nextValue) => setValue(nextValue)}
+          label="Email"
+          autoCapitalize="none"
+          size={size}
+        />
+        {success !== '' && (
+          <Text category="s1" status="success" style={styles.success}>
+            {success}
+          </Text>
+        )}
+        <Button style={styles.loginButton} onPress={submitHandler}>
+          Send email
+        </Button>
+        <Button appearance="outline" style={styles.loginButton} onPress={() => navigation.goBack()}>
+          CANCEL
+        </Button>
+      </KeyboardAwareScrollView>
     </Layout>
   );
 }
@@ -35,9 +69,10 @@ export default function ForgetPassword() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 40,
     justifyContent: 'center',
+    padding: 40,
   },
+
   header: {
     textAlign: 'center',
     marginBottom: 40,
@@ -52,5 +87,12 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: 10,
+  },
+  snackbar: {
+    flex: 1,
+  },
+  success: {
+    textAlign: 'center',
+    padding: 10,
   },
 });
