@@ -16,7 +16,7 @@ const SectionCourse = (props) => {
           <Text>See all {`>`}</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal>{renderListItems(data.slice(0, 5))}</ScrollView>
+      <ScrollView horizontal>{data && renderListItems(data.slice(0, 5))}</ScrollView>
       <View />
     </View>
   );

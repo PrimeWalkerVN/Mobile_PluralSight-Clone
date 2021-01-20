@@ -1,15 +1,30 @@
 import { Text } from '@ui-kitten/components';
-import React from 'react';
+import React, { useContext } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import coursesApi from '../../../../api/coursesApi';
 import navNames from '../../../../constants/navNames';
+import { SnackBarContext } from '../../../../context/SnackBarContext';
 import PathItem from './PathItem';
 
 const SectionPaths = (props) => {
   const { navigation, data } = props;
-
+  const snContext = useContext(SnackBarContext);
+  const handleDetail = async (item) => {
+    const params = { keyword: '', opt: { category: [item.id] }, limit: 12, offset: 0 };
+    try {
+      snContext.loading.set(true);
+      const res = await coursesApi.searchCourse(params);
+      navigation.navigate(navNames.pathDetail, { cate: item, courses: res.payload.rows });
+    } catch (err) {
+      snContext.snackbar.set(true);
+      if (err.response) snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
+    } finally {
+      snContext.loading.set(false);
+    }
+  };
   const renderListItems = (items) =>
     items.map((item) => (
-      <TouchableOpacity key={item.id} onPress={() => navigation.navigate(navNames.pathDetail, { path: item })}>
+      <TouchableOpacity key={item.id} onPress={() => handleDetail(item)}>
         <PathItem item={item} />
       </TouchableOpacity>
     ));

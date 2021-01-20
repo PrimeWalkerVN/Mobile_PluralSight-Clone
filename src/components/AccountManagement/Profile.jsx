@@ -66,7 +66,7 @@ export default function Profile(props) {
     <Layout level="2" style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
-          <AvatarLargeV2 name={user.email} image={user.avatar} />
+          <AvatarLargeV2 name={user && user.email} image={user.avatar} />
         </View>
         <Button onPress={() => navigation.navigate(navNames.changePassword)} size="small" style={styles.button}>
           Change password

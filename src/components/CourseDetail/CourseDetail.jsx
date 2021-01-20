@@ -26,10 +26,12 @@ const CourseDetail = (props) => {
 
   const snContext = useContext(SnackBarContext);
   const [courseDetail, setCourseDetail] = useState(null);
+  const [detailWithLesson, setDetailWithLesson] = useState(null);
   const [uriVideo, setUriVideo] = useState();
   const [typeVideo, setTypeVideo] = useState(0);
   const [isLike, setIsLike] = useState(false);
   const [isEnroll, setIsEnroll] = useState(false);
+  const [lessonActive, setLessonActive] = useState(null);
 
   const [playing, setPlaying] = useState(false);
 
@@ -56,18 +58,20 @@ const CourseDetail = (props) => {
 
   const getData = useCallback(async () => {
     snContext.loading.set(true);
-    const resLikeStatus = await usersApi.getCourseLikeStatus({ courseId: course.id });
-    const resDetail = await coursesApi.getCourseDetail({ id: course.id, userId: course.id });
-    const resCheckout = await usersApi.checkOwnCourse({ courseId: course.id });
-    await Promise.all([resLikeStatus, resDetail, resCheckout])
+    const resLikeStatus = usersApi.getCourseLikeStatus({ courseId: course.id });
+    const resDetail = coursesApi.getCourseDetail({ id: course.id, userId: course.id });
+    const resDetailWithLesson = coursesApi.detailWithLesson({ courseId: course.id });
+    const resCheckout = usersApi.checkOwnCourse({ courseId: course.id });
+    await Promise.all([resLikeStatus, resDetail, resDetailWithLesson, resCheckout])
       .then((values) => {
         setIsLike(values[0].likeStatus);
         setCourseDetail(values[1].payload);
-        setIsEnroll(values[2].payload.isUserOwnCourse);
+        setDetailWithLesson(values[2].payload);
+        setIsEnroll(values[3].payload.isUserOwnCourse);
       })
       .catch((err) => {
         snContext.snackbar.set(true);
-        snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
+        if (err.response) snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
       });
     snContext.loading.set(false);
   });
@@ -194,12 +198,18 @@ const CourseDetail = (props) => {
           </View>
         </View>
         <View style={{ flex: 1 }}>
-          {courseDetail && (
+          {courseDetail && detailWithLesson && (
             <TabNavigation.Navigator tabBar={(props) => <TopTabBar {...props} />} initialRouteName="Contents">
               <TabNavigation.Screen
                 name="Contents"
                 children={() => (
-                  <Contents course={courseDetail} isEnroll={isEnroll} uriVideoHandler={uriVideoHandler} />
+                  <Contents
+                    lessonActive={lessonActive}
+                    setLessonActive={setLessonActive}
+                    course={detailWithLesson}
+                    isEnroll={isEnroll}
+                    uriVideoHandler={uriVideoHandler}
+                  />
                 )}
               />
               <TabNavigation.Screen

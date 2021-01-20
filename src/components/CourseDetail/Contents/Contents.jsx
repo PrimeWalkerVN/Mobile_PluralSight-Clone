@@ -6,7 +6,7 @@ import ContentHeader from './ContentHeader';
 import ContentItem from './ContentItem';
 
 const Contents = (props) => {
-  const { course, isEnroll, uriVideoHandler } = props;
+  const { course, isEnroll, uriVideoHandler, lessonActive, setLessonActive } = props;
   const { section } = course;
   const [data, setData] = useState([]);
   const snContext = useContext(SnackBarContext);
@@ -22,11 +22,12 @@ const Contents = (props) => {
       };
     });
     setData(newData);
-  }, []);
+  }, [section]);
 
-  const onClickHandler = (value) => {
+  const onClickHandler = (item) => {
     if (isEnroll) {
-      uriVideoHandler(value);
+      setLessonActive(item);
+      uriVideoHandler(item.videoUrl);
     } else {
       snContext.snackbar.set(true);
       snContext.snackbar.setData(`you have not taken this course!`);
@@ -38,7 +39,9 @@ const Contents = (props) => {
         <SectionList
           sections={data}
           keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => <ContentItem item={item} onClickHandler={onClickHandler} />}
+          renderItem={({ item }) => (
+            <ContentItem lessonActive={lessonActive} item={item} onClickHandler={onClickHandler} />
+          )}
           renderSectionHeader={({ section }) => (
             <View>
               <Divider />

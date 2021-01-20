@@ -10,7 +10,7 @@ const navNames = {
   content: 'Content',
   author: 'Author',
   seeAll: 'seeAll',
-  pathDetail: 'Path Detail',
+  pathDetail: 'Category Detail',
   login: 'Login',
   register: 'Register',
   forgetPassword: 'Forget password',

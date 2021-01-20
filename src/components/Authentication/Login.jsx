@@ -15,7 +15,7 @@ const GoogleIcon = (props) => <Icon {...props} name="google" />;
 export default function Login(props) {
   const context = useContext(UserContext);
   const [username, setUsername] = useState('primewalkervn@gmail.com');
-  const [password, setPassword] = useState('Thanh123');
+  const [password, setPassword] = useState('thanh123');
   const [usernameErr] = useState('');
   const [pswErr] = useState('');
   const [responseErr, setResponseErr] = useState('');
@@ -105,7 +105,7 @@ export default function Login(props) {
           status={pswErr.length > 0 ? 'danger' : 'primary'}
           size={size}
           secureTextEntry={secureTextEntry}
-          defaultValue="Thanh123"
+          defaultValue="thanh123"
           onChangeText={(nextValue) => setPassword(nextValue)}
         />
         {responseErr.length > 0 && (

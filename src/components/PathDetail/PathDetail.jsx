@@ -1,40 +1,14 @@
 import { Layout, Text } from '@ui-kitten/components';
+import moment from 'moment';
 import React, { useEffect } from 'react';
-import { Image, LogBox, StyleSheet, View } from 'react-native';
+import { LogBox, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import * as Progress from 'react-native-progress';
-import ContentDropdown from '../Common/ContentDropdown';
+import formats from '../../constants/formats';
 import FlatListCourse from '../Courses/FlatListCourse';
 
 const PathDetail = (props) => {
   const { navigation } = props;
-  const { path } = props.route.params;
-  const courses = [
-    {
-      id: 1,
-      title: 'Angular',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 2,
-      title: 'React native',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 3,
-      title: 'Android',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-  ];
+  const { cate, courses } = props.route.params;
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -44,35 +18,16 @@ const PathDetail = (props) => {
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.header}>
-            <Image source={require('../../../assets/courses/angular.jpg')} style={styles.image} />
-            <View style={styles.headerInfo}>
-              <Text category="h5" numberOfLines={2} ellipsizeMode="tail">
-                {path.title}
-              </Text>
-              <Text category="p2">
-                {' '}
-                {path.coursesNumber} Courses - {path.duration} hours
-              </Text>
-            </View>
-          </View>
-          <ContentDropdown height={150}>
-            <Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quas natus, officiis qui voluptatibus nostrum
-              fuga, voluptatem recusandae nihil suscipit labore magni non culpa consequuntur alias voluptates nisi,
-              iusto iure?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque quam voluptatibus deserunt,
-              impedit sit optio omnis possimus exercitationem praesentium voluptas iure modi nemo consequuntur. Ad
-              praesentium dolorem sunt iure tempore?Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
-              consequuntur voluptatum optio minus consequatur veritatis repellendus, voluptatem similique laboriosam ex
-              accusantium quaerat architecto earum rem voluptatibus vitae iure qui veniam!
+            <Text category="h5" numberOfLines={2} ellipsizeMode="tail">
+              {cate.name}
             </Text>
-          </ContentDropdown>
-
-          <View style={styles.progress}>
-            <Text category="h6">Your Progress 50%</Text>
-            <Progress.Bar style={styles.progressBar} progress={0.5} width={200} />
+            <Text category="p2">{moment(cate.updatedAt).format(formats.dateTime)}</Text>
           </View>
 
-          <Text style={styles.title}>Courses</Text>
+          <View style={styles.label}>
+            <Text style={styles.title}>Courses</Text>
+            <Text>{courses ? courses.length : 0} result</Text>
+          </View>
           <FlatListCourse items={courses} navigation={navigation} />
         </View>
       </ScrollView>
@@ -86,23 +41,14 @@ const styles = StyleSheet.create({
   },
   header: {
     display: 'flex',
-    flexDirection: 'row',
     marginVertical: 10,
-  },
-  headerInfo: {
-    paddingLeft: 20,
-  },
-  image: {
-    width: 130,
-    height: 100,
-    resizeMode: 'cover',
-  },
-  progress: {
-    flex: 1,
     alignItems: 'center',
   },
-  progressBar: {
-    marginVertical: 5,
+  label: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   title: {
     marginVertical: 20,

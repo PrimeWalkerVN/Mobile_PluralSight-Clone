@@ -1,14 +1,15 @@
-import { Icon, Text } from '@ui-kitten/components';
+import { Icon, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import timeConvert from '../../../utils/utils';
 
 const ContentItem = (props) => {
-  const { item, onClickHandler } = props;
+  const { item, onClickHandler, lessonActive } = props;
+  const themeStyles = useStyleSheet(themedStyles);
   return (
-    <TouchableOpacity onPress={() => onClickHandler(item.videoUrl)}>
-      <View style={styles.container}>
+    <TouchableOpacity onPress={() => onClickHandler(item)}>
+      <View style={[styles.container, lessonActive && lessonActive.id === item.id && themeStyles.active]}>
         <View style={styles.areaTitle}>
           <View style={styles.icon}>
             <Icon fill="black" style={{ height: 10, width: 10 }} name="checkmark-outline" />
@@ -31,6 +32,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: 20,
+    padding: 5,
+  },
+  active: {
+    backgroundColor: 'white',
   },
   icon: {
     width: 15,
@@ -47,6 +52,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     overflow: 'hidden',
+  },
+});
+const themedStyles = StyleService.create({
+  active: {
+    backgroundColor: 'color-basic-700',
   },
 });
 export default ContentItem;
