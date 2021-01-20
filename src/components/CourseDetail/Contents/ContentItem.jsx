@@ -11,8 +11,8 @@ const ContentItem = (props) => {
     <TouchableOpacity onPress={() => onClickHandler(item)}>
       <View style={[styles.container, lessonActive && lessonActive.id === item.id && themeStyles.active]}>
         <View style={styles.areaTitle}>
-          <View style={styles.icon}>
-            <Icon fill="black" style={{ height: 10, width: 10 }} name="checkmark-outline" />
+          <View style={[styles.icon, item && item.isFinish && styles.active]}>
+            <Icon fill="white" style={{ height: 10, width: 10 }} name="checkmark-outline" />
           </View>
           <View>
             <Text category="s1">{item.name}</Text>
@@ -35,11 +35,10 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   active: {
-    backgroundColor: 'white',
+    backgroundColor: 'green',
   },
   icon: {
     width: 15,
-    backgroundColor: 'green',
     borderRadius: 15,
     height: 15,
     marginRight: 10,

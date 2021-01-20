@@ -32,7 +32,7 @@ const LearningCourses = (props) => {
   }, [courses]);
   return (
     <Layout level="2" style={styles.container}>
-      <SectionCourse title="Your wish list" navigation={navigation} data={items} />
+      <SectionCourse title="Your Learning courses" navigation={navigation} data={items} />
     </Layout>
   );
 };

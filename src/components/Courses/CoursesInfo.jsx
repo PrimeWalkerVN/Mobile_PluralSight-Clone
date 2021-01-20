@@ -16,7 +16,7 @@ const CoursesInfo = (props) => {
       </Text>
       <Text category="c1">{item['instructor.user.name']}</Text>
       <Text category="c1" numberOfLines={1}>
-        {item.videoNumber} - {moment(item.updatedAt).format(formatString)} - {item.totalHours} h
+        {item.videoNumber} - {moment(item.updatedAt).format(formatString)} - {item.totalHours.toFixed(2)} h
       </Text>
       <Stars
         value={Number.parseInt((item.formalityPoint + item.contentPoint + item.presentationPoint) / 3)}
