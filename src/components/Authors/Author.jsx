@@ -45,7 +45,7 @@ const Author = (props) => {
           <Text style={styles.text} category="p2">
             Follow to be notified when new courses are published
           </Text>
-          <ContentDropdown height={80}>
+          <ContentDropdown height={50}>
             <Text category="s1">Intro: </Text>
             <Text category="p2">- {author.intro}</Text>
             <Text category="s1">Skill:</Text>

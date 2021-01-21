@@ -1,17 +1,25 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button, Divider, Layout, Text } from '@ui-kitten/components';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Switch, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ThemeLangContext } from '../../context/ThemeLangContext';
 import { UserContext } from '../../context/UserContext';
-import AvatarSmallV2 from '../Common/AvatarSmallV2';
+import AvatarLargeV2 from '../Common/AvatarLargeV2';
 
 const Setting = () => {
   const context = useContext(UserContext);
   const themeContext = useContext(ThemeLangContext);
   const { t, i18n } = useTranslation();
+  const user = context.user.get;
 
+  useEffect(() => {
+    return () => {
+      themeContext.theme.saveTheme();
+      AsyncStorage.setItem('lang', i18n.language);
+    };
+  }, [themeContext.theme.get, i18n.language]);
   const logout = () => {
     context.user.logout();
   };
@@ -43,7 +51,7 @@ const Setting = () => {
     <Layout style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
-          <AvatarSmallV2 name="Chi Thanh" />
+          <AvatarLargeV2 name={user && user.email} image={user && user.avatar} />
         </View>
         <Divider />
         <View style={styles.content}>

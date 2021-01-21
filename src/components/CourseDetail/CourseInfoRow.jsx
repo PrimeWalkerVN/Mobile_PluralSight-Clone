@@ -20,7 +20,8 @@ const CoursesInfoRow = (props) => {
       </View>
       <View style={styles.infoArea}>
         <Text category="h6">
-          {item.videoNumber} videos - {moment(item.updatedAt).format(formats.dateTime)} - {item.totalHours.toFixed(2)} h
+          {item.videoNumber} videos - {moment(item.updatedAt).format(formats.dateTime)} -
+          {item.totalHours && item.totalHours.toFixed(2)} h
         </Text>
         <View>
           <Stars
