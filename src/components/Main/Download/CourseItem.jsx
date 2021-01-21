@@ -2,12 +2,12 @@ import { Icon, Layout, MenuItem, OverflowMenu, StyleService, useStyleSheet } fro
 import React, { useState } from 'react';
 import { Image, TouchableWithoutFeedback } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import navNames from '../../constants/navNames';
-import CoursesInfo from './CoursesInfo';
+import navNames from '../../../constants/navNames';
+import CoursesInfo from '../../Courses/CoursesInfo';
 
 const CourseItem = (props) => {
   const styles = useStyleSheet(themedStyles);
-  const { item, navigation } = props;
+  const { item, navigation, removeItem } = props;
   const [menuVisible, setMenuVisible] = useState(false);
 
   const renderMenuAction = () => (
@@ -26,7 +26,7 @@ const CourseItem = (props) => {
       </TouchableOpacity>
       <OverflowMenu anchor={renderMenuAction} visible={menuVisible} onBackdropPress={toggleMenu}>
         <MenuItem title="About" />
-        <MenuItem title="Download" />
+        <MenuItem onPress={() => removeItem(item)} title="Delete" />
       </OverflowMenu>
     </Layout>
   );

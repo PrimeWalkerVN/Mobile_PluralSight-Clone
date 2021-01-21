@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 import usersApi from '../../api/usersApi';
+import { DownLoadContext } from '../../context/DonwloadContext';
 import { SnackBarContext } from '../../context/SnackBarContext';
 import { UserContext } from '../../context/UserContext';
 
@@ -11,6 +12,7 @@ const SplashScreen = () => {
   const [progress, setProgress] = useState(0);
   const context = useContext(UserContext);
   const snContext = useContext(SnackBarContext);
+  const downContext = useContext(DownLoadContext);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,6 +31,10 @@ const SplashScreen = () => {
 
   const getMe = async () => {
     const token = await AsyncStorage.getItem('access_token');
+    const courses = await AsyncStorage.getItem('download_courses');
+    if (courses) {
+      downContext.courses.set(JSON.parse(courses));
+    }
 
     if (token) {
       try {

@@ -6,6 +6,7 @@ import { Alert, LogBox, ScrollView, Share, StyleSheet, View } from 'react-native
 import YoutubePlayer from 'react-native-youtube-iframe';
 import * as Progress from 'react-native-progress';
 import { useTranslation } from 'react-i18next';
+import * as FileSystem from 'expo-file-system';
 import coursesApi from '../../api/coursesApi';
 import instructorsApi from '../../api/instructorsApi';
 import lessonApi from '../../api/lessonApi';
@@ -21,6 +22,7 @@ import Contents from './Contents/Contents';
 import CoursesInfoRow from './CourseInfoRow';
 import Review from './Review/Review';
 import Transcript from './Transcript/Transcript';
+import { DownLoadContext } from '../../context/DonwloadContext';
 
 const CourseDetail = (props) => {
   const { navigation } = props;
@@ -29,6 +31,7 @@ const CourseDetail = (props) => {
   const { t } = useTranslation();
 
   const snContext = useContext(SnackBarContext);
+  const downContext = useContext(DownLoadContext);
   const [courseDetail, setCourseDetail] = useState(null);
   const [detailWithLesson, setDetailWithLesson] = useState(null);
   const [uriVideo, setUriVideo] = useState();
@@ -38,6 +41,7 @@ const CourseDetail = (props) => {
   const [isFinish, setIsFinish] = useState(false);
   const [lessonActive, setLessonActive] = useState(null);
   const [progress, setProgress] = useState(0);
+  const [isDownload, setIsDownload] = useState(false);
 
   const [playing, setPlaying] = useState(false);
 
@@ -80,6 +84,9 @@ const CourseDetail = (props) => {
 
   const getData = useCallback(async () => {
     snContext.loading.set(true);
+    if (downContext.courses.checkExist(course)) {
+      setIsDownload(true);
+    }
     const resLikeStatus = usersApi.getCourseLikeStatus({ courseId: course.id });
     const resDetail = coursesApi.getCourseDetail({ id: course.id, userId: course.id });
     const resDetailWithLesson = coursesApi.detailWithLesson({ courseId: course.id });
@@ -97,6 +104,7 @@ const CourseDetail = (props) => {
         snContext.snackbar.set(true);
         if (err.response) snContext.snackbar.setData(`${err.response.data.message}`);
       });
+
     snContext.loading.set(false);
   }, [course]);
 
@@ -136,7 +144,7 @@ const CourseDetail = (props) => {
         });
     } catch (err) {
       snContext.snackbar.set(true);
-      snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
+      snContext.snackbar.setData(`Can't Enroll this course!`);
     }
     snContext.loading.set(false);
   };
@@ -163,7 +171,9 @@ const CourseDetail = (props) => {
       const videoId = youTubeGetID(value);
       setIsFinish(false);
       setUriVideo(videoId.toString());
-    } else setUriVideo(value);
+    } else {
+      setUriVideo(value);
+    }
   };
 
   const getCurrentLesson = useCallback(async () => {
@@ -171,11 +181,16 @@ const CourseDetail = (props) => {
       try {
         const res = await coursesApi.lastWatched({ courseId: course.id });
         if (res.payload) {
-          uriVideoHandler(res.payload.videoUrl);
+          if (res.payload.videoUrl) {
+            const checkExist = await FileSystem.getInfoAsync(
+              `${FileSystem.documentDirectory}${res.payload.lessonId}.mp4`
+            );
+            if (checkExist.exists) setUriVideo(checkExist.uri);
+            uriVideoHandler(res.payload.videoUrl);
+          }
           setLessonActive({ id: res.payload.lessonId });
         }
       } catch (err) {
-        snContext.snackbar.set(true);
         snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
       }
     } else if (course.promoVidUrl) uriVideoHandler(course.promoVidUrl);
@@ -211,12 +226,76 @@ const CourseDetail = (props) => {
     }
   };
 
+  const getUrlLessonVideo = async (lessonId, courseId) => {
+    if (courseId && lessonId) {
+      const res = await lessonApi.getVideoLesson({ courseId, lessonId });
+      if (res.payload) {
+        return res.payload.videoUrl;
+      }
+    }
+    return null;
+  };
+
+  const downloadLesson = async (lessonId, courseId) => {
+    if (!lessonId && !courseId) return;
+    const videoUrl = await getUrlLessonVideo(lessonId, courseId);
+    if (!videoUrl) return;
+    if (checkTypeVideo(videoUrl) !== 1) return;
+    const checkExist = await FileSystem.getInfoAsync(`${FileSystem.documentDirectory}${lessonId}.mp4`);
+    if (checkExist.exists) return;
+    const callback = (downloadProgress) => {
+      const progress = downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite;
+      snContext.snackbar.set(true);
+      snContext.snackbar.setData(` Downloading... ${progress.toFixed(2) * 100}%`);
+    };
+    const downloadResumable = FileSystem.createDownloadResumable(
+      videoUrl,
+      `${FileSystem.documentDirectory}${lessonId}.mp4`,
+      {},
+      callback
+    );
+
+    try {
+      await downloadResumable.downloadAsync();
+    } catch (e) {
+      snContext.snackbar.set(true);
+      snContext.snackbar.setData(e);
+    }
+  };
+
+  const downloadCourse = (course) => {
+    course.section.forEach((section) => {
+      section.lesson.forEach((lesson) => {
+        downloadLesson(lesson.id, course.id);
+      });
+    });
+  };
+
+  const downloadHandler = () => {
+    if (isDownload) return;
+    if (detailWithLesson) downloadCourse(detailWithLesson);
+    if (course) downContext.courses.addCourse(course);
+    setIsDownload(true);
+  };
+
   return (
     <Layout level="2" style={styles.layout}>
       {typeVideo === 1 ? (
-        <Video ref={playerRef} style={styles.video} source={{ uri: uriVideo }} useNativeControls resizeMode="cover" />
+        <Video
+          ref={playerRef}
+          style={styles.video}
+          source={{ uri: uriVideo || null }}
+          useNativeControls
+          resizeMode="cover"
+        />
       ) : (
-        <YoutubePlayer ref={playerRef} height={250} play={playing} videoId={uriVideo} onChangeState={onStateChange} />
+        <YoutubePlayer
+          ref={playerRef}
+          height={250}
+          play={playing}
+          videoId={uriVideo || null}
+          onChangeState={onStateChange}
+        />
       )}
 
       <ScrollView>
@@ -245,6 +324,12 @@ const CourseDetail = (props) => {
                 nameIcon={isEnroll ? 'book-open' : 'book-open-outline'}
               />
               <ButtonTitleIcon title={t('share')} nameIcon="share-outline" onPress={shareHandler} />
+              <ButtonTitleIcon
+                title={t('download')}
+                status={isDownload && 'success'}
+                nameIcon={isDownload ? 'cloud-download' : 'cloud-download-outline'}
+                onPress={downloadHandler}
+              />
             </View>
             <ContentDropdown height={50}>
               <Text>{course.description}</Text>
@@ -263,7 +348,7 @@ const CourseDetail = (props) => {
               onPress={() =>
                 navigation.navigate(navNames.seeAll, {
                   title: 'Related Course',
-                  courses: courseDetail.coursesLikeCategory,
+                  courses: courseDetail ? courseDetail.coursesLikeCategory || [] : [],
                 })
               }
               appearance="outline"
@@ -295,6 +380,7 @@ const CourseDetail = (props) => {
                       course={detailWithLesson}
                       isEnroll={isEnroll}
                       uriVideoHandler={uriVideoHandler}
+                      getUrlLessonVideo={getUrlLessonVideo}
                     />
                   )
                 }

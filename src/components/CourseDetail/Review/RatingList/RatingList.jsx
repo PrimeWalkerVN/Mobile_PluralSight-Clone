@@ -9,7 +9,7 @@ const renderItem = (item) => {
   return (
     <View key={item.id + item.updatedAt} style={styles.comment}>
       <View style={styles.commentAvatar}>
-        <Avatar size="giant" source={{ uri: item.user.avatar }} />
+        <Avatar size="giant" source={{ uri: item.user.avatar || null }} />
         <Text style={styles.name} numberOfLines={2} category="label">
           {item.user.name}
         </Text>

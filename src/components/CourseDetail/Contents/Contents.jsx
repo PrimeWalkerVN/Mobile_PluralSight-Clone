@@ -1,13 +1,14 @@
 import { Divider, Layout } from '@ui-kitten/components';
 import React, { useContext, useEffect, useState } from 'react';
 import { SectionList, StyleSheet, View } from 'react-native';
+import * as FileSystem from 'expo-file-system';
 import lessonApi from '../../../api/lessonApi';
 import { SnackBarContext } from '../../../context/SnackBarContext';
 import ContentHeader from './ContentHeader';
 import ContentItem from './ContentItem';
 
 const Contents = (props) => {
-  const { course, isEnroll, uriVideoHandler, lessonActive, setLessonActive } = props;
+  const { course, isEnroll, uriVideoHandler, lessonActive, setLessonActive, getUrlLessonVideo } = props;
   const { section } = course;
   const [data, setData] = useState([]);
   const snContext = useContext(SnackBarContext);
@@ -25,11 +26,20 @@ const Contents = (props) => {
     setData(newData);
   }, [section]);
 
-  const onClickHandler = (item) => {
+  const onClickHandler = async (item) => {
     if (isEnroll) {
       setLessonActive(item);
-      uriVideoHandler(item.videoUrl);
-      lessonApi.updateCurrentTime({ lessonId: item.id, currentTime: 0 });
+      const checkExist = await FileSystem.getInfoAsync(`${FileSystem.documentDirectory}${item.id}.mp4`);
+      if (checkExist.exists) {
+        uriVideoHandler(checkExist.uri);
+        lessonApi.updateCurrentTime({ lessonId: item.id, currentTime: 0 });
+      } else {
+        const url = await getUrlLessonVideo(item.id, course.id);
+        if (url) {
+          uriVideoHandler(url);
+          lessonApi.updateCurrentTime({ lessonId: item.id, currentTime: 0 });
+        }
+      }
     } else {
       snContext.snackbar.set(true);
       snContext.snackbar.setData(`you have not taken this course!`);

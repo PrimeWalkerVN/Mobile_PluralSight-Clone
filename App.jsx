@@ -7,6 +7,7 @@ import React from 'react';
 import { SafeAreaView } from 'react-native';
 import MainStack from './src/components/Main/Stacks/MainStack';
 import MySnackBar from './src/components/Others/MySnackBar';
+import { DownloadProvider } from './src/context/DonwloadContext';
 import { SnackBarProvider } from './src/context/SnackBarContext';
 import { ThemeLangContext, ThemeLangProvider } from './src/context/ThemeLangContext';
 import { UserProvider } from './src/context/UserContext';
@@ -23,12 +24,14 @@ const App = () => {
               <ApplicationProvider {...eva} theme={context.theme.get === 'dark' ? eva.dark : eva.light}>
                 <Layout style={{ flex: 1 }}>
                   <UserProvider>
-                    <SafeAreaView style={{ flex: 1 }}>
-                      <NavigationContainer>
-                        <MainStack />
-                      </NavigationContainer>
-                      <MySnackBar />
-                    </SafeAreaView>
+                    <DownloadProvider>
+                      <SafeAreaView style={{ flex: 1 }}>
+                        <NavigationContainer>
+                          <MainStack />
+                        </NavigationContainer>
+                        <MySnackBar />
+                      </SafeAreaView>
+                    </DownloadProvider>
                   </UserProvider>
                 </Layout>
               </ApplicationProvider>
