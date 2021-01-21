@@ -28,7 +28,7 @@ const HeaderTop = (props) => {
             navigation.navigate(navNames.profile);
           }}
         >
-          {user !== null && <Avatar style={styles.avatar} source={{ uri: user.avatar }} />}
+          {user !== null && <Avatar style={styles.avatar} source={{ uri: user.avatar || null }} />}
         </TouchableOpacity>
         <OverflowMenu anchor={renderMenuAction} visible={menuVisible} onBackdropPress={toggleMenu}>
           <MenuItem

@@ -13,7 +13,7 @@ const ButtonTitleIcon = (props) => {
           style={styles.button}
           onPress={onPress}
           appearance="outline"
-          status={status || 'control'}
+          status={status || 'basic'}
           accessoryLeft={renderIcon}
         />
       </TouchableOpacity>

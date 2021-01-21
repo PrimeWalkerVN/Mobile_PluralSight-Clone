@@ -1,108 +1,36 @@
 import { Button, Layout, Text } from '@ui-kitten/components';
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import FlatListCourse from '../../Courses/FlatListCourse';
+import React, { useContext, useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { DownLoadContext } from '../../../context/DonwloadContext';
+import FlatListCourse from './FlatListCourse';
 
 export default function Download(props) {
   const { navigation } = props;
-  const [courses, setCourses] = useState([
-    {
-      id: 1,
-      title: 'Android',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 2,
-      title: 'Angular',
-      author: 'PrimeWalker',
-      level: 'Advance',
-      released: 'March 6, 2020',
-      duration: '4 h',
-    },
-    {
-      id: 3,
-      title: 'React',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 10, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 4,
-      title: 'Android',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 5,
-      title: 'Android',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 6,
-      title: 'Android',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 7,
-      title: 'Android',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 8,
-      title: 'Android',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 9,
-      title: 'Android',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-    {
-      id: 10,
-      title: 'Android',
-      author: 'Chi Thanh',
-      level: 'Advance',
-      released: 'May 6, 2020',
-      duration: '3 h',
-    },
-  ]);
+  const downContext = useContext(DownLoadContext);
+  const courses = downContext.courses.get;
 
   const removeAllHandler = () => {
-    setCourses([]);
+    downContext.courses.removeAll();
   };
+
+  useEffect(() => {
+    return () => {
+      downContext.courses.saveCourses();
+    };
+  }, [courses]);
   return (
     <Layout level="2" style={styles.container}>
       <View style={styles.header}>
-        <Text category="h6">1 courses (72MB)</Text>
+        <Text category="h6">{courses.length} courses</Text>
         <Button onPress={removeAllHandler} appearance="ghost" size="large">
           REMOVE ALL
         </Button>
       </View>
-      <FlatListCourse items={courses} navigation={navigation} />
+      <FlatListCourse items={courses} navigation={navigation} removeItem={downContext.courses.removeCourse} />
     </Layout>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

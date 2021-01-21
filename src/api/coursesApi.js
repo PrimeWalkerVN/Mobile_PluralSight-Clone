@@ -65,6 +65,10 @@ const coursesApi = {
     const url = `/course/delete-search-history/${params.id}`;
     return axiosClient.delete(url);
   },
+  lastWatched: (params) => {
+    const url = `/course/last-watched-lesson/${params.courseId}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default coursesApi;

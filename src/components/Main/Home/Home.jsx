@@ -1,5 +1,6 @@
 import { Layout, Text } from '@ui-kitten/components';
 import React, { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
 import coursesApi from '../../../api/coursesApi';
 import { SnackBarContext } from '../../../context/SnackBarContext';
@@ -14,6 +15,7 @@ const Home = (props) => {
   const [topCourses, setTopCourses] = useState([]);
   const [rateCourses, setRateCourses] = useState([]);
   const [userCourses, setUserCourses] = useState([]);
+  const { t } = useTranslation();
 
   const getData = async () => {
     snContext.loading.set(true);
@@ -56,7 +58,7 @@ const Home = (props) => {
             imageStyle={styles.imageHeader}
           >
             <Text category="h4" style={styles.text}>
-              Welcome to PluralSight!
+              {t('welcome')}
             </Text>
             <Text category="s1">
               With PluralSight, you can build and apply skills in top technologies. You have free access to Skill IQ,
@@ -65,10 +67,10 @@ const Home = (props) => {
           </ImageBackground>
         </View>
 
-        <SectionCourse title="Top New" navigation={navigation} data={newCourses} />
-        <SectionCourse title="Top Sell " navigation={navigation} data={topCourses} />
-        <SectionCourse title="Top Rate" navigation={navigation} data={rateCourses} />
-        <SectionCourse title="User favorite categories" navigation={navigation} data={userCourses} />
+        <SectionCourse title={t('topNew')} navigation={navigation} data={newCourses} />
+        <SectionCourse title={t('topSell')} navigation={navigation} data={topCourses} />
+        <SectionCourse title={t('topRate')} navigation={navigation} data={rateCourses} />
+        <SectionCourse title={t('topUserFavor')} navigation={navigation} data={userCourses} />
       </ScrollView>
     </Layout>
   );

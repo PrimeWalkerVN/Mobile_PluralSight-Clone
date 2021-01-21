@@ -6,7 +6,7 @@ const AvatarLargeV2 = (props) => {
   const { name, image } = props;
   return (
     <View style={styles.container}>
-      <Avatar size="giant" style={styles.image} source={{ uri: image }} />
+      <Avatar size="giant" style={styles.image} source={{ uri: image || null }} />
       <Text category="h6" numberOfLines={2}>
         {name}
       </Text>

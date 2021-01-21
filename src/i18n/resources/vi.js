@@ -1,0 +1,58 @@
+export default {
+  home: 'Trang chủ',
+  browse: 'Khám phá',
+  download: 'Tải xuống',
+  search: 'Tìm kiếm',
+  courseDetail: 'Chi Tiết Khoá',
+  profile: 'Profile',
+  setting: 'Cài đặt',
+  transcript: 'Dịch ngữ',
+  content: 'Nội dung',
+  author: 'Tác giả',
+  seeAll: 'Tất cả',
+  pathDetail: 'Chi tiết loại',
+  login: 'Đăng nhập',
+  register: 'Đăng ký',
+  forgetPassword: 'Quên mật khẩu',
+  verifyPassword: 'Xác thực mât khẩu',
+  mainTab: 'Main',
+  auth: 'Auth',
+  splash: 'SplashScreen',
+  browseDetail: 'Chi tiết khám phá',
+  activeEmail: 'Kích hoạt email',
+  changePassword: 'Đổi mật khẩu',
+  changeProfile: 'Đổi thông tin tài khoản',
+
+  // Setting
+  themeDark: 'Nền tối',
+  vietnamese: 'Việt ngữ',
+  notifications: 'Thông báo',
+  advancedOptions: 'Cài đặt nâng cao',
+  downloadLocation: 'Vị trí download',
+  appVersion: 'Phiên bản',
+  logout: 'Đăng xuất',
+
+  // Home
+  welcome: 'Xin chào tới PluralSight',
+  topNew: 'Mới nhất',
+  topSell: 'Bán chạy nhất',
+  topRate: 'Đánh giá cao nhất',
+  topUserFavor: 'Người dùng thích nhất',
+  seeAllButton: 'Tất cả',
+
+  // Course
+  free: 'Miến phí',
+  members: 'Thành viên',
+  completed: 'Hoàn thành',
+  wishList: 'Yêu thích',
+  enroll: 'Đăng ký',
+  share: 'Chia sẻ',
+  viewRelate: 'Xem khoá học cùng chủ đề',
+  viewRelateBy: 'Xem khoá học của ',
+  sendReview: 'Gửi đánh giá',
+
+  // Tab
+  contentTab: 'NỘI DUNG',
+  reviewTab: 'ĐÁNH GIÁ',
+  transcriptTab: 'DỊCH THUẬT',
+};

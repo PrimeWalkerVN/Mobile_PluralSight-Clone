@@ -29,7 +29,7 @@ const AuthorItem = (props) => {
   return (
     <TouchableWithoutFeedback onPress={() => clickHandlerAuthor(item)}>
       <Layout style={styles.container} key={item.id}>
-        <Avatar size="giant" source={{ uri: item.avatar }} />
+        <Avatar size="giant" source={{ uri: item.avatar || null }} />
         <View style={styles.info}>
           <Text category="h6">{item.name}</Text>
           <Text category="p2">{item.numcourses} courses</Text>

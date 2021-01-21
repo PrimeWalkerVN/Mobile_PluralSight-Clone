@@ -6,7 +6,7 @@ const AvatarLarge = (props) => {
   const { name, image } = props;
   return (
     <View style={styles.container}>
-      <Avatar size="giant" style={styles.image} source={{ uri: image }} />
+      {image && <Avatar size="giant" style={styles.image} source={{ uri: image }} />}
       <Text numberOfLines={1} category="s1">
         {name}
       </Text>
