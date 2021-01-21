@@ -25,7 +25,13 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.pluralsight.primewalker.package"
+      "package": "com.pluralsight.primewalker.package",
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyCwAq45YLDnZyxGTUlaGf_w5fIqQyFEleA",
+          "certificateHash": "505C97315AB50CA420AC9136FA60D237B156608A"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
