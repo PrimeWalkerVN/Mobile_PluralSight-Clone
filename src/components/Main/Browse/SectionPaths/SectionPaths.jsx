@@ -34,9 +34,6 @@ const SectionPaths = (props) => {
         <Text category="h6" numberOfLines={2}>
           Categories
         </Text>
-        <TouchableOpacity>
-          <Text>See all {`>`}</Text>
-        </TouchableOpacity>
       </View>
       <ScrollView horizontal>{renderListItems(data)}</ScrollView>
       <View />

@@ -57,7 +57,7 @@ export default function Search(props) {
   return (
     <Layout level="2" style={styles.container}>
       <SearchBar searchHandler={searchHandler} />
-      <Layout leve="2" style={{ flex: 1 }}>
+      <Layout level="2" style={{ flex: 1 }}>
         <TabNavigation.Navigator tabBar={(props) => <TopTabBar {...props} />}>
           <TabNavigation.Screen name="All" children={() => <ResultAll data={searchResult} navigation={navigation} />} />
           <TabNavigation.Screen

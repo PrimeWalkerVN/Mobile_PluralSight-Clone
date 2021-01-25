@@ -8,6 +8,7 @@ const axiosClient = axios.create({
     'content-type': 'application/json',
   },
   paramsSerializer: (params) => queryString.stringify(params),
+  timeout: 10000,
 });
 
 axiosClient.interceptors.request.use(async (config) => {

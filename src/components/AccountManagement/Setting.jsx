@@ -15,9 +15,9 @@ const Setting = () => {
   const user = context.user.get;
 
   useEffect(() => {
-    return () => {
+    return async () => {
       themeContext.theme.saveTheme();
-      AsyncStorage.setItem('lang', i18n.language);
+      await AsyncStorage.setItem('lang', i18n.language);
     };
   }, [themeContext.theme.get, i18n.language]);
   const logout = () => {

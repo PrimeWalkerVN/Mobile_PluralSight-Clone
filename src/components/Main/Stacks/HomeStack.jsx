@@ -7,6 +7,7 @@ import Profile from '../../AccountManagement/Profile';
 import Setting from '../../AccountManagement/Setting';
 import Author from '../../Authors/Author';
 import CourseDetail from '../../CourseDetail/CourseDetail';
+import Payment from '../../CourseDetail/Payment';
 import Home from '../Home/Home';
 import SeeAll from '../Home/SeeAll';
 import HeaderTop from './TopBarOption/HeaderTop';
@@ -20,6 +21,7 @@ const HomeScreen = {
   [navNames.changePassword]: ChangePassword,
   [navNames.changeProfile]: ChangeProfile,
   [navNames.author]: Author,
+  [navNames.payment]: Payment,
 };
 
 const Stack = createStackNavigator();

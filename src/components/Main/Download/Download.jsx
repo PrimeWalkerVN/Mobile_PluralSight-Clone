@@ -1,5 +1,5 @@
 import { Button, Layout, Text } from '@ui-kitten/components';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { DownLoadContext } from '../../../context/DonwloadContext';
 import FlatListCourse from './FlatListCourse';
@@ -13,11 +13,6 @@ export default function Download(props) {
     downContext.courses.removeAll();
   };
 
-  useEffect(() => {
-    return () => {
-      downContext.courses.saveCourses();
-    };
-  }, [courses]);
   return (
     <Layout level="2" style={styles.container}>
       <View style={styles.header}>

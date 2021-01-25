@@ -22,5 +22,6 @@ const navNames = {
   activeEmail: 'Active Email',
   changePassword: 'Change password',
   changeProfile: 'Change Profile',
+  payment: 'Payment',
 };
 export default navNames;

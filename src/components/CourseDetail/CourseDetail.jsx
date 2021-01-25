@@ -104,8 +104,6 @@ const CourseDetail = (props) => {
         snContext.snackbar.set(true);
         if (err.response) snContext.snackbar.setData(`${err.response.data.message}`);
       });
-
-    snContext.loading.set(false);
   }, [course]);
 
   const wishListHandler = () => {
@@ -120,33 +118,39 @@ const CourseDetail = (props) => {
 
   const enrollHandler = async () => {
     if (isEnroll === true) return;
-    try {
-      snContext.loading.set(true);
-      await paymentApi.enrollFreeCourse({ courseId: course.id });
-      snContext.snackbar.set(true);
-      snContext.snackbar.setData(`Enroll success!`);
-      setIsEnroll(!isEnroll);
-      const resDetail = coursesApi.getCourseDetail({
-        id: course.id,
-        userId: course.id,
-      });
-      const resDetailWithLesson = coursesApi.detailWithLesson({
-        courseId: course.id,
-      });
-      await Promise.all([resDetail, resDetailWithLesson])
-        .then((values) => {
-          setCourseDetail(values[0].payload);
-          setDetailWithLesson(values[1].payload);
-        })
-        .catch((err) => {
-          snContext.snackbar.set(true);
-          if (err.response) snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
+    if (course.price <= 0) {
+      try {
+        snContext.loading.set(true);
+        await paymentApi.enrollFreeCourse({ courseId: course.id });
+        snContext.snackbar.set(true);
+        snContext.snackbar.setData(`Enroll success!`);
+        setIsEnroll(!isEnroll);
+        const resDetail = coursesApi.getCourseDetail({
+          id: course.id,
+          userId: course.id,
         });
-    } catch (err) {
-      snContext.snackbar.set(true);
-      snContext.snackbar.setData(`Can't Enroll this course!`);
+        const resDetailWithLesson = coursesApi.detailWithLesson({
+          courseId: course.id,
+        });
+        await Promise.all([resDetail, resDetailWithLesson])
+          .then((values) => {
+            setCourseDetail(values[0].payload);
+            setDetailWithLesson(values[1].payload);
+          })
+          .catch((err) => {
+            snContext.snackbar.set(true);
+            if (err.response) snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
+          });
+      } catch (err) {
+        snContext.snackbar.set(true);
+        snContext.snackbar.setData(`Can't Enroll this course!`);
+      }
+      snContext.loading.set(false);
+    } else {
+      navigation.navigate(navNames.payment, {
+        url: `http://dev.letstudy.org/payment/${course.id}`,
+      });
     }
-    snContext.loading.set(false);
   };
   const clickHandlerAuthor = async (item) => {
     try {
@@ -192,12 +196,20 @@ const CourseDetail = (props) => {
         }
       } catch (err) {
         snContext.snackbar.setData(`${err.response.status} - ${err.response.data.message}`);
+      } finally {
+        snContext.loading.set(false);
       }
-    } else if (course.promoVidUrl) uriVideoHandler(course.promoVidUrl);
-    else setUriVideo(null);
+    } else if (course.promoVidUrl) {
+      uriVideoHandler(course.promoVidUrl);
+      snContext.loading.set(false);
+    } else {
+      setUriVideo(null);
+      snContext.loading.set(false);
+    }
   }, [course, isEnroll]);
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    snContext.loading.set(true);
     getData();
     getCurrentLesson();
     return () => {

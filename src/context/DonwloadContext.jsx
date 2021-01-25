@@ -13,7 +13,10 @@ const DownloadProvider = ({ children }) => {
   };
   const addCourse = async (item) => {
     if (!checkExist(item)) {
-      setCourses((old) => [...old, item]);
+      setCourses((old) => {
+        AsyncStorage.setItem('download_courses', JSON.stringify([...old, item]));
+        return [...old, item];
+      });
     }
   };
   const removeCourse = (item) => {
@@ -22,15 +25,17 @@ const DownloadProvider = ({ children }) => {
         const newArray = [...courses];
         newArray.splice(i, 1);
         setCourses(newArray);
+        AsyncStorage.setItem('download_courses', JSON.stringify(newArray));
         return;
       }
     }
   };
-  const saveCourses = () => {
-    AsyncStorage.setItem('download_courses', JSON.stringify(courses));
+  const saveCourses = async () => {
+    await AsyncStorage.setItem('download_courses', JSON.stringify(courses));
   };
   const removeAll = () => {
     setCourses([]);
+    AsyncStorage.removeItem('download_courses');
   };
 
   const store = {
